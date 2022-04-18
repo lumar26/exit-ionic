@@ -1,7 +1,7 @@
 import React from "react";
-import {IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCardTitle, IonImg} from "@ionic/react";
+import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg} from "@ionic/react";
 
-const Performer: React.FC = () => {
+const PerformerCard: React.FC = () => {
     return (
         <IonCard>
             <IonCardContent>
@@ -17,4 +17,4 @@ const Performer: React.FC = () => {
     );
 }
 
-export default Performer;
+export default PerformerCard;

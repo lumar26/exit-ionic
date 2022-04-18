@@ -1,7 +1,7 @@
 import React from "react";
 import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg} from "@ionic/react";
 
-const Stage: React.FC = () => {
+const StageCard: React.FC = () => {
     return (
         <IonCard>
             <IonCardContent>
@@ -17,4 +17,4 @@ const Stage: React.FC = () => {
     );
 }
 
-export default Stage;
+export default StageCard;
