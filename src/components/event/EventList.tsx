@@ -6,8 +6,6 @@ import EventCard from "./EventCard";
 const EventList: React.FC<{
     events: Array<Event>,
 }> = ({events}) => {
-    console.log(events.length)
-    console.log(events)
     return (
         <IonList>
             {events.map(event => <EventCard key={event.id} event={event}/>)}

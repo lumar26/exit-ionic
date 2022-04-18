@@ -2,7 +2,7 @@ interface Performer {
     id: number;
     name: string;
     surname: string;
-    image: string;
+    img: string;
     nick: string;
     music_genre: string;
 }

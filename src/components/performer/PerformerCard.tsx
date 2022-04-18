@@ -1,15 +1,19 @@
 import React from "react";
-import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg} from "@ionic/react";
+import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg, IonItem, IonLabel} from "@ionic/react";
+import Performer from "../../model/Performer";
 
-const PerformerCard: React.FC = () => {
+const PerformerCard: React.FC<{
+    performer: Performer
+}> = ({performer}) => {
     return (
         <IonCard>
             <IonCardContent>
-                <IonImg src="/images/performers/meduza.jpg"/>
+                <IonImg src={performer.img}/>
                 <IonCardHeader>
-                    <IonCardTitle>Meduza</IonCardTitle>
+                    <IonCardTitle>{performer.nick}</IonCardTitle>
                     <IonCardContent>
-                        Info
+                        <IonItem>{performer.name} {performer.surname}</IonItem>
+                        <IonItem>Genre: {performer.music_genre}</IonItem>
                     </IonCardContent>
                 </IonCardHeader>
             </IonCardContent>
