@@ -1,10 +1,9 @@
 import React from "react";
 import {IonList} from "@ionic/react";
 import StageCard from "./StageCard";
-import Performer from "../../model/Performer";
 import Stage from "../../model/Stage";
 
-const EventList: React.FC<{
+const StageList: React.FC<{
     stages: Array<Stage>,
 }> = ({stages}) => {
     return (
@@ -13,4 +12,4 @@ const EventList: React.FC<{
         </IonList>
     );
 }
-export default EventList;
+export default StageList;

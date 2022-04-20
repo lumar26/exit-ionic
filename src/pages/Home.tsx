@@ -1,32 +1,47 @@
 import {IonContent, IonHeader, IonPage} from '@ionic/react';
-import Event from "../model/Event";
-import React from "react";
+import React, {useEffect, useState} from "react";
 import Performer from "../model/Performer";
+import Event from "../model/Event"
 import StageList from "../components/stage/StageList";
 import Stage from "../model/Stage";
+import EventList from "../components/event/EventList";
+import axios from 'axios';
+
+const eventsUrl = "http://localhost:8000/api/events";
 
 const Home: React.FC = () => {
+    const [events, setEvents] = useState<Array<Event>>([]);
 
-    const events : Array<Event> = [
-        {
-            id: 1,
-            name: "Nick Cave and the Bad Seeds",
-            date: "2022-07-20T20:00:00.000000Z",
-            img: "/images/performers/nick-cave.jpg",
-            stage: "null",
-            performers: "null",
-        },
-        {
-            id: 2,
-            name: "Meduza haos",
-            date: "2022-07-21T18:00:00.000000Z",
-            img: "/images/performers/meduza.jpg",
-            stage: "null",
-            performers: "null",
-        },
-    ];
+    useEffect(() => {
+        console.log()
+        axios.get<Array<Event>>(eventsUrl)
+            .then(response => {
+                console.log('Response after GET events');
+                console.log(response.data)
+                setEvents(response.data)
+            });
+    }, []);
 
-    const performers : Array<Performer> = [
+    // const events : Array<Event> = [
+    //     {
+    //         id: 1,
+    //         name: "Nick Cave and the Bad Seeds",
+    //         date: "2022-07-20T20:00:00.000000Z",
+    //         img: "/images/performers/nick-cave.jpg",
+    //         stage: "null",
+    //         performers: "null",
+    //     },
+    //     {
+    //         id: 2,
+    //         name: "Meduza haos",
+    //         date: "2022-07-21T18:00:00.000000Z",
+    //         img: "/images/performers/meduza.jpg",
+    //         stage: "null",
+    //         performers: "null",
+    //     },
+    // ];
+
+    const performers: Array<Performer> = [
         {
             id: 1,
             name: "Nicholas",
@@ -69,7 +84,7 @@ const Home: React.FC = () => {
         },
     ];
 
-    const stages:  Array<Stage> = [
+    const stages: Array<Stage> = [
         {
             id: 1,
             name: "Main Stage",
@@ -125,9 +140,9 @@ const Home: React.FC = () => {
             <IonHeader>
             </IonHeader>
             <IonContent fullscreen>
-                {/*<EventList events={events} />*/}
+                <EventList events={events} />
                 {/*<PerformerList performers={performers}/>*/}
-                <StageList stages={stages} />
+                {/*<StageList stages={stages}/>*/}
             </IonContent>
         </IonPage>
     );

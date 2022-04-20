@@ -5,14 +5,14 @@ import Event from "../../model/Event";
 const EventCard: React.FC<{
     event: Event
 }> = ({event}) => {
-    const date = new Date(event.date);
+    const date = new Date(event.start);
     return (
         <IonCard>
             <IonCardContent>
                 <IonImg src={event.img}/>
                 <IonCardHeader>
-                    <IonCardSubtitle>{event.stage}</IonCardSubtitle>
-                    <IonCardSubtitle>{event.performers}</IonCardSubtitle>
+                    <IonCardSubtitle>{event.stage.name}</IonCardSubtitle>
+                    {/*<IonCardSubtitle>{event.performers}</IonCardSubtitle>*/}
                     <IonCardTitle>{event.name}</IonCardTitle>
                     <IonCardContent>
                         {date.toString()}
