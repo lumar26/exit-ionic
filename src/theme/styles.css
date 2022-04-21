@@ -1,0 +1,97 @@
+.toolbarSocial{
+    height: 40px;
+
+}
+.socialIcon{
+    height: 20px;
+    width: 20px;
+    margin-bottom: 10px;
+    padding: 4px;
+    margin-right: 9px;
+}
+
+.iconMenu{
+    height: 30px;
+    width: 30px;
+    margin-bottom: 5px;
+    padding: 4px;
+    margin-right: 19px;
+    margin-top: 5px;
+}
+.iconMenuArrow{
+    height: 23px;
+    width: 23px;
+
+}
+#headertitle{
+    margin-left: 30px;
+    font-size: 30px;
+    margin-right: -30px;
+}
+
+.footerSocial{
+   margin-top: 40px;
+   margin-bottom: 20px;
+   
+}
+.socialIconF{
+    height: 30px;
+    width: 30px;
+    margin-bottom: 10px;
+    padding: 7px;
+}
+
+.registrationForm{
+    width: 60%;
+    margin: 40px;
+    
+    
+}
+.registrationFormInput{
+    padding-bottom: 20px;
+    --border-color: var(--ion-color-grey, grey);
+    
+}
+.registrationFormInput:hover{
+    --border-color: var(--ion-color-red, rgb(221, 27, 27));
+}
+#registerBtn{
+    width: 60%;
+}
+#registerLabel{
+    color: lightslategray;
+    margin-left: 30px;
+    size: 10px;
+}
+#loginBtn{
+    width: 70%;
+    
+}
+.loginForm{
+    width: 60%;
+    margin: 40px;
+    
+    
+}
+.ticketsGrid{
+    margin-top: 20px;
+    margin-bottom: 100px;
+}
+#ticketTitle{
+    margin-left: -20px;
+    width: 130%;
+}
+.accordionGroup{
+    margin-left: 20px;
+    margin-right: 20px;
+    width: 100%;
+}
+.sideTickets{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+#ticketPrice{
+    font-size: 15px;
+    font-weight: bolder;
+}
+
