@@ -8,7 +8,7 @@ const PerformerCard: React.FC<{
     return (
         <IonCard>
             <IonCardContent>
-                <IonImg src={performer.img}/>
+                <IonImg src={performer.image}/>
                 <IonCardHeader>
                     <IonCardTitle>{performer.nick}</IonCardTitle>
                     <IonCardContent>

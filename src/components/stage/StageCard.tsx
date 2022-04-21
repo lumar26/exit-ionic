@@ -11,12 +11,12 @@ const StageCard: React.FC<{
                 <IonImg src={stage.img}/>
                 <IonCardHeader>
                     <IonCardTitle>{stage.name}</IonCardTitle>
-                    <IonCardContent>
-                        <IonItem>Capacity: {stage.capacity}</IonItem>
-                        <IonItem>Sponsor: {stage.sponsor}</IonItem>
-                        <IonItem>Location: {stage.location}</IonItem>
-                    </IonCardContent>
                 </IonCardHeader>
+                <IonCardContent>
+                    <IonItem>Capacity: {stage.capacity}</IonItem>
+                    <IonItem>Sponsor: {stage.sponsor}</IonItem>
+                    <IonItem>Location: {stage.location}</IonItem>
+                </IonCardContent>
             </IonCardContent>
         </IonCard>
     );

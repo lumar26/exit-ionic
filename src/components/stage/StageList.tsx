@@ -8,7 +8,7 @@ const StageList: React.FC<{
 }> = ({stages}) => {
     return (
         <IonList>
-            {stages.map(s => <StageCard key={s.id} stage={s} />)}
+            {stages.map(stage => <StageCard key={stage.id} stage={stage} />)}
         </IonList>
     );
 }
