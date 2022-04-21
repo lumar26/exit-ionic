@@ -1,9 +1,12 @@
-import {IonContent, IonHeader, IonPage} from '@ionic/react';
+import {IonContent, IonHeader, IonPage, IonTabBar, IonButton, IonButtons, IonTitle, IonToolbar, IonFooter} from '@ionic/react';
 import Event from "../model/Event";
 import React from "react";
 import Performer from "../model/Performer";
 import StageList from "../components/stage/StageList";
 import Stage from "../model/Stage";
+import NavBar from "../components/navigation/NavBar";
+
+
 
 const Home: React.FC = () => {
 
@@ -123,12 +126,14 @@ const Home: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
+             <NavBar/>
             </IonHeader>
             <IonContent fullscreen>
                 {/*<EventList events={events} />*/}
                 {/*<PerformerList performers={performers}/>*/}
                 <StageList stages={stages} />
             </IonContent>
+           
         </IonPage>
     );
 };
