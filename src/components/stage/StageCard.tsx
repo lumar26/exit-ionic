@@ -8,15 +8,15 @@ const StageCard: React.FC<{
     return (
         <IonCard>
             <IonCardContent>
-                <IonImg src={stage.img}/>
+                <IonImg src={stage.image}/>
                 <IonCardHeader>
                     <IonCardTitle>{stage.name}</IonCardTitle>
-                    <IonCardContent>
-                        <IonItem>Capacity: {stage.capacity}</IonItem>
-                        <IonItem>Sponsor: {stage.sponsor}</IonItem>
-                        <IonItem>Location: {stage.location}</IonItem>
-                    </IonCardContent>
                 </IonCardHeader>
+                <IonCardContent>
+                    <IonItem>Capacity: {stage.capacity}</IonItem>
+                    <IonItem>Sponsor: {stage.sponsor}</IonItem>
+                    <IonItem>Location: {stage.location}</IonItem>
+                </IonCardContent>
             </IonCardContent>
         </IonCard>
     );

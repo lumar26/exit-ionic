@@ -1,7 +1,7 @@
 interface Stage {
     id: number;
     name: string;
-    img: string;
+    image: string;
     location: string;
     capacity: number;
     sponsor: string;

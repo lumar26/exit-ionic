@@ -8,7 +8,7 @@ const EventList: React.FC<{
 }> = ({performers}) => {
     return (
         <IonList>
-            {performers.map(p => <PerformerCard key={p.id} performer={p} />)}
+            {performers.map(performer => <PerformerCard key={performer.id} performer={performer} />)}
         </IonList>
     );
 }

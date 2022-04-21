@@ -3,11 +3,11 @@ import Performer from "./Performer";
 
 interface Event {
     id: number;
-    img: string;
-    date: string;
+    image: string;
+    start: string;
     name: string;
-    stage: string;
-    performers: string;
+    stage: Stage;
+    performers: Array<Performer>;
 
 
 }

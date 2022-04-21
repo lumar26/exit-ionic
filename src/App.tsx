@@ -1,6 +1,6 @@
-import { Redirect, Route } from "react-router-dom";
-import { IonApp, IonRouterOutlet, setupIonicReact } from "@ionic/react";
-import { IonReactRouter } from "@ionic/react-router";
+import {Redirect, Route} from "react-router-dom";
+import {IonApp, IonRouterOutlet, setupIonicReact} from "@ionic/react";
+import {IonReactRouter} from "@ionic/react-router";
 import Home from "./pages/Home";
 import Menu from "./components/navigation/Menu";
 import Registration from "./pages/Registration";
@@ -28,28 +28,30 @@ import "@ionic/react/css/display.css";
 import "./theme/variables.css";
 import "./theme/styles.css";
 import React from "react";
+import StagesPage from "./pages/StagesPage";
+import EventsPage from "./pages/EventsPage";
+import PerformersPage from "./pages/PerformersPage";
 
 setupIonicReact();
 
 const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <Menu></Menu>
-      <IonRouterOutlet id="main">
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-
-        <Route exact path="/registration" component={Registration}></Route>
-        <Route exact path="/login" component={Login}></Route>
-        <Route exact path="/tickets" component={Tickets}></Route>
-        <Route exact path="/contact" component={Contact}></Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
+    <IonApp>
+        <IonReactRouter>
+            <IonRouterOutlet id="main">
+                <Route exact path="/">
+                    <Redirect to="/home"/>
+                </Route>
+                <Route exact path="/home" component={Home}/>
+                <Route exact path="/stages" component={StagesPage}/>
+                <Route exact path="/performers" component={PerformersPage}/>
+                <Route exact path="/events" component={EventsPage}/>
+                <Route exact path="/registration" component={Registration}></Route>
+                <Route exact path="/login" component={Login}></Route>
+                <Route exact path="/tickets" component={Tickets}></Route>
+                <Route exact path="/contact" component={Contact}></Route>
+            </IonRouterOutlet>
+        </IonReactRouter>
+    </IonApp>
 );
 
 export default App;
