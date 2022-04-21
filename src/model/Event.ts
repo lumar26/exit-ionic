@@ -3,7 +3,7 @@ import Performer from "./Performer";
 
 interface Event {
     id: number;
-    img: string;
+    image: string;
     start: string;
     name: string;
     stage: Stage;

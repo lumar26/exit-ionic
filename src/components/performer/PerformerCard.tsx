@@ -1,5 +1,5 @@
 import React from "react";
-import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg, IonItem, IonLabel} from "@ionic/react";
+import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg, IonItem} from "@ionic/react";
 import Performer from "../../model/Performer";
 
 const PerformerCard: React.FC<{

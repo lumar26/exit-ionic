@@ -8,7 +8,7 @@ const StageCard: React.FC<{
     return (
         <IonCard>
             <IonCardContent>
-                <IonImg src={stage.img}/>
+                <IonImg src={stage.image}/>
                 <IonCardHeader>
                     <IonCardTitle>{stage.name}</IonCardTitle>
                 </IonCardHeader>

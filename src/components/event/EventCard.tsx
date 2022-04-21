@@ -9,10 +9,9 @@ const EventCard: React.FC<{
     return (
         <IonCard>
             <IonCardContent>
-                <IonImg src={event.img}/>
+                <IonImg src={event.image}/>
                 <IonCardHeader>
                     <IonCardSubtitle>{event.stage.name}</IonCardSubtitle>
-                    {/*<IonCardSubtitle>{event.performers}</IonCardSubtitle>*/}
                     <IonCardTitle>{event.name}</IonCardTitle>
                     <IonCardContent>
                         {date.toString()}
