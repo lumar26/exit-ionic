@@ -3,6 +3,7 @@ import {IonContent, IonHeader, IonPage} from "@ionic/react";
 import axios from "axios";
 import Stage from "../model/Stage";
 import StageList from "../components/stage/StageList";
+import NavBar from "../components/navigation/NavBar";
 
 const stagesUrl = "http://localhost:8000/api/stages";
 
@@ -23,7 +24,7 @@ const StagesPage: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                {/*    ovde ide toolbar*/}
+                <NavBar />
             </IonHeader>
             <IonContent>
                 <StageList stages={stages}/>

@@ -3,6 +3,7 @@ import {IonContent, IonHeader, IonPage} from "@ionic/react";
 import axios from "axios";
 import Performer from "../model/Performer";
 import PerformerList from "../components/performer/PerformerList";
+import NavBar from "../components/navigation/NavBar";
 
 const performersUrl = "http://localhost:8000/api/performers";
 
@@ -22,7 +23,7 @@ const PerformersPage: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                {/*    ovde ide toolbar*/}
+                <NavBar />
             </IonHeader>
             <IonContent>
                 <PerformerList performers={performers}/>

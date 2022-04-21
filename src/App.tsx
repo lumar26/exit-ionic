@@ -37,14 +37,15 @@ setupIonicReact();
 const App: React.FC = () => (
     <IonApp>
         <IonReactRouter>
+            <Menu></Menu>
             <IonRouterOutlet id="main">
                 <Route exact path="/">
                     <Redirect to="/home"/>
                 </Route>
-                <Route exact path="/home" component={Home}/>
-                <Route exact path="/stages" component={StagesPage}/>
-                <Route exact path="/performers" component={PerformersPage}/>
-                <Route exact path="/events" component={EventsPage}/>
+                <Route exact path="/home" component={Home}></Route>
+                <Route exact path="/stages" component={StagesPage}></Route>
+                <Route exact path="/performers" component={PerformersPage}></Route>
+                <Route exact path="/events" component={EventsPage}></Route>
                 <Route exact path="/registration" component={Registration}></Route>
                 <Route exact path="/login" component={Login}></Route>
                 <Route exact path="/tickets" component={Tickets}></Route>

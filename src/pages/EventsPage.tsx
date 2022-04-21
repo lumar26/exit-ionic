@@ -3,6 +3,7 @@ import {IonContent, IonHeader, IonPage} from "@ionic/react";
 import axios from "axios";
 import Event from "../model/Event";
 import EventList from "../components/event/EventList";
+import NavBar from "../components/navigation/NavBar";
 
 const eventsUrl = "http://localhost:8000/api/events";
 
@@ -23,7 +24,7 @@ const EventsPage: React.FC = () => {
     return (
         <IonPage>
             <IonHeader>
-                {/*    ovde ide toolbar*/}
+                <NavBar />
             </IonHeader>
             <IonContent>
                 <EventList events={events}/>
