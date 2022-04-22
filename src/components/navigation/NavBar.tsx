@@ -5,6 +5,7 @@ import {
   IonCol,
   IonIcon,
   IonMenuButton,
+  IonRow,
   IonTitle,
   IonToolbar,
 } from "@ionic/react";
@@ -33,14 +34,13 @@ const NavBar: React.FC = () => {
   return (
     <div>
       <IonToolbar color="gradient" className="toolbarSocial">
-        <IonCol slot="end">
+        <IonRow slot="end">
           <IonIcon icon={logoFacebook} className="socialIcon"></IonIcon>
-          <IonIcon icon={logoTwitter} className="socialIcon"></IonIcon>
           <IonIcon icon={logoYoutube} className="socialIcon"></IonIcon>
           <IonIcon icon={logoInstagram} className="socialIcon"></IonIcon>
           <IonIcon icon={logoTiktok} className="socialIcon"></IonIcon>
           <IonIcon icon={logoWhatsapp} className="socialIcon"></IonIcon>
-        </IonCol>
+        </IonRow>
       </IonToolbar>
 
       <IonToolbar color="red">
