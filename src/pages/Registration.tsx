@@ -1,82 +1,105 @@
 import {
-  IonContent,
-  IonHeader,
-  IonPage,
-  IonImg,
-  IonItem,
-  IonLabel,
-  IonInput,
-  IonList,
-  IonButton,
-  IonRouterLink,
+    IonButton,
+    IonContent,
+    IonHeader,
+    IonImg,
+    IonInput,
+    IonItem,
+    IonLabel,
+    IonList,
+    IonPage,
+    IonRouterLink,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, {useContext, useState} from "react";
 import NavBar from "../components/navigation/NavBar";
+import User from "../model/User";
+import axios from 'axios';
+import UserContext, {UserAuthResponse} from "../store/userContext";
+
+const defaultRole = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor
+const registerUrl = "http://127.0.0.1:8000/api/register";
 
 const Registration: React.FC = () => {
-  const [name, setName] = useState<string>();
-  const [lastname, setLastname] = useState<string>();
-  const [username, setUsername] = useState<string>();
-  const [password, setPassword] = useState<string>();
+    const [firstname, setFirstname] = useState<string>("");
+    const [lastname, setLastname] = useState<string>("");
+    const [userEmail, setUserEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
 
-  function register() {
-    console.log("Register button clicked.");
-  }
+    const authContext = useContext(UserContext);
 
-  return (
-    <IonPage>
-      <IonHeader>
-        <NavBar />
-      </IonHeader>
+    function register() {
+        console.log("Register button clicked.");
+        const user: User = {
+            name: firstname + " " + lastname,
+            email: userEmail,
+            password: password,
+            role: defaultRole
+        }
+        axios.post<UserAuthResponse>(registerUrl, user, {headers: {'Content-Type': "application/json"}})
+            .then(function (response) {
+                console.log(response.data)
+                authContext.loginUser(response.data)
+            })
+            .catch(function (error) {
+                console.log(error);
+                // todo: show error to user
+            });
+    }
 
-      <IonContent fullscreen>
-        <IonImg src={"/images/registration.jpeg"} className="imgTop"></IonImg>
+    return (
+        <IonPage>
+            <IonHeader>
+                <NavBar/>
+            </IonHeader>
 
-        <IonList className="registrationForm" color="grey">
-          <IonItem className="registrationFormInput">
-            <IonLabel position="floating">Name</IonLabel>
-            <IonInput
-              value={name}
-              onIonChange={(e) => setName(e.detail.value!)}
-              clearInput
-              color="success"
-            ></IonInput>
-          </IonItem>
-          <IonItem className="registrationFormInput">
-            <IonLabel position="floating">Lastname</IonLabel>
-            <IonInput
-              value={lastname}
-              onIonChange={(e) => setLastname(e.detail.value!)}
-              clearInput
-            ></IonInput>
-          </IonItem>
-          <IonItem className="registrationFormInput">
-            <IonLabel position="floating">Username</IonLabel>
-            <IonInput
-              value={username}
-              onIonChange={(e) => setUsername(e.detail.value!)}
-              clearInput
-            ></IonInput>
-          </IonItem>
-          <IonItem className="registrationFormInput">
-            <IonLabel position="floating">Password</IonLabel>
-            <IonInput
-              type="password"
-              value={password}
-              onIonChange={(e) => setPassword(e.detail.value!)}
-            ></IonInput>
-          </IonItem>
+            <IonContent fullscreen>
+                <IonImg src={"/images/registration.jpeg"} className="imgTop"></IonImg>
 
-          <IonButton color="grey" id="registerBtn" onClick={register}>
-            Register!
-          </IonButton>
-          <IonRouterLink href={"/login"} id="registerLabel">
-            Already have an account?
-          </IonRouterLink>
-        </IonList>
-      </IonContent>
-    </IonPage>
-  );
+                <IonList className="registrationForm" color="grey">
+                    <IonItem className="registrationFormInput">
+                        <IonLabel position="floating">Name</IonLabel>
+                        <IonInput
+                            value={firstname}
+                            onIonChange={(e) => setFirstname(e.detail.value!)}
+                            clearInput
+                            color="success"
+                        ></IonInput>
+                    </IonItem>
+                    <IonItem className="registrationFormInput">
+                        <IonLabel position="floating">Lastname</IonLabel>
+                        <IonInput
+                            value={lastname}
+                            onIonChange={(e) => setLastname(e.detail.value!)}
+                            clearInput
+                        ></IonInput>
+                    </IonItem>
+                    <IonItem className="registrationFormInput">
+                        <IonLabel position="floating">Username</IonLabel>
+                        <IonInput
+                            value={userEmail}
+                            onIonChange={(e) => setUserEmail(e.detail.value!)}
+                            clearInput
+                        ></IonInput>
+                    </IonItem>
+                    <IonItem className="registrationFormInput">
+                        <IonLabel position="floating">Password</IonLabel>
+                        <IonInput
+                            type="password"
+                            value={password}
+                            onIonChange={(e) => setPassword(e.detail.value!)}
+                        ></IonInput>
+                    </IonItem>
+
+                    <IonButton color="grey" id="registerBtn" onClick={register}>
+                        Register!
+                    </IonButton>
+                    <IonRouterLink href={"/login"} id="registerLabel">
+                        Already have an account?
+                    </IonRouterLink>
+                </IonList>
+            </IonContent>
+        </IonPage>
+    );
 };
 
 export default Registration;

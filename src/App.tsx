@@ -31,27 +31,30 @@ import React from "react";
 import StagesPage from "./pages/StagesPage";
 import EventsPage from "./pages/EventsPage";
 import PerformersPage from "./pages/PerformersPage";
+import {AuthContextProvider} from "./store/userContext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
     <IonApp>
-        <IonReactRouter>
-            <Menu></Menu>
-            <IonRouterOutlet id="main">
-                <Route exact path="/">
-                    <Redirect to="/home"/>
-                </Route>
-                <Route exact path="/home" component={Home}></Route>
-                <Route exact path="/stages" component={StagesPage}></Route>
-                <Route exact path="/performers" component={PerformersPage}></Route>
-                <Route exact path="/events" component={EventsPage}></Route>
-                <Route exact path="/registration" component={Registration}></Route>
-                <Route exact path="/login" component={Login}></Route>
-                <Route exact path="/tickets" component={Tickets}></Route>
-                <Route exact path="/contact" component={Contact}></Route>
-            </IonRouterOutlet>
-        </IonReactRouter>
+        <AuthContextProvider>
+            <IonReactRouter>
+                <Menu></Menu>
+                <IonRouterOutlet id="main">
+                    <Route exact path="/">
+                        <Redirect to="/home"/>
+                    </Route>
+                    <Route exact path="/home" component={Home}></Route>
+                    <Route exact path="/stages" component={StagesPage}></Route>
+                    <Route exact path="/performers" component={PerformersPage}></Route>
+                    <Route exact path="/events" component={EventsPage}></Route>
+                    <Route exact path="/registration" component={Registration}></Route>
+                    <Route exact path="/login" component={Login}></Route>
+                    <Route exact path="/tickets" component={Tickets}></Route>
+                    <Route exact path="/contact" component={Contact}></Route>
+                </IonRouterOutlet>
+            </IonReactRouter>
+        </AuthContextProvider>
     </IonApp>
 );
 
