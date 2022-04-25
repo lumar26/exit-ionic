@@ -31,13 +31,13 @@ import React from "react";
 import StagesPage from "./pages/StagesPage";
 import EventsPage from "./pages/EventsPage";
 import PerformersPage from "./pages/PerformersPage";
-import {AuthContextProvider} from "./store/userContext";
+import {AuthenticationProvider, RequiredAdminAuthentication} from "./store/AuthenticationContext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
     <IonApp>
-        <AuthContextProvider>
+        <AuthenticationProvider>
             <IonReactRouter>
                 <Menu></Menu>
                 <IonRouterOutlet id="main">
@@ -51,10 +51,12 @@ const App: React.FC = () => (
                     <Route exact path="/registration" component={Registration}></Route>
                     <Route exact path="/login" component={Login}></Route>
                     <Route exact path="/tickets" component={Tickets}></Route>
-                    <Route exact path="/contact" component={Contact}></Route>
+                    <RequiredAdminAuthentication>
+                        <Route exact path="/contact" component={Contact}></Route>
+                    </RequiredAdminAuthentication>
                 </IonRouterOutlet>
             </IonReactRouter>
-        </AuthContextProvider>
+        </AuthenticationProvider>
     </IonApp>
 );
 
