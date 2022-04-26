@@ -1,13 +1,9 @@
 .toolbarSocial{
     height: 40px;
-
 }
 .socialIcon{
-    height: 20px;
-    width: 20px;
+    
     margin-bottom: 10px;
-    padding: 4px;
-    margin-right: 9px;
 }
 
 .iconMenu{
@@ -94,4 +90,251 @@
     font-size: 15px;
     font-weight: bolder;
 }
+
+/**Performer card**/
+.performerCard {
+  padding: 30px 0 40px;
+  margin-bottom: 30px;
+  background-color: #f7f5ec;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.performerCard .picture {
+  display: inline-block;
+  height: 130px;
+  width: 130px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.performerCard .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: #ec0a0a;
+  position: absolute;
+  bottom: 135%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+.performerCard:hover .picture::before {
+  height: 80%;
+}
+
+.performerCard .picture::after {
+  content: "";
+  width: 100%;
+  height: 100%;
+  border-radius: 30%;
+  background-color: #ec0a0a;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+}
+
+.performerCard .picture .img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(3);
+  transition: all 0.9s ease 0s;
+}
+
+.performerCard:hover .picture .img {
+  box-shadow: 0 0 0 14px #f7f5ec;
+  transform: scale(1);
+}
+.performerCard:hover  .img {
+  border-radius: 50%;
+}
+
+.performerCard .title {
+  display: block;
+  font-size: 15px;
+  color: #4e5052;
+  text-transform: capitalize;
+}
+
+.performerCard .social {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #ec0a0a;
+  position: absolute;
+  bottom: -90px;
+  left: 0;
+  transition: all 0.5s ease 0s;
+}
+
+.performerCard:hover .social {
+  bottom: 0;
+}
+
+.performerCard .social .socialIcon{
+  display: inline-block;
+
+}
+.socialIcon{
+ height: 30px;
+ width: 30px;
+ margin-left: 20px;
+ margin-right: 20px;
+
+}
+
+.performerCard .social .socialIcon {
+  display: block;
+  padding: 10px;
+  font-size: 17px;
+  color: white;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+
+.performerCard .social .socialIcon:hover {
+  color: #252525;
+  background-color: #ec0a0a;
+}
+.performerContent{
+  margin-top: -40px !important;
+  margin-bottom: 20px;
+}
+.performerName{
+  font-size: x-large;
+  font-weight: bolder;
+}
+.perforemerNick{
+  font-style: italic;
+}
+
+/*stage card*/
+
+
+.stageCard {
+  padding: 30px 0 40px;
+  margin-bottom: 30px;
+  background-color: #f7f5ec;
+  text-align: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.stageCard .picture {
+  display: inline-block;
+  height: 130px;
+  width: 130px;
+  margin-bottom: 50px;
+  z-index: 1;
+  position: relative;
+}
+
+.stageCard .picture::before {
+  content: "";
+  width: 100%;
+  height: 0;
+  border-radius: 50%;
+  background-color: #ec0a0a;
+  position: absolute;
+  bottom: 135%;
+  right: 0;
+  left: 0;
+  opacity: 0.9;
+  transform: scale(3);
+  transition: all 0.3s linear 0s;
+}
+
+
+.stageCard .picture .img {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  transform: scale(4);
+  transition: all 0.9s ease 0s;
+}
+
+
+.stageCard:hover  .img {
+  border-radius: 50%;
+}
+
+.stageCard .stageName {
+  display: block;
+  font-size: xx-large;
+  font-weight: bolder;
+  text-transform: capitalize;
+  transition: all 0.3s ease 0s;
+}
+
+.stageCard .social {
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  background-color: #252525;
+  position: absolute;
+  bottom: -90px;
+  left: 0;
+  transition: all 0.5s ease 0s;
+}
+
+.stageCard:hover .social {
+  bottom: 0;
+}
+.stageCard:hover .stageName {
+  font-size: x-large;
+  transition: all 0.5s ease 0s;
+}
+
+.stageCard .social .socialtem{
+  display: inline-block;
+
+}
+.socialIcon{
+ height: 30px;
+ width: 30px;
+ margin-left: 20px;
+ margin-right: 20px;
+
+}
+
+.stageCard .social .socialIcon {
+  display: block;
+  padding: 10px;
+ margin-left: 5px;
+  font-size: medium;
+  color: #f7f5ec ;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+.stagetabs {
+  color: #f7f5ec !important;
+  font-size: medium;
+  margin-left: -20px;
+  margin-top: 15px;
+}
+
+
+.stageContent{
+  margin-top: -40px !important;
+  margin-bottom: 20px;
+}
+
+/**add performer*/
+.addPerfrmerCard{
+margin: 20px;
+}
+.addPerformerTitle{
+  margin: 20px;
+  margin-bottom: -30px;
+
+}
+
 

@@ -70,7 +70,7 @@ export const RequiredAdminAuthentication: React.FC<{ children: JSX.Element }> = 
 
     console.log("required admin")
 
-    if (!auth.authenticatedUser || auth.authenticatedUser.role !== 'visitor')
+    if (!auth.authenticatedUser || auth.authenticatedUser.role !== 'admin')
         return <Redirect to="/login"/>
     return children;
 }
@@ -78,6 +78,9 @@ export const RequiredAdminAuthentication: React.FC<{ children: JSX.Element }> = 
 export const RequiredVisitorAuthentication: React.FC<{ children: JSX.Element }> = ({children}) => {
     const auth = useAuthentication();
     const location = useLocation();
+
+    console.log("required authenticated visitor")
+
 
     if (!auth.authenticatedUser || auth.authenticatedUser.role !== 'visitor')
         return <Redirect to="/login"/>

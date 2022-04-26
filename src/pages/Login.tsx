@@ -12,10 +12,10 @@ import {
     IonPage,
     IonRow,
 } from "@ionic/react";
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import NavBar from "../components/navigation/NavBar";
 import axios from "axios";
-import userContext, {UserAuthenticationResponse} from "../store/AuthenticationContext";
+import {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
 
 const loginUrl = "http://127.0.0.1:8000/api/login";
 
@@ -28,7 +28,7 @@ const Login: React.FC = () => {
     const [username, setUsername] = useState<string>();
     const [password, setPassword] = useState<string>();
 
-    const context = useContext(userContext);
+    const context = useAuthentication();
 
     function login() {
         axios.create()

@@ -1,25 +1,38 @@
 import React from "react";
-import {IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonImg, IonItem} from "@ionic/react";
+import {IonCard, IonCardContent, IonCardHeader, IonIcon, IonImg, IonLabel, IonRow,} from "@ionic/react";
 import Stage from "../../model/Stage";
+import {cashOutline, locationOutline, peopleOutline} from "ionicons/icons";
 
 const StageCard: React.FC<{
-    stage: Stage
+
+    stage: Stage;
 }> = ({stage}) => {
     return (
-        <IonCard>
-            <IonCardContent>
-                <IonImg src={stage.image}/>
-                <IonCardHeader>
-                    <IonCardTitle>{stage.name}</IonCardTitle>
+        <>
+            <IonCard className="stageCard">
+                <IonCardHeader className="picture">
+                    <IonImg src={stage.image} className="img"></IonImg>
                 </IonCardHeader>
-                <IonCardContent>
-                    <IonItem>Capacity: {stage.capacity}</IonItem>
-                    <IonItem>Sponsor: {stage.sponsor}</IonItem>
-                    <IonItem>Location: {stage.location}</IonItem>
+                <IonCardContent className="stageContent">
+                    <br/>
+                    <IonLabel className="stageName" color="grey">
+                        {stage.name}
+                    </IonLabel>
                 </IonCardContent>
-            </IonCardContent>
-        </IonCard>
+                <IonRow className="social" color="red">
+                    <IonIcon icon={peopleOutline} className="socialIcon">
+                        {" "}
+                    </IonIcon>
+                    <IonLabel className="stagetabs">{stage.capacity}</IonLabel>
+                    <IonIcon icon={cashOutline} className="socialIcon"></IonIcon>
+                    <IonLabel className="stagetabs">{stage.sponsor}</IonLabel>
+                    <IonIcon icon={locationOutline} className="socialIcon"></IonIcon>{" "}
+                    <IonLabel className="stagetabs">{stage.location}</IonLabel>
+                </IonRow>
+            </IonCard>
+        </>
     );
-}
+};
+
 
 export default StageCard;

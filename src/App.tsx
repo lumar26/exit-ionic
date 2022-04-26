@@ -31,7 +31,7 @@ import React from "react";
 import StagesPage from "./pages/StagesPage";
 import EventsPage from "./pages/EventsPage";
 import PerformersPage from "./pages/PerformersPage";
-import {AuthenticationProvider, RequiredAdminAuthentication} from "./store/AuthenticationContext";
+import {AuthenticationProvider, RequiredVisitorAuthentication} from "./store/AuthenticationContext";
 
 setupIonicReact();
 
@@ -51,9 +51,9 @@ const App: React.FC = () => (
                     <Route exact path="/registration" component={Registration}></Route>
                     <Route exact path="/login" component={Login}></Route>
                     <Route exact path="/tickets" component={Tickets}></Route>
-                    <RequiredAdminAuthentication>
+                    <RequiredVisitorAuthentication>
                         <Route exact path="/contact" component={Contact}></Route>
-                    </RequiredAdminAuthentication>
+                    </RequiredVisitorAuthentication>
                 </IonRouterOutlet>
             </IonReactRouter>
         </AuthenticationProvider>
