@@ -14,7 +14,8 @@ import React, {useContext, useState} from "react";
 import NavBar from "../components/navigation/NavBar";
 import User from "../model/User";
 import axios from 'axios';
-import AuthenticationContext, {UserAuthenticationResponse} from "../store/AuthenticationContext";
+import AuthenticationContext, {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
+import {useHistory} from "react-router";
 
 const defaultRole = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor
 const registerUrl = "http://127.0.0.1:8000/api/register";
@@ -25,10 +26,10 @@ const Registration: React.FC = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const authContext = useContext(AuthenticationContext);
+    const authentication = useAuthentication();
+    const history = useHistory();
 
     function register() {
-        console.log("Register button clicked.");
         const user: User = {
             name: firstname + " " + lastname,
             email: userEmail,
@@ -38,7 +39,8 @@ const Registration: React.FC = () => {
         axios.post<UserAuthenticationResponse>(registerUrl, user, {headers: {'Content-Type': "application/json"}})
             .then(function (response) {
                 console.log(response.data)
-                authContext.login(response.data)
+                authentication.login(response.data)
+                history.push("/home");
             })
             .catch(function (error) {
                 console.log(error);

@@ -31,7 +31,10 @@ import React from "react";
 import StagesPage from "./pages/StagesPage";
 import EventsPage from "./pages/EventsPage";
 import PerformersPage from "./pages/PerformersPage";
-import {AuthenticationProvider, RequiredVisitorAuthentication} from "./store/AuthenticationContext";
+import {AuthenticationProvider} from "./store/AuthenticationContext";
+import {RequiredVisitorAuthentication} from "./authentication/RequireVisitorAuthentication";
+import {RequiredAdminAuthentication} from "./authentication/RequireAdminAuthentication";
+import AddPerformer from "./components/performer/AddPerformer";
 
 setupIonicReact();
 
@@ -44,16 +47,24 @@ const App: React.FC = () => (
                     <Route exact path="/">
                         <Redirect to="/home"/>
                     </Route>
-                    <Route exact path="/home" component={Home}></Route>
-                    <Route exact path="/stages" component={StagesPage}></Route>
-                    <Route exact path="/performers" component={PerformersPage}></Route>
-                    <Route exact path="/events" component={EventsPage}></Route>
-                    <Route exact path="/registration" component={Registration}></Route>
-                    <Route exact path="/login" component={Login}></Route>
-                    <Route exact path="/tickets" component={Tickets}></Route>
+                    <Route exact path="/home" component={Home}/>
+                    <Route exact path="/stages" component={StagesPage}/>
+                    <Route exact path="/performers" component={PerformersPage}/>
+                    <Route exact path="/events" component={EventsPage}/>
+                    <Route exact path="/registration" component={Registration}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/contact" component={Contact} />
                     <RequiredVisitorAuthentication>
-                        <Route exact path="/contact" component={Contact}></Route>
+                        <>
+                            <Route exact path="/tickets" component={Tickets} />
+                        </>
                     </RequiredVisitorAuthentication>
+                    {/*<RequiredAdminAuthentication>*/}
+                    {/*    <>*/}
+                            <Route exact path="/performers/add" component={AddPerformer} />
+                        {/*</>*/}
+                    {/*</RequiredAdminAuthentication>*/}
+
                 </IonRouterOutlet>
             </IonReactRouter>
         </AuthenticationProvider>

@@ -16,31 +16,31 @@ import React, {useState} from "react";
 import NavBar from "../components/navigation/NavBar";
 import axios from "axios";
 import {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
+import {useHistory, useLocation} from "react-router";
 
 const loginUrl = "http://127.0.0.1:8000/api/login";
-
-type UserLoginRequest = {
-    email: string;
-    password: string;
-}
 
 const Login: React.FC = () => {
     const [username, setUsername] = useState<string>();
     const [password, setPassword] = useState<string>();
 
     const context = useAuthentication();
+    const history = useHistory();
+    const location = useLocation();
 
     function login() {
-        axios.create()
+        if (!location.state) location.state = {from: {pathname: "/"}}
+
         axios.post<UserAuthenticationResponse>(loginUrl, {
             email: username,
             password: password
-        }, {
-            headers: {'Content-Type': 'application/json'}
         })
-            .then(response => {
-                context.login(response.data)
-                console.log("User logged in: " + response.data)
+            .then(response => context.login(response.data))
+            .then(() => {
+                //        redirect to home page or to previous page
+                console.log("Going back after login")
+                // history.replace(location)
+                history.push("/home")
             })
             .catch(error => console.log(error))
     }
