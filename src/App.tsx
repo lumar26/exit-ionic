@@ -53,10 +53,10 @@ const App: React.FC = () => (
                     <Route exact path="/events" component={EventsPage}/>
                     <Route exact path="/registration" component={Registration}/>
                     <Route exact path="/login" component={Login}/>
-                    <Route exact path="/contact" component={Contact} />
                     <RequiredVisitorAuthentication>
                         <>
                             <Route exact path="/tickets" component={Tickets} />
+                            <Route exact path="/contact" component={Contact} />
                         </>
                     </RequiredVisitorAuthentication>
                     {/*<RequiredAdminAuthentication>*/}

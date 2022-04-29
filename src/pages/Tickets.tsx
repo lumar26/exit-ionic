@@ -2,26 +2,23 @@ import React from "react";
 import NavBar from "../components/navigation/NavBar";
 import TicketCard from "../components/shop/TicketCard";
 import {
-  IonAccordionGroup,
   IonAccordion,
-  IonItem,
-  IonList,
-  IonLabel,
-  IonGrid,
-  IonCol,
-  IonRow,
+  IonAccordionGroup,
   IonCard,
-  IonIcon,
   IonCardContent,
-  IonButton,
-  IonHeader,
-  IonCardHeader,
-  IonTitle,
+  IonCol,
   IonContent,
+  IonGrid,
+  IonHeader,
+  IonIcon,
   IonImg,
+  IonItem,
+  IonLabel,
+  IonList,
   IonPage,
+  IonRow,
 } from "@ionic/react";
-import { cartOutline, removeCircleOutline } from "ionicons/icons";
+import {cartOutline, removeCircleOutline} from "ionicons/icons";
 import Ticket from "../model/Ticket";
 
 const Tickets: React.FC = () => {

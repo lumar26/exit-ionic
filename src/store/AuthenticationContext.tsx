@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import User from "../model/User";
 
 const AuthenticationContext = createContext<AuthenticationContextType>({
@@ -18,8 +18,8 @@ export const useAuthentication = () => {
 
 type AuthenticationContextType = {
     authenticatedUser: User | null;
-    accessToken: string;
-    tokenType: string;
+    accessToken: string | null;
+    tokenType: string | null;
     login: (user: UserAuthenticationResponse) => void;
     logout: (user: UserAuthenticationResponse) => void;
 }
@@ -31,14 +31,30 @@ export type UserAuthenticationResponse = {
 }
 
 export const AuthenticationProvider: React.FC = (props) => {
-    const [user, setUser] = useState<User | null>(null);
-    const [token, setToken] = useState<string>("");
-    const [tokenType, setTokenType] = useState<string>("");
+    const [user, setUser] = useState<User | null>(JSON.parse(localStorage.getItem('currentUser')!));
+    const [token, setToken] = useState<string | null>(localStorage.getItem('currentUser'));
+    const [tokenType, setTokenType] = useState<string | null>(localStorage.getItem('currentUser'));
+
+    // if page reload occurs, check if there was user logged in
+    // useEffect(() => {
+    //     const currentUser = localStorage.getItem('currentUser');
+    //     const currentToken = localStorage.getItem('currentUser');
+    //     const currentTokenType = localStorage.getItem('currentUser');
+    //
+    //     if (currentUser && currentToken && currentTokenType){
+    //         setUser(JSON.parse(currentUser));
+    //         setToken(currentToken);
+    //         setToken(currentTokenType)
+    //     }
+    // }, [])
 
     const loginUser = (user: UserAuthenticationResponse) => {
         setUser(user.user);
         setToken(user.accessToken);
         setTokenType(user.tokenType);
+        localStorage.setItem('currentUser', JSON.stringify(user.user));
+        localStorage.setItem('currentToken', user.accessToken);
+        localStorage.setItem('currentTokenType', user.tokenType);
     }
 
     const logoutUser = (user: UserAuthenticationResponse) => {
@@ -46,6 +62,10 @@ export const AuthenticationProvider: React.FC = (props) => {
         setUser(null);
         setToken("");
         setTokenType("");
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('currentToken');
+        localStorage.removeItem('currentTokenType');
+
     }
     const context: AuthenticationContextType = {
         authenticatedUser: user,
@@ -54,7 +74,6 @@ export const AuthenticationProvider: React.FC = (props) => {
         login: loginUser,
         logout: logoutUser
     }
-
 
     return <AuthenticationContext.Provider value={context}>
         {props.children}
