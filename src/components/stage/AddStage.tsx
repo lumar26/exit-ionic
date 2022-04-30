@@ -13,30 +13,30 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import axios from "axios";
-import Performer from "../../model/Performer";
+import Stage from "../../model/Stage";
 import { useAuthentication } from "../../store/AuthenticationContext";
 import { useHistory } from "react-router";
 
-const postPerformerUrl = "http://127.0.0.1:8000/api/performers";
+const postStageUrl = "http://127.0.0.1:8000/api/stages";
 
-const AddPerformer: React.FC<{}> = () => {
+const AddStage: React.FC<{}> = () => {
   const [name, setName] = useState<string>();
-  const [lastname, setLastname] = useState<string>();
-  const [nickname, setNickname] = useState<string>();
-  const [genre, setGenre] = useState<string>();
+  const [location, setLocation] = useState<string>();
+  const [capacity, setCapacity] = useState<number>();
+  const [sponsor, setSponsor] = useState<string>();
   const [image, setImage] = useState<string>();
 
   const authentication = useAuthentication();
   const history = useHistory();
 
-  function addPerformer() {
+  function addStage() {
     console.log(authentication.authenticatedUser);
     axios
-      .post<Performer>(postPerformerUrl, {
+      .post<Stage>(postStageUrl, {
         name: name,
-        surname: lastname,
-        nick: nickname,
-        music_genre: genre,
+        location: location,
+        capacity: capacity,
+        sponsor: sponsor,
         image: image,
         user_id:
           authentication.authenticatedUser?.id ||
@@ -44,8 +44,8 @@ const AddPerformer: React.FC<{}> = () => {
       })
       .then((response) => {
         console.log(response.data);
-        alert("Performer added: " + response.data.nick);
-        history.push("/performers");
+        alert("Stage added: " + response.data.name);
+        history.push("/stages");
       })
       .catch((error) => alert(error.message));
   }
@@ -53,7 +53,7 @@ const AddPerformer: React.FC<{}> = () => {
   return (
     <IonCard>
       <IonCardTitle className="addPerformerTitle">
-        <IonToolbar color="grey">Add performer</IonToolbar>
+        <IonToolbar color="grey">Add stage</IonToolbar>
       </IonCardTitle>
 
       <IonCardContent>
@@ -61,7 +61,7 @@ const AddPerformer: React.FC<{}> = () => {
           <IonRow>
             <IonCol className="addPerformerCol">
               <IonItem>
-                <IonLabel position="floating">Performer name:</IonLabel>
+                <IonLabel position="floating">Name:</IonLabel>
                 <IonInput
                   type="text"
                   id="addPerformerName"
@@ -71,67 +71,41 @@ const AddPerformer: React.FC<{}> = () => {
                 ></IonInput>
               </IonItem>
               <IonItem>
-                <IonLabel position="floating">Performer surname:</IonLabel>
+                <IonLabel position="floating">Location:</IonLabel>
                 <IonInput
                   type="text"
                   id="addPerformerSurname"
-                  name="surname"
-                  onIonChange={(e) => setLastname(e.detail.value!)}
+                  name="location"
+                  onIonChange={(e) => setLocation(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating">Performer nickname:</IonLabel>
+                <IonLabel position="floating">Capacity:</IonLabel>
                 <IonInput
                   type="text"
                   id="addPerformerNickname"
-                  name="nickname"
-                  onIonChange={(e) => setNickname(e.detail.value!)}
+                  name="capacity"
+                  onIonChange={(e) => {
+                    if (e.detail.value === undefined) return;
+                    setCapacity(parseInt(e.detail.value!, 5));
+                  }}
                   clearInput
                 ></IonInput>
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating">Music genre:</IonLabel>
+                <IonLabel position="floating">Sponsor:</IonLabel>
                 <IonInput
                   type="text"
                   id="addMusicGenre"
-                  name="genre"
-                  onIonChange={(e) => setGenre(e.detail.value!)}
+                  name="sponsor"
+                  onIonChange={(e) => setSponsor(e.detail.value!)}
                   clearInput
                 ></IonInput>
               </IonItem>
 
-              {/*<IonRadioGroup name="genre">*/}
-              {/*  <IonListHeader>*/}
-              {/*    <IonLabel>Music genre:</IonLabel>*/}
-              {/*  </IonListHeader>*/}
-              {/*  <IonItem>*/}
-              {/*    <IonLabel>Genre 1</IonLabel>*/}
-              {/*    <IonRadio*/}
-              {/*      slot="start"*/}
-              {/*      color="primary"*/}
-              {/*      value="genre1"*/}
-              {/*    ></IonRadio>*/}
-              {/*  </IonItem>*/}
-              {/*  <IonItem>*/}
-              {/*    <IonLabel>Genre 2</IonLabel>*/}
-              {/*    <IonRadio*/}
-              {/*      slot="start"*/}
-              {/*      color="primary"*/}
-              {/*      value="genre2"*/}
-              {/*    ></IonRadio>*/}
-              {/*  </IonItem>*/}
-              {/*  <IonItem>*/}
-              {/*    <IonLabel>Genre 3</IonLabel>*/}
-              {/*    <IonRadio*/}
-              {/*      slot="start"*/}
-              {/*      color="primary"*/}
-              {/*      value="genre3"*/}
-              {/*    ></IonRadio>*/}
-              {/*  </IonItem>*/}
-              {/*</IonRadioGroup>*/}
               <IonItem className="addPerformerImg">
                 <IonLabel position="floating">Image:</IonLabel>
 
@@ -145,11 +119,11 @@ const AddPerformer: React.FC<{}> = () => {
               <IonButton
                 expand="full"
                 type="submit"
-                onClick={addPerformer}
+                onClick={addStage}
                 color="grey"
                 className="addPerformerCard"
               >
-                Add performer
+                Add stage
               </IonButton>
             </IonCol>
           </IonRow>
@@ -159,4 +133,4 @@ const AddPerformer: React.FC<{}> = () => {
   );
 };
 
-export default AddPerformer;
+export default AddStage;

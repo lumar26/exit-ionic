@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import { IonContent, IonHeader, IonImg, IonPage } from "@ionic/react";
 import axios from "axios";
 import Performer from "../model/Performer";
@@ -8,7 +8,6 @@ import NavBar from "../components/navigation/NavBar";
 const performersUrl = "http://localhost:8000/api/performers";
 
 const PerformersPage: React.FC = () => {
-
   const [performers, setPerformers] = useState<Array<Performer>>([]);
 
   useEffect(() => {

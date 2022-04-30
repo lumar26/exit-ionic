@@ -338,3 +338,35 @@ margin: 20px;
 }
 
 
+/**Admin tables*/
+
+.tableGrid{
+  border: solid 1px rgb(22, 22, 22);
+
+}
+.tableName{
+margin-top: 20px;
+
+  font-size: larger;
+  font-weight: bolder;
+}
+.tableRowHeader{
+  border-bottom: solid 1px rgb(59, 58, 58);
+  font-size: smaller;
+
+}
+
+#tableRow{
+  border-bottom: solid 0.5px rgb(201, 199, 199);
+  margin-right: 5px;
+
+}
+
+.updatePerformerCard{
+  margin: 10px;
+  height: 90%;
+}
+.updatePerformerTitle{
+  margin-top: 5px;
+}
+
