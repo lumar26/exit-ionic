@@ -32,21 +32,8 @@ export type UserAuthenticationResponse = {
 
 export const AuthenticationProvider: React.FC = (props) => {
     const [user, setUser] = useState<User | null>(JSON.parse(localStorage.getItem('currentUser')!));
-    const [token, setToken] = useState<string | null>(localStorage.getItem('currentUser'));
-    const [tokenType, setTokenType] = useState<string | null>(localStorage.getItem('currentUser'));
-
-    // if page reload occurs, check if there was user logged in
-    // useEffect(() => {
-    //     const currentUser = localStorage.getItem('currentUser');
-    //     const currentToken = localStorage.getItem('currentUser');
-    //     const currentTokenType = localStorage.getItem('currentUser');
-    //
-    //     if (currentUser && currentToken && currentTokenType){
-    //         setUser(JSON.parse(currentUser));
-    //         setToken(currentToken);
-    //         setToken(currentTokenType)
-    //     }
-    // }, [])
+    const [token, setToken] = useState<string | null>(localStorage.getItem('currentToken'));
+    const [tokenType, setTokenType] = useState<string | null>(localStorage.getItem('currentTokenType'));
 
     const loginUser = (user: UserAuthenticationResponse) => {
         setUser(user.user);

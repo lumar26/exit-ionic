@@ -22,6 +22,7 @@ import PerformerCard from "./PerformerCard";
 import UpdatePerformer from "./UpdatePerformer";
 import { Redirect, useHistory } from "react-router";
 import { Link } from "react-router-dom";
+import {useAuthentication} from "../../store/AuthenticationContext";
 
 const performersUrl = "http://localhost:8000/api/performers";
 
@@ -30,8 +31,9 @@ const TutorialsList = () => {
   const [currentPerformer, setCurrentPerformer] = useState(performers[0]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
-
   const [showModalUpdate, setShowModalUpdate] = useState(false);
+
+  const authentication = useAuthentication();
   const history = useHistory();
 
   useEffect(() => {
@@ -68,9 +70,15 @@ const TutorialsList = () => {
       });
   };*/
 
-  const deletePerformer = (p: Performer) => {
+  const deletePerformer = (performer: Performer) => {
+    console.log('Function deletePerformer: ' + authentication.tokenType + " " + authentication.accessToken)
+    console.log('Performer to be deleted: ' + performer.id)
     axios
-      .delete(`/performers/${p.id}`)
+      .delete(`http://localhost:8000/api/performers/${performer.id}`, {
+        headers: {
+          'Authorization' : authentication.tokenType + " " + authentication.accessToken
+        }
+      })
       .then((response) => {
         console.log(response.data);
         refreshList();
