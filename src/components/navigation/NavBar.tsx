@@ -1,10 +1,20 @@
 import React, {useEffect} from "react";
-import {IonButton, IonButtons, IonIcon, IonMenuButton, IonRow, IonTitle, IonToolbar,} from "@ionic/react";
+import {
+    IonButton,
+    IonButtons,
+    IonIcon,
+    IonMenuButton,
+    IonRouterLink,
+    IonRow,
+    IonTitle,
+    IonToolbar,
+} from "@ionic/react";
 import {logoFacebook, logoInstagram, logoTiktok, logoWhatsapp, logoYoutube,} from "ionicons/icons";
+import {AccountPopover} from "../account/AccountPopover";
 
 const NavBar: React.FC = () => {
     const [mQuery, setMQuery] = React.useState<any>({
-        matches: window.innerWidth > 760 ? true : false,
+        matches: window.innerWidth > 760,
     });
 
     useEffect(() => {
@@ -28,31 +38,29 @@ const NavBar: React.FC = () => {
 
             <IonToolbar color="red">
                 <IonTitle size="large" slot="start" id="headertitle">
-                    <b>EXIT </b>
+                    <IonRouterLink color={"light"} href={"/home"} >
+                        <b>EXIT</b>
+                    </IonRouterLink>
                 </IonTitle>
 
                 {mQuery && !mQuery.matches ? (
                     <IonButtons slot="end">
                         <IonMenuButton/>
+                        <AccountPopover />
                     </IonButtons>
                 ) : (
                     <>
                         <IonButtons slot="start">
-                            <IonButton routerLink={"/home"}>
-                                <b>Home </b>
-                            </IonButton>
                             <IonButton routerLink={"/stages"}>
                                 <b>Stages </b>
                             </IonButton>
                             <IonButton routerLink={"/tickets"} slot="end">
                                 <b>Tickets</b>
                             </IonButton>
-                            <IonButton routerLink={"/registration"} slot="end">
-                                <b>Registration</b>
-                            </IonButton>
                             <IonButton routerLink={"/contact"} slot="end">
                                 <b>Contact</b>
                             </IonButton>
+                            <AccountPopover />
                         </IonButtons>
                     </>
                 )}
