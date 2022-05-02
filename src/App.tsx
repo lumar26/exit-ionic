@@ -36,58 +36,46 @@ import {RequiredVisitorAuthentication} from "./authentication/RequireVisitorAuth
 import AddPerformer from "./components/performer/AddPerformer";
 import AddStage from "./components/stage/AddStage";
 import Administrator from "./pages/Administrator";
-import UpdatePerformer from "./components/performer/UpdatePerformer";
+import UpdatePerformerForm from "./components/performer/admin/UpdatePerformerForm";
+import {PerformersProvider} from "./store/PerformersContext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
 
-  <IonApp>
-    <AuthenticationProvider>
-      <IonReactRouter>
-        <Menu></Menu>
-        <IonRouterOutlet id="main">
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/stages" component={StagesPage} />
-          <Route exact path="/performers" component={PerformersPage} />
-          <Route exact path="/events" component={EventsPage} />
-          <Route exact path="/registration" component={Registration} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/contact" component={Contact} />
-          <RequiredVisitorAuthentication>
-            <>
-              <Route exact path="/tickets" component={Tickets} />
-            </>
-          </RequiredVisitorAuthentication>
-          {/*<RequiredAdminAuthentication>*/}
-          {/*    <>*/}
-          <Route exact path="/performers/add" component={AddPerformer} />
-          {/*</>*/}
-          {/*</RequiredAdminAuthentication>*/}
-          {/*<RequiredAdminAuthentication>*/}
-          {/*    <>*/}
-          <Route exact path="/stages/add" component={AddStage} />
-          {/*</>*/}
-          {/*</RequiredAdminAuthentication>*/}
+    <IonApp>
+        <AuthenticationProvider>
+            <IonReactRouter>
+                <Menu></Menu>
+                <IonRouterOutlet id="main">
+                    <Route exact path="/">
+                        <Redirect to="/home"/>
+                    </Route>
+                    <Route exact path="/home" component={Home}/>
+                    <Route exact path="/stages" component={StagesPage}/>
+                    <Route exact path="/performers" component={PerformersPage}/>
+                    <Route exact path="/events" component={EventsPage}/>
+                    <Route exact path="/registration" component={Registration}/>
+                    <Route exact path="/login" component={Login}/>
+                    <Route exact path="/contact" component={Contact}/>
+                    <RequiredVisitorAuthentication>
+                        <>
+                            <Route exact path="/tickets" component={Tickets}/>
+                        </>
+                    </RequiredVisitorAuthentication>
+                    <Route exact path="/stages/add" component={AddStage}/>
+                    <Route exact path="/performers/:id" component={UpdatePerformerForm}/>
+                    <PerformersProvider>
+                        <>
+                            <Route exact path="/admin" component={Administrator}/>
+                            <Route exact path="/performers/add" component={AddPerformer}/>
+                        </>
+                    </PerformersProvider>
 
-          {/*<RequiredAdminAuthentication>*/}
-          {/*    <>*/}
-          <Route exact path="/performers/:id" component={UpdatePerformer} />
-          {/*</>*/}
-          {/*</RequiredAdminAuthentication>*/}
-
-          {/*<RequiredAdminAuthentication>*/}
-          {/*    <>*/}
-          <Route exact path="/admin" component={Administrator} />
-          {/*</>*/}
-          {/*</RequiredAdminAuthentication>*/}
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </AuthenticationProvider>
-  </IonApp>
+                </IonRouterOutlet>
+            </IonReactRouter>
+        </AuthenticationProvider>
+    </IonApp>
 );
 
 export default App;

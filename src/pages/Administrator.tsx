@@ -1,29 +1,19 @@
 import React from "react";
-import {
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
-  IonPage,
-  IonHeader,
-  IonContent,
-  IonRouterOutlet,
-} from "@ionic/react";
+import {IonContent, IonHeader, IonPage,} from "@ionic/react";
 import NavBar from "../components/navigation/NavBar";
-import Performers from "../components/performer/AdminPerformerTable";
+import PerformersTable from "../components/performer/admin/PerformersTable";
 
-const Administartor: React.FC = () => {
+const Administrator: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
         <NavBar />
       </IonHeader>
       <IonContent>
-        <Performers></Performers>
+              <PerformersTable />
       </IonContent>
     </IonPage>
   );
 };
 
-export default Administartor;
+export default Administrator;
