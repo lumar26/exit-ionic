@@ -1,17 +1,15 @@
 import React from "react";
 import {
-  IonTabs,
-  IonTabBar,
-  IonTabButton,
-  IonIcon,
-  IonLabel,
   IonPage,
   IonHeader,
   IonContent,
-  IonRouterOutlet,
+  IonToolbar,
+  IonButton,
+  IonButtons,
 } from "@ionic/react";
 import NavBar from "../components/navigation/NavBar";
 import Performers from "../components/performer/AdminPerformerTable";
+import Stages from "../components/stage/AdminStageTable";
 
 const Administartor: React.FC = () => {
   return (
@@ -21,6 +19,7 @@ const Administartor: React.FC = () => {
       </IonHeader>
       <IonContent>
         <Performers></Performers>
+        <Stages></Stages>
       </IonContent>
     </IonPage>
   );

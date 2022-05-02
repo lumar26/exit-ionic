@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import Performer from "../../model/Performer";
+import Stage from "../../model/Stage";
 import axios from "axios";
 import {
   IonButton,
@@ -15,17 +15,17 @@ import {
   IonCard,
 } from "@ionic/react";
 import { addCircle, create, removeCircleOutline, trash } from "ionicons/icons";
-import PerformerCard from "./PerformerCard";
-import UpdatePerformer from "./UpdatePerformer";
+import StageCard from "./StageCard";
+import UpdateStage from "./UpdateStage";
 import { useHistory } from "react-router";
 import { useAuthentication } from "../../store/AuthenticationContext";
-import AddPerformer from "./AddPerformer";
+import AddStage from "./AddStage";
 
-const performersUrl = "http://localhost:8000/api/performers";
+const stagesUrl = "http://localhost:8000/api/stages";
 
-const AdminPerformerTable = () => {
-  const [performers, setPerformers] = useState<Array<Performer>>([]);
-  const [currentPerformer, setCurrentPerformer] = useState(performers[0]);
+const AdminStageTable = () => {
+  const [stages, setStages] = useState<Array<Stage>>([]);
+  const [currentStage, setCurrentStage] = useState(stages[0]);
   const [currentIndex, setCurrentIndex] = useState(-1);
   const [searchTitle, setSearchTitle] = useState("");
   const [showModalUpdate, setShowModalUpdate] = useState(false);
@@ -35,24 +35,24 @@ const AdminPerformerTable = () => {
   const history = useHistory();
 
   useEffect(() => {
-    retrievePerformers();
+    retrieveStages();
   }, []);
 
-  const retrievePerformers = () => {
-    axios.get<Array<Performer>>(performersUrl).then((response) => {
-      console.log("Response after GET performers");
-      setPerformers(response.data);
+  const retrieveStages = () => {
+    axios.get<Array<Stage>>(stagesUrl).then((response) => {
+      console.log("Response after GET stages");
+      setStages(response.data);
     });
   };
 
   const refreshList = () => {
-    retrievePerformers();
-    //setCurrentPerformer(null);
+    retrieveStages();
+    //setCurrentStage(null);
     setCurrentIndex(-1);
   };
 
-  const setActivePerformer = (performer: Performer, index: number) => {
-    setCurrentPerformer(performer);
+  const setActiveStage = (stage: Stage, index: number) => {
+    setCurrentStage(stage);
     setCurrentIndex(index);
   };
 
@@ -68,16 +68,16 @@ const AdminPerformerTable = () => {
       });
   };*/
 
-  const deletePerformer = (performer: Performer) => {
+  const deleteStage = (stage: Stage) => {
     console.log(
-      "Function deletePerformer: " +
+      "Function deleteStage: " +
         authentication.tokenType +
         " " +
         authentication.accessToken
     );
-    console.log("Performer to be deleted: " + performer.id);
+    console.log("Stage to be deleted: " + stage.id);
     axios
-      .delete(`http://localhost:8000/api/performers/${performer.id}`, {
+      .delete(`http://localhost:8000/api/stages/${stage.id}`, {
         headers: {
           Authorization:
             authentication.tokenType + " " + authentication.accessToken,
@@ -96,7 +96,7 @@ const AdminPerformerTable = () => {
     <IonCard>
       <IonToolbar color="grey" className="tableName">
         <IonModal isOpen={showModalAdd}>
-          <AddPerformer></AddPerformer>
+          <AddStage></AddStage>
           <IonButton
             color="grey"
             size="default"
@@ -115,39 +115,39 @@ const AdminPerformerTable = () => {
           <IonText>Add</IonText>
           <IonIcon icon={addCircle} className="iconMenu" slot="end"></IonIcon>
         </IonButton>
-        Performers
+        Stages
       </IonToolbar>
       <IonGrid className="tableGrid">
         <IonRow className="tableRowHeader">
           <IonCol>Name</IonCol>
-          <IonCol>Lastname</IonCol>
-          <IonCol>Nickname</IonCol>
+          <IonCol>Location</IonCol>
+          <IonCol>Capacity</IonCol>
+          <IonCol>Sponsor</IonCol>
           <IonCol>Actions</IonCol>
         </IonRow>
 
-        {performers &&
-          performers.map((performer, index) => (
+        {stages &&
+          stages.map((stage, index) => (
             <IonRow
               className={
                 "list-group-item " + (index === currentIndex ? "active" : "")
               }
-              onClick={() => setActivePerformer(performer, index)}
+              onClick={() => setActiveStage(stage, index)}
               key={index}
               id="tableRow"
             >
-              <IonCol className="tableColContent">{performer.name}</IonCol>
-              <IonCol className="tableColContent">{performer.surname}</IonCol>
-              <IonCol className="tableColContent">{performer.nick}</IonCol>
+              <IonCol className="tableColContent">{stage.name}</IonCol>
+              <IonCol className="tableColContent">{stage.location}</IonCol>
+              <IonCol className="tableColContent">{stage.capacity}</IonCol>
+              <IonCol className="tableColContent">{stage.sponsor}</IonCol>
               <IonCol>
                 <IonModal isOpen={showModalUpdate}>
-                  <UpdatePerformer
-                    performer={currentPerformer}
-                  ></UpdatePerformer>
+                  <UpdateStage stage={currentStage}></UpdateStage>
                   <IonButton
                     color="grey"
                     size="default"
                     onClick={() => {
-                      setActivePerformer(performer, index);
+                      setActiveStage(stage, index);
                       setShowModalUpdate(false);
                     }}
                   >
@@ -168,7 +168,7 @@ const AdminPerformerTable = () => {
                 <IonButton
                   color="red"
                   onClick={() => {
-                    deletePerformer(performer);
+                    deleteStage(stage);
                   }}
                 >
                   <IonIcon
@@ -180,18 +180,9 @@ const AdminPerformerTable = () => {
               </IonCol>
             </IonRow>
           ))}
-        <IonRow id="currentPerformer">
-          {currentPerformer ? (
-            <PerformerCard performer={currentPerformer} />
-          ) : (
-            <IonLabel>
-              <br></br>Select performer for more information.
-            </IonLabel>
-          )}
-        </IonRow>
       </IonGrid>
     </IonCard>
   );
 };
 
-export default AdminPerformerTable;
+export default AdminStageTable;
