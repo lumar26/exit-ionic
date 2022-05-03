@@ -13,8 +13,8 @@ import {
 } from "@ionic/react";
 import React, { useState } from "react";
 import axios from "axios";
-import Stage from "../../model/Stage";
-import { useAuthentication } from "../../store/AuthenticationContext";
+import Stage from "../../../model/Stage";
+import { useAuthentication } from "../../../store/AuthenticationContext";
 import { useHistory } from "react-router";
 
 const postStageUrl = "http://127.0.0.1:8000/api/stages";

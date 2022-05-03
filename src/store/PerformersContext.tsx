@@ -11,8 +11,8 @@ type PerformersContextType = {
     addPerformer: ((performer: Performer) => void);
     deletePerformer: ((performer: Performer) => void)
     updatePerformer: ((performer: Performer, id: number) => void)
-    getAllPerformers: (() => Array<Performer> | null)
-    selectPerformer: ((performer: Performer) => void | null)
+    getAllPerformers: () => void
+    selectPerformer: ((performer: Performer) => void)
 }
 
 const PerformersContext = createContext<PerformersContextType>({
@@ -24,7 +24,7 @@ const PerformersContext = createContext<PerformersContextType>({
         },
         deletePerformer: () => {
         },
-        getAllPerformers: () => [],
+        getAllPerformers: () => {},
         selectPerformer: () => {
         }
     }
@@ -35,7 +35,6 @@ export const usePerformers = () => {
 }
 
 export const PerformersProvider: React.FC = (props) => {
-
     const authentication = useAuthentication();
 
     const [performers, setPerformers] = useState<Array<Performer>>();
@@ -57,10 +56,7 @@ export const PerformersProvider: React.FC = (props) => {
         if (!performers) {
             console.log('No performer retrieved after getAllPerformers');
             setPerformers([]);
-            return [];
         }
-        console.log("Retrieved all performers");
-        return performers!;
     };
 
     const addPerformer = (performer: Performer) => {
@@ -92,16 +88,14 @@ export const PerformersProvider: React.FC = (props) => {
                 let oldPerformer = performers?.find(performer => performer.id === id)
                 if (!oldPerformer) {
                     performers?.push(response.data)
-                    setPerformers(performers)
-                    return;
+                } else {
+                    // updating fields manually
+                    oldPerformer.name = response.data.name;
+                    oldPerformer.nick = response.data.nick;
+                    oldPerformer.surname = response.data.surname;
+                    oldPerformer.music_genre = response.data.music_genre;
+                    oldPerformer.image = response.data.image;
                 }
-
-                // updating fields manually
-                oldPerformer.name = response.data.name;
-                oldPerformer.nick = response.data.nick;
-                oldPerformer.surname = response.data.surname;
-                oldPerformer.music_genre = response.data.music_genre;
-                oldPerformer.image = response.data.image;
                 setPerformers(performers)
             })
             .catch((e) => {

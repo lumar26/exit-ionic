@@ -1,12 +1,8 @@
 import React from "react";
 import PerformersTable from "../components/performer/admin/PerformersTable";
-import {
-    IonPage,
-    IonHeader,
-    IonContent,
-} from "@ionic/react";
+import {IonContent, IonHeader, IonPage,} from "@ionic/react";
 import NavBar from "../components/navigation/NavBar";
-import Stages from "../components/stage/AdminStageTable";
+import StagesTable from "../components/stage/admin/StagesTable";
 
 const Administrator: React.FC = () => {
     return (
@@ -16,7 +12,7 @@ const Administrator: React.FC = () => {
             </IonHeader>
             <IonContent>
                 <PerformersTable/>
-                <Stages></Stages>
+                <StagesTable />
             </IonContent>
         </IonPage>
     );

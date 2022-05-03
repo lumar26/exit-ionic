@@ -6,7 +6,7 @@ import {useHistory} from "react-router";
 import PerformerTableRow from "./PerformerTableRow";
 import {usePerformers} from "../../../store/PerformersContext";
 
-const PerformersTable = () => {
+const PerformersTable: React.FC = () => {
     const history = useHistory();
     const performersContext = usePerformers();
 
@@ -16,44 +16,44 @@ const PerformersTable = () => {
 
 
     return (
-        <IonContent>
-            <IonToolbar color="grey" className="tableName">
-                Performers
-                <IonButton
-                    onClick={(e) => {
-                        e.preventDefault();
-                        history.push("/performers/add");
-                    }}
-                    slot="end"
-                    color="grey"
-                >
-                    <IonText>Add</IonText>
-                    <IonIcon icon={addCircle} className="iconMenu" slot="end"></IonIcon>
-                </IonButton>
-            </IonToolbar>
-            <IonGrid className="tableGrid">
-                <IonRow className="tableRowHeader">
-                    <IonCol>Name</IonCol>
-                    <IonCol>Lastname</IonCol>
-                    <IonCol>Nickname</IonCol>
-                    <IonCol>Actions</IonCol>
-                </IonRow>
+                <IonContent>
+                    <IonToolbar color="grey" className="tableName">
+                        Performers
+                        <IonButton
+                            onClick={(e) => {
+                                e.preventDefault();
+                                history.push("/performers/add");
+                            }}
+                            slot="end"
+                            color="grey"
+                        >
+                            <IonText>Add</IonText>
+                            <IonIcon icon={addCircle} className="iconMenu" slot="end"></IonIcon>
+                        </IonButton>
+                    </IonToolbar>
+                    <IonGrid className="tableGrid">
+                        <IonRow className="tableRowHeader">
+                            <IonCol>Name</IonCol>
+                            <IonCol>Lastname</IonCol>
+                            <IonCol>Nickname</IonCol>
+                            <IonCol>Actions</IonCol>
+                        </IonRow>
 
-                {performersContext.performers &&
-                    performersContext.performers.map((performer, index) =>
-                        <PerformerTableRow key = {index} performer={performer} index={index}/>
-                    )}
-                <IonRow id="currentPerformer">
-                    {performersContext.selectedPerformer ? (
-                        <PerformerCard performer={performersContext.selectedPerformer}/>
-                    ) : (
-                        <IonLabel>
-                            <br></br>Select performer for more information.
-                        </IonLabel>
-                    )}
-                </IonRow>
-            </IonGrid>
-        </IonContent>
+                        {performersContext.performers &&
+                            performersContext.performers.map((performer, index) =>
+                                <PerformerTableRow key={index} performer={performer} index={index}/>
+                            )}
+                        <IonRow id="currentPerformer">
+                            {performersContext.selectedPerformer ? (
+                                <PerformerCard performer={performersContext.selectedPerformer}/>
+                            ) : (
+                                <IonLabel>
+                                    <br></br>Select performer for more information.
+                                </IonLabel>
+                            )}
+                        </IonRow>
+                    </IonGrid>
+                </IonContent>
     );
 };
 

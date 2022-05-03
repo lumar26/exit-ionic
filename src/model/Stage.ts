@@ -1,3 +1,5 @@
+import User from "./User";
+
 interface Stage {
     id: number;
     name: string;
@@ -5,6 +7,7 @@ interface Stage {
     location: string;
     capacity: number;
     sponsor: string;
+    user_id: number
 }
 
 export default Stage;
