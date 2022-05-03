@@ -31,7 +31,7 @@ const PerformerCard: React.FC<{
 
                 {authentication.authenticatedUser
                     && authentication.authenticatedUser.role === 'admin'
-                && <PerformerCardAdminControls performer={performer}/>}
+                    && <PerformerCardAdminControls performer={performer}/>}
 
             </IonCardContent>
             <IonRow className="social" color="red">

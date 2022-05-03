@@ -2,11 +2,14 @@ import React from "react";
 import {IonCard, IonCardContent, IonCardHeader, IonIcon, IonImg, IonLabel, IonRow,} from "@ionic/react";
 import Stage from "../../model/Stage";
 import {cashOutline, locationOutline, peopleOutline} from "ionicons/icons";
+import {useAuthentication} from "../../store/AuthenticationContext";
+import StageCardAdminControls from "./admin/StageCardAdminControls";
 
 const StageCard: React.FC<{
-
     stage: Stage;
 }> = ({stage}) => {
+
+    const authentication = useAuthentication();
     return (
         <>
             <IonCard className="stageCard">
@@ -18,6 +21,11 @@ const StageCard: React.FC<{
                     <IonLabel className="stageName" color="grey">
                         {stage.name}
                     </IonLabel>
+
+                    {authentication.authenticatedUser
+                        && authentication.authenticatedUser.role === 'admin'
+                        && <StageCardAdminControls stage={stage}/>}
+
                 </IonCardContent>
                 <IonRow className="social" color="red">
                     <IonIcon icon={peopleOutline} className="socialIcon">

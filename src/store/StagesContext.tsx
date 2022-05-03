@@ -48,6 +48,8 @@ export const StagesProvider: React.FC = (props) => {
     const getAllStages = () => {
         axios.get<Array<Stage>>(apiUrl)
             .then((response) => {
+                console.log('Retrieved stages:')
+                console.log(response.data)
                 setStages(response.data);
             })
             .catch(error => {

@@ -1,35 +1,15 @@
-import React, {useEffect, useState} from "react";
-import {IonContent, IonHeader, IonPage} from "@ionic/react";
-import axios from "axios";
-import Stage from "../model/Stage";
+import React from "react";
 import StageList from "../components/stage/StageList";
-import NavBar from "../components/navigation/NavBar";
-
-const stagesUrl = "http://localhost:8000/api/stages";
+import {StagesProvider, useStages} from "../store/StagesContext";
+import StandardPageWrapper from "./StandardPageWrapper";
 
 const StagesPage: React.FC = () => {
-
-    const [stages, setStages] = useState<Array<Stage>>([]);
-
-    useEffect(() => {
-        axios.get<Array<Stage>>(stagesUrl)
-            .then(response => {
-                setStages(response.data)
-                console.log('Response after GET stages');
-                console.log(response.data)
-            });
-    }, []);
-
-
     return (
-        <IonPage>
-            <IonHeader>
-                <NavBar />
-            </IonHeader>
-            <IonContent>
-                <StageList stages={stages}/>
-            </IonContent>
-        </IonPage>
+        <StagesProvider>
+            <StandardPageWrapper>
+                <StageList />
+            </StandardPageWrapper>
+        </StagesProvider>
     );
 }
 
