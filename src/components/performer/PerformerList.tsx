@@ -2,14 +2,25 @@ import React from "react";
 import {IonList} from "@ionic/react";
 import PerformerCard from "./PerformerCard";
 import Performer from "../../model/Performer";
+import {useAuthentication} from "../../store/AuthenticationContext";
+import AddPerformerModal from "./admin/AddPerformerModal";
 
-const EventList: React.FC<{
+const PerformersList: React.FC<{
     performers: Array<Performer>,
 }> = ({performers}) => {
+    const authentication = useAuthentication();
+
     return (
-        <IonList>
-            {performers.map(performer => <PerformerCard key={performer.id} performer={performer} />)}
-        </IonList>
+        <>
+            {authentication.authenticatedUser
+                && authentication.authenticatedUser.role === 'admin'
+                && <AddPerformerModal/>}
+            <IonList>
+                {performers.map(performer => <PerformerCard key={performer.id} performer={performer}/>)}
+            </IonList>
+        </>
+
+
     );
 }
-export default EventList;
+export default PerformersList;

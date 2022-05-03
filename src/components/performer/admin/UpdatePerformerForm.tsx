@@ -14,9 +14,12 @@ import {
 import React, {useEffect, useRef, useState} from "react";
 import Performer from "../../../model/Performer";
 import {usePerformers} from "../../../store/PerformersContext";
+import {useAuthentication} from "../../../store/AuthenticationContext";
 
 
 const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) => {
+
+    const authentication = useAuthentication();
 
     const performersContext = usePerformers();
 
@@ -40,6 +43,8 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
             image: imageRef.current!.value ? imageRef.current!.value as string : performer.image,
             nick: nickRef.current!.value ? nickRef.current!.value as string : performer.nick,
             music_genre: genreRef.current!.value ? genreRef.current!.value as string : performer.music_genre,
+            user_id: authentication.authenticatedUser?.id ||
+                Math.floor(Math.random() * 10),
         };
 
         performersContext.updatePerformer(updatedPerformer, updatedPerformer.id)

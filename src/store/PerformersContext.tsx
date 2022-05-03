@@ -60,6 +60,7 @@ export const PerformersProvider: React.FC = (props) => {
     };
 
     const addPerformer = (performer: Performer) => {
+        console.log('addPerformer: ' + performer)
         axios
             .post<Performer>(apiUrl, performer, {
                 headers: {
@@ -67,7 +68,6 @@ export const PerformersProvider: React.FC = (props) => {
                 }
             })
             .then((response) => {
-                console.log('Performer saved; \n' + response.data);
                 performers!.push(response.data)
                 setPerformers(performers)
             })
