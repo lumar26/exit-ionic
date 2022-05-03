@@ -11,63 +11,38 @@ import {
     IonRow,
     IonToolbar,
 } from "@ionic/react";
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import Performer from "../../../model/Performer";
-import axios from "axios";
-import {useAuthentication} from "../../../store/AuthenticationContext";
+import {usePerformers} from "../../../store/PerformersContext";
 
-const apiUrl = "http://localhost:8000/api/performers"
 
 const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) => {
 
-    const authentication = useAuthentication();
-
-    const initialPerformer: Performer = {
-        id: -999,
-        name: "",
-        surname: "",
-        image: "",
-        nick: "",
-        music_genre: "",
-    };
-    const [currentPerformer, setCurrentPerformer] = useState(initialPerformer);
+    const performersContext = usePerformers();
 
     useEffect(() => {
         console.log('Printing performer in UpdatePerformerModal: ' + performer.id)
     }, []);
 
 
-    const [name, setName] = useState<string>();
-    const [lastname, setLastname] = useState<string>();
-    const [nick, setNick] = useState<string>();
-    const [genre, setGenre] = useState<string>();
-    const [image, setImage] = useState<string>();
+    const nameRef = useRef<HTMLIonInputElement>(null);
+    const surnameRef = useRef<HTMLIonInputElement>(null);
+    const imageRef = useRef<HTMLIonInputElement>(null);
+    const nickRef = useRef<HTMLIonInputElement>(null);
+    const genreRef = useRef<HTMLIonInputElement>(null);
 
     function updatePerformer() {
         // todo: validation necessary
         let updatedPerformer: Performer = {
-            id: currentPerformer.id,
-            name: name ? name : currentPerformer.name,
-            surname: lastname ? lastname : currentPerformer.surname,
-            image: image ? image : currentPerformer.image,
-            nick: nick ? nick : currentPerformer.nick,
-            music_genre: genre ? genre : currentPerformer.music_genre,
+            id: performer.id,
+            name: nameRef.current!.value ? nameRef.current!.value as string : performer.name,
+            surname: surnameRef.current!.value ? surnameRef.current!.value as string : performer.surname,
+            image: imageRef.current!.value ? imageRef.current!.value as string : performer.image,
+            nick: nickRef.current!.value ? nickRef.current!.value as string : performer.nick,
+            music_genre: genreRef.current!.value ? genreRef.current!.value as string : performer.music_genre,
         };
 
-        setCurrentPerformer(updatedPerformer);
-
-        axios
-            .put(`${apiUrl}/${currentPerformer.id}`, updatedPerformer, {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                console.log('Updated performer: ' + response.data);
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        performersContext.updatePerformer(updatedPerformer, updatedPerformer.id)
     }
 
     return (
@@ -86,9 +61,10 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
                                     type="text"
                                     id="addPerformerName"
                                     name="name"
-                                    onIonChange={(e) => setName(e.detail.value!)}
+                                    ref={nameRef}
+                                    // onIonChange={(e) => setName(e.detail.value!)}
                                     clearInput
-                                    value={currentPerformer.name}
+                                    value={performer.name}
                                 ></IonInput>
                             </IonItem>
                             <IonItem>
@@ -97,9 +73,10 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
                                     type="text"
                                     id="addPerformerSurname"
                                     name="surname"
-                                    onIonChange={(e) => setLastname(e.detail.value!)}
+                                    ref={surnameRef}
+                                    // onIonChange={(e) => setLastname(e.detail.value!)}
                                     clearInput
-                                    placeholder={currentPerformer.surname}
+                                    value={performer.surname}
                                 ></IonInput>
                             </IonItem>
 
@@ -109,9 +86,10 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
                                     type="text"
                                     id="addPerformerNickname"
                                     name="nickname"
-                                    onIonChange={(e) => setNick(e.detail.value!)}
+                                    ref={nickRef}
+                                    // onIonChange={(e) => setNick(e.detail.value!)}
                                     clearInput
-                                    placeholder={currentPerformer.nick}
+                                    value={performer.nick}
                                 ></IonInput>
                             </IonItem>
 
@@ -121,9 +99,10 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
                                     type="text"
                                     id="addMusicGenre"
                                     name="genre"
-                                    onIonChange={(e) => setGenre(e.detail.value!)}
+                                    ref={genreRef}
+                                    // onIonChange={(e) => setGenre(e.detail.value!)}
                                     clearInput
-                                    placeholder={currentPerformer.music_genre}
+                                    value={performer.music_genre}
                                 ></IonInput>
                             </IonItem>
 
@@ -133,9 +112,10 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
                                 <IonInput
                                     type="text"
                                     id="addPerformerImage"
-                                    onIonChange={(e) => setImage(e.detail.value!)}
+                                    ref={imageRef}
+                                    // onIonChange={(e) => setImage(e.detail.value!)}
                                     clearInput
-                                    placeholder={currentPerformer.image}
+                                    value={performer.image}
                                 ></IonInput>
                             </IonItem>
                             <IonButton

@@ -11,10 +11,11 @@ import {
     IonRow,
     IonToolbar,
 } from "@ionic/react";
-import React, {useRef} from "react";
+import React, {useRef, useState} from "react";
 import Stage from "../../../model/Stage";
 import {useStages} from "../../../store/StagesContext";
 import {useAuthentication} from "../../../store/AuthenticationContext";
+import {useHistory} from "react-router-dom";
 
 const UpdateStageForm: React.FC<{ stage: Stage }> = ({stage}) => {
 
