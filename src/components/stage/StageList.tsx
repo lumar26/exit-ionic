@@ -5,12 +5,14 @@ import {useAuthentication} from "../../store/AuthenticationContext";
 import AddStageModal from "./admin/AddStageModal";
 import {useStages} from "../../store/StagesContext";
 
-const StageList: React.FC<{
-}> = () => {
+const StageList: React.FC = () => {
     const authentication = useAuthentication();
     const stageContext = useStages();
 
-    if (!stageContext.stages || stageContext.stages.length < 1) stageContext.getAllStages();
+    useEffect(() => {
+        if (!stageContext.stages || stageContext.stages.length < 1)
+            stageContext.getAllStages();
+    }, [])
 
     return (
         <>
@@ -18,10 +20,9 @@ const StageList: React.FC<{
                 && authentication.authenticatedUser.role === 'admin'
                 && <AddStageModal/>}
             <IonList>
-                {stageContext.stages?.map(stage => <StageCard key={stage.id} stage={stage} />)}
+                {stageContext.stages?.map(stage => <StageCard key={stage.id} stage={stage}/>)}
             </IonList>
         </>
-
     );
 }
 export default StageList;
