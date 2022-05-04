@@ -3,37 +3,36 @@ import axios from "axios";
 import {useAuthentication} from "./AuthenticationContext";
 import Stage from "../model/Stage";
 
-const apiUrl = "http://localhost:8000/api/stages"
+const apiUrl = "http://localhost:8000/api/stages";
 
 type StagesContextType = {
     stages: Array<Stage>;
     selectedStage: Stage | null | undefined;
-    addStage: ((stage: Stage) => void);
-    deleteStage: ((stage: Stage) => void)
-    updateStage: ((stage: Stage, id: number) => void)
-    getAllStages: (() => void)
-    selectStage: ((stage: Stage) => void)
-}
+    addStage: (stage: Stage) => void;
+    deleteStage: (stage: Stage) => void;
+    updateStage: (stage: Stage, id: number) => void;
+    getAllStages: () => void;
+    selectStage: (stage: Stage) => void;
+};
 
 const StagesContext = createContext<StagesContextType>({
-        stages: [],
-        selectedStage: null,
-        addStage: () => {
-        },
-        updateStage: () => {
-        },
-        deleteStage: () => {
-        },
-        getAllStages: () => {
-        },
-        selectStage: () => {
-        }
-    }
-);
+    stages: [],
+    selectedStage: null,
+    addStage: () => {
+    },
+    updateStage: () => {
+    },
+    deleteStage: () => {
+    },
+    getAllStages: () => {
+    },
+    selectStage: () => {
+    },
+});
 
 export const useStages = () => {
-    return useContext(StagesContext)
-}
+    return useContext(StagesContext);
+};
 
 export const StagesProvider: React.FC = (props) => {
     const authentication = useAuthentication();
@@ -43,7 +42,7 @@ export const StagesProvider: React.FC = (props) => {
 
     const selectStage = (stage: Stage) => {
         setSelectedStage(stage);
-    }
+    };
 
     const getAllStages = () => {
         axios.get<Array<Stage>>(apiUrl)
@@ -62,51 +61,54 @@ export const StagesProvider: React.FC = (props) => {
         axios
             .post<Stage>(apiUrl, stage, {
                 headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
+                    Authorization:
+                        authentication.tokenType + " " + authentication.accessToken,
+                },
             })
             .then((response) => {
-                console.log('Stage saved; \n' + response.data);
-                stages!.push(response.data)
-                setStages(stages)
+                console.log("Stage saved; \n" + response.data);
+                stages!.push(response.data);
+                setStages(stages);
             })
             .catch((e) => {
                 console.log(e);
             });
-    }
+    };
 
     const updateStage = (stage: Stage, id: number) => {
         axios
             .put<Stage>(`${apiUrl}/${id}`, stage, {
                 headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
+                    Authorization:
+                        authentication.tokenType + " " + authentication.accessToken,
+                },
             })
             .then((response) => {
-                console.log('Updated stage: ' + response.data);
-                let oldStage = stages?.find(stage => stage.id === id)
+                console.log("Updated stage: " + response.data);
+                let oldStage = stages?.find((stage) => stage.id === id);
                 if (!oldStage) {
-                    stages?.push(response.data)
+                    stages?.push(response.data);
                 } else {
                     // updating fields manually
                 }
-                setStages(stages)
+                setStages(stages);
             })
             .catch((e) => {
                 console.log(e);
             });
-    }
+    };
 
     const deleteStage = (stage: Stage) => {
         axios
             .delete<Stage>(`${apiUrl}/${stage.id}`, {
                 headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
+                    Authorization:
+                        authentication.tokenType + " " + authentication.accessToken,
+                },
             })
             .then((response) => {
                 console.log(response.data);
-                setStages(stages?.filter(stage => stage.id !== response.data.id))
+                setStages(stages?.filter((stage) => stage.id !== response.data.id));
             })
             .catch((e) => {
                 console.log(e);
@@ -120,11 +122,12 @@ export const StagesProvider: React.FC = (props) => {
         addStage: addStage,
         deleteStage: deleteStage,
         updateStage: updateStage,
-        selectStage: selectStage
-    }
+        selectStage: selectStage,
+    };
 
-    return <StagesContext.Provider value={context}>
-        {props.children}
-    </StagesContext.Provider>
-}
-
+    return (
+        <StagesContext.Provider value={context}>
+            {props.children}
+        </StagesContext.Provider>
+    );
+};

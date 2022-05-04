@@ -370,3 +370,38 @@ margin-top: 20px;
   margin-top: 5px;
 }
 
+/**event card**/
+.stageCard .eventName {
+  display: block;
+  font-size: x-large;
+  font-weight: bolder;
+  text-transform: capitalize;
+  transition: all 0.3s ease 0s;
+}
+.stageCard .eventStart {
+  display: block;
+  font-size: large;
+  font-style: italic;
+  text-transform: capitalize;
+  transition: all 0.3s ease 0s;
+
+}
+.eventtabs {
+  color: #f7f5ec !important;
+  font-size: medium;
+  margin-left: -23px;
+  margin-top: 0px;
+}
+.HomePageTitle{
+  margin-top: 1em;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+.HomePageTitle:hover{
+ color: #ec0a0a;
+}
+.HomePageText{
+  margin-top: 3em;
+  margin-left: 1em;
+  margin-right: 1em;
+}
