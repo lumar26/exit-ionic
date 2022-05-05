@@ -8,8 +8,6 @@ interface Event {
     name: string;
     stage: Stage;
     performers: Array<Performer>;
-
-
 }
 
 export default Event;

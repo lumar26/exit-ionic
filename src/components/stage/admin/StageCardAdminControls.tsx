@@ -8,22 +8,16 @@ import UpdateStageForm from "./UpdateStageForm";
 const PerformerCardAdminControls: React.FC<{
     stage: Stage
 }> = ({stage}) => {
-
     const [showModalUpdate, setShowModalUpdate] = useState(false);
-
 
     const stagesContext = useStages();
 
-    const deleteStage = () => {
-        stagesContext.deleteStage(stage);
-        console.log('Deleting stage')
-    };
     return (
         <IonGrid>
             <IonRow>
                 <IonCol>
                     <IonButton
-                        onClick={deleteStage}
+                        onClick={() => stagesContext.deleteStage(stage)}
                         expand={"block"} color={'danger'}>
                         <IonIcon
                             icon={trash}

@@ -1,27 +1,27 @@
 import React, {useState} from "react";
 import {IonButton, IonCol, IonGrid, IonIcon, IonModal, IonRow} from "@ionic/react";
 import {create, trash} from "ionicons/icons";
-import Performer from "../../../model/Performer";
-import {usePerformers} from "../../../store/PerformersContext";
-import UpdatePerformerForm from "./UpdatePerformerForm";
+import {useEvents} from "../../../store/EventsContext";
+import Event from '../../../model/Event'
 
-const PerformerCardAdminControls: React.FC<{
-    performer: Performer
-}> = ({performer}) => {
+
+const EventCardAdminControls: React.FC<{
+    event: Event
+}> = ({event}) => {
 
     const [showModalUpdate, setShowModalUpdate] = useState(false);
 
-    const performersContext = usePerformers();
+    const eventsContext = useEvents();
 
-    const deletePerformer = () => {
-        performersContext.deletePerformer(performer);
+    const deleteEvent = () => {
+        eventsContext.deleteEvent(event);
     };
     return (
         <IonGrid>
             <IonRow>
                 <IonCol>
                     <IonButton
-                        onClick={deletePerformer}
+                        onClick={deleteEvent}
                         expand={"block"} color={'danger'}>
                         <IonIcon
                             icon={trash}
@@ -37,7 +37,7 @@ const PerformerCardAdminControls: React.FC<{
                     onIonModalDidDismiss={() => setShowModalUpdate(false)}
                     isOpen={showModalUpdate}
                 >
-                    <UpdatePerformerForm performer={performer}/>
+                    {/*<UpdatePerformerForm performer={event}/>*/}
                     <IonButton
                         color="grey"
                         size="default"
@@ -64,4 +64,4 @@ const PerformerCardAdminControls: React.FC<{
     );
 }
 
-export default PerformerCardAdminControls;
+export default EventCardAdminControls;

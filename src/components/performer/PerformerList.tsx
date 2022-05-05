@@ -4,15 +4,12 @@ import PerformerCard from "./PerformerCard";
 import {useAuthentication} from "../../store/AuthenticationContext";
 import AddPerformerModal from "./admin/AddPerformerModal";
 import {usePerformers} from "../../store/PerformersContext";
+import Performer from "../../model/Performer";
 
-const PerformersList: React.FC = () => {
+const PerformersList: React.FC<{
+    performers: Array<Performer>
+}> = ({performers}) => {
     const authentication = useAuthentication();
-    const performersContext = usePerformers();
-
-    useEffect(() => {
-        if (!performersContext.performers || performersContext.performers.length < 1)
-            performersContext.getAllPerformers();
-    }, [])
 
     return (
         <>
@@ -20,7 +17,7 @@ const PerformersList: React.FC = () => {
                 && authentication.authenticatedUser.role === 'admin'
                 && <AddPerformerModal/>}
             <IonList>
-                {performersContext.performers?.map(performer => <PerformerCard key={performer.id} performer={performer}/>)}
+                {performers?.map(performer => <PerformerCard key={performer.id} performer={performer}/>)}
             </IonList>
         </>
     );

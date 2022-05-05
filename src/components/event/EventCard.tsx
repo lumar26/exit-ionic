@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
   IonButton,
   IonCard,
@@ -13,14 +13,13 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import Event from "../../model/Event";
-import { locationOutline, peopleOutline } from "ionicons/icons";
+import {locationOutline, peopleOutline} from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
 
 const EventCard: React.FC<{
   event: Event;
 }> = ({ event }) => {
-  const date = new Date(event.start);
   const stage = event.stage;
   const performers = event.performers;
   const [showModalStage, setShowModalStage] = useState(false);
@@ -44,7 +43,7 @@ const EventCard: React.FC<{
         </IonCardContent>
         <IonRow className="social" color="red">
           <IonModal isOpen={showModalPerformers}>
-            <PerformerList performers={performers} />
+            <PerformerList performers={event.performers} />
             <IonButton
               color="grey"
               size="default"

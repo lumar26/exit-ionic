@@ -1,15 +1,13 @@
 import React from "react";
-import {IonImg} from "@ionic/react";
-import PerformerList from "../components/performer/PerformerList";
 import {PerformersProvider} from "../store/PerformersContext";
 import StandardPageWrapper from "./StandardPageWrapper";
+import PerformersPageContent from "../components/performer/PerformersPageContent";
 
 const PerformersPage: React.FC = () => {
     return (
         <PerformersProvider>
             <StandardPageWrapper>
-                <IonImg src={"/images/performers.jpeg"} className="img"></IonImg>
-                <PerformerList/>
+                <PerformersPageContent/>
             </StandardPageWrapper>
         </PerformersProvider>
     );

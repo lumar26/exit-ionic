@@ -16,12 +16,12 @@ import {
 } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import Performer from "../../model/Performer";
-import { useAuthentication } from "../../store/AuthenticationContext";
+import Performer from "../../../model/Performer";
+import { useAuthentication } from "../../../store/AuthenticationContext";
 import { useHistory } from "react-router";
-import Stage from "../../model/Stage";
-import { useStages } from "../../store/StagesContext";
-import { usePerformers } from "../../store/PerformersContext";
+import Stage from "../../../model/Stage";
+import { useStages } from "../../../store/StagesContext";
+import { usePerformers } from "../../../store/PerformersContext";
 
 const postEventUrl = "http://127.0.0.1:8000/api/events";
 
