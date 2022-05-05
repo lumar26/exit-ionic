@@ -16,6 +16,8 @@ import Event from "../../model/Event";
 import {locationOutline, peopleOutline} from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
+import {useAuthentication} from "../../store/AuthenticationContext";
+import EventCardAdminControls from "./admin/EventCardAdminControls";
 
 const EventCard: React.FC<{
   event: Event;
@@ -26,11 +28,13 @@ const EventCard: React.FC<{
   const [showModalPerformers, setShowModalPerformers] = useState(false);
   const [alert] = useIonAlert();
 
+  const authentication = useAuthentication();
+
   return (
     <>
       <IonCard className="stageCard">
+        <IonImg src={event.image} className="img"></IonImg>
         <IonCardHeader className="picture">
-          <IonImg src={event.image} className="img"></IonImg>
         </IonCardHeader>
         <IonCardContent className="stageContent">
           <br />
@@ -40,6 +44,11 @@ const EventCard: React.FC<{
           <IonLabel className="eventStart" color="grey">
             <b>Starts:</b> {event.start.substring(0, event.start.indexOf("T"))}
           </IonLabel>
+
+          {authentication.authenticatedUser
+          && authentication.authenticatedUser.role ==='admin'
+          && <EventCardAdminControls event={event}/>}
+
         </IonCardContent>
         <IonRow className="social" color="red">
           <IonModal isOpen={showModalPerformers}>
