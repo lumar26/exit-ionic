@@ -6,14 +6,14 @@ import {
   IonText,
   IonToolbar,
 } from "@ionic/react";
-import AddPerformer from "../AddPerformer";
+import AddPerformer from "./AddPerformer";
 import { addCircle, closeCircleOutline } from "ionicons/icons";
 
 const AddPerformerModal: React.FC = () => {
   const [showModalAdd, setShowModalAdd] = useState(false);
 
   return (
-    <IonToolbar color="ligh">
+    <IonToolbar color="light">
       <IonModal isOpen={showModalAdd}>
         <IonButton
           color="white"

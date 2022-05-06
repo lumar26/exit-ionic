@@ -13,6 +13,27 @@ type EventsContextType = {
     getAllEvents: () => void
 }
 
+type PostEventPayload = {
+    id: number;
+    image: string;
+    start: string;
+    name: string;
+    stage_id: number;
+    user_id: number
+}
+
+const toPostEventPayload = (event: Event) => {
+    let postEventPayload: PostEventPayload = {
+        id: event.id,
+        image: event.image,
+        start: event.start,
+        name: event.name,
+        stage_id: event.stage.id,
+        user_id: event.user_id,
+    }
+    return postEventPayload;
+}
+
 const EventsContext = createContext<EventsContextType>({
         events: [],
         addEvent: () => {
@@ -52,7 +73,7 @@ export const EventsProvider: React.FC = (props) => {
     const addEvent = (event: Event) => {
         console.log('addEvent: ' + event)
         axios
-            .post<Event>(apiUrl, event, {
+            .post<Event>(apiUrl, toPostEventPayload(event), {
                 headers: {
                     'Authorization': authentication.tokenType + " " + authentication.accessToken
                 }

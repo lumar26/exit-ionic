@@ -34,7 +34,7 @@ import {AuthenticationProvider} from "./store/AuthenticationContext";
 import {RequiredVisitorAuthentication} from "./authentication/RequireVisitorAuthentication";
 import AddStage from "./components/stage/admin/AddStage";
 import UpdatePerformerForm from "./components/performer/admin/UpdatePerformerForm";
-import AddEvent from "./components/event/admin/AddEvent";
+import AddEventCard from "./components/event/admin/AddEventCard";
 import {EventsProvider} from "./store/EventsContext";
 
 setupIonicReact();
@@ -60,7 +60,7 @@ const App: React.FC = () => (
                         </>
                     </RequiredVisitorAuthentication>
                     <Route exact path="/stages/add" component={AddStage}/>
-                    <Route exact path="/events/add" component={AddEvent}/>
+                    <Route exact path="/events/add" component={AddEventCard}/>
                     <Route exact path="/performers/:id" component={UpdatePerformerForm}/>
                 </IonRouterOutlet>
             </IonReactRouter>

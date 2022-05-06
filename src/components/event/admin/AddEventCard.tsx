@@ -3,7 +3,6 @@ import {
   IonCard,
   IonCardContent,
   IonCardTitle,
-  IonCheckbox,
   IonCol,
   IonGrid,
   IonInput,
@@ -14,37 +13,28 @@ import {
   IonSelectOption,
   IonToolbar,
 } from "@ionic/react";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Performer from "../../../model/Performer";
-import { useAuthentication } from "../../../store/AuthenticationContext";
-import { useHistory } from "react-router";
+import React, {useEffect, useRef, useState} from "react";
+import {useAuthentication} from "../../../store/AuthenticationContext";
 import Stage from "../../../model/Stage";
-import { useStages } from "../../../store/StagesContext";
-import { usePerformers } from "../../../store/PerformersContext";
+import Event from "../../../model/Event"
+import {useStages} from "../../../store/StagesContext";
+import {usePerformers} from "../../../store/PerformersContext";
+import {useEvents} from "../../../store/EventsContext";
 
-const postEventUrl = "http://127.0.0.1:8000/api/events";
 
-const AddEvent: React.FC<{}> = () => {
+const AddEventCard: React.FC = () => {
   const [name, setName] = useState<string>();
   const [start, setStart] = useState<string>();
   const [image, setImage] = useState<string>();
   const [stage, setStage] = useState<Stage>();
-  const [performers, setPerformers] = useState<Array<Performer>>();
-  const [checked, setChecked] = useState(false);
-
-  const checkboxList = [
-    { val: "Pepperoni", isChecked: true },
-    { val: "Sausage", isChecked: false },
-    { val: "Mushroom", isChecked: false },
-  ];
+  const performersRef = useRef<HTMLIonSelectElement>(null)
 
   const authentication = useAuthentication();
-  const history = useHistory();
 
   const stagesContext = useStages();
-  const performersContext = usePerformers();
 
+  const eventsContext = useEvents();
+  const performersContext = usePerformers();
   useEffect(() => {
     stagesContext.getAllStages();
     console.log(stagesContext.stages);
@@ -54,25 +44,20 @@ const AddEvent: React.FC<{}> = () => {
   }, []);
 
   function addEvent() {
-    console.log(authentication.authenticatedUser);
-    axios
-      .post<Event>(postEventUrl, {
-        image: image,
-        name: name,
-        start: start,
-        stage: stage,
-        performers: performers,
-
-        user_id:
+    let newEvent: Event = {
+      id: 0,
+      image: image!,
+      name: name!,
+      start: start!,
+      stage: stage!,
+      performers: performersRef.current!.value,
+      user_id:
           authentication.authenticatedUser?.id ||
           Math.floor(Math.random() * 10),
-      })
-      .then((response) => {
-        console.log(response.data);
-        alert("Event added: " + response.data);
-        history.push("/events");
-      })
-      .catch((error) => alert(error.message));
+    }
+    console.log('New event')
+    console.log(newEvent)
+    eventsContext.addEvent(newEvent);
   }
 
   return (
@@ -107,32 +92,34 @@ const AddEvent: React.FC<{}> = () => {
               </IonItem>
 
               <IonItem>
-                <IonLabel position="floating">Event stage:</IonLabel>
+                <IonLabel position="floating">Select stage for event</IonLabel>
                 <IonSelect
                   name="stage"
                   onIonChange={(e) => setStage(e.detail.value!)}
                 >
                   {stagesContext.stages &&
                     stagesContext.stages.map((stage, index) => (
-                      <IonSelectOption value={stage.id} key={index}>
+                      <IonSelectOption value={stage} key={index}>
                         {stage.name}
                       </IonSelectOption>
                     ))}
                 </IonSelect>
               </IonItem>
-
-              {checkboxList.map(({ val, isChecked }, i) => (
-                <IonItem key={i}>
-                  <IonLabel>{val}</IonLabel>
-                  <IonCheckbox
-                    color="grey"
-                    slot="end"
-                    value={val}
-                    checked={isChecked}
-                  />
-                </IonItem>
-              ))}
-
+              <IonItem>
+                <IonLabel position="floating">Select performer(s) for event</IonLabel>
+                <IonSelect
+                    name="performers"
+                    multiple
+                    ref={performersRef}
+                >
+                  {performersContext.performers &&
+                      performersContext.performers.map((performer, index) => (
+                          <IonSelectOption value={performer} key={index}>
+                            {performer.name}
+                          </IonSelectOption>
+                      ))}
+                </IonSelect>
+              </IonItem>
               <IonItem className="addPerformerImg">
                 <IonLabel position="floating">Event image:</IonLabel>
 
@@ -160,4 +147,4 @@ const AddEvent: React.FC<{}> = () => {
   );
 };
 
-export default AddEvent;
+export default AddEventCard;

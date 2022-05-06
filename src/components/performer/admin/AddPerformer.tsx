@@ -12,9 +12,9 @@ import {
     IonToolbar,
 } from "@ionic/react";
 import React, {useRef} from "react";
-import Performer from "../../model/Performer";
-import {useAuthentication} from "../../store/AuthenticationContext";
-import {usePerformers} from "../../store/PerformersContext";
+import Performer from "../../../model/Performer";
+import {useAuthentication} from "../../../store/AuthenticationContext";
+import {usePerformers} from "../../../store/PerformersContext";
 
 
 const AddPerformer: React.FC<{}> = () => {
