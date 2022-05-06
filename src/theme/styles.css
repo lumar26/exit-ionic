@@ -125,50 +125,33 @@
   transition: all 0.3s linear 0s;
 }
 
-.performerCard:hover .picture::before {
-  height: 80%;
-}
-
-.performerCard .picture::after {
-  content: "";
-  width: 100%;
-  height: 100%;
-  border-radius: 30%;
-  background-color: #ec0a0a;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: -1;
-}
 
 .performerCard .picture .img {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  transform: scale(3);
+  transform: scale(4);
   transition: all 0.9s ease 0s;
 }
 
-.performerCard:hover .picture .img {
-  box-shadow: 0 0 0 14px #f7f5ec;
-  transform: scale(1);
-}
+
 .performerCard:hover  .img {
   border-radius: 50%;
 }
 
-.performerCard .title {
+.performerCard .performerName {
   display: block;
-  font-size: 15px;
-  color: #4e5052;
+  font-size: xx-large;
+  font-weight: bolder;
   text-transform: capitalize;
+  transition: all 0.3s ease 0s;
 }
 
 .performerCard .social {
   width: 100%;
   padding: 0;
   margin: 0;
-  background-color: #ec0a0a;
+  background-color: #252525;
   position: absolute;
   bottom: -90px;
   left: 0;
@@ -178,8 +161,12 @@
 .performerCard:hover .social {
   bottom: 0;
 }
+.performerCard:hover .stageName {
+  font-size: x-large;
+  transition: all 0.5s ease 0s;
+}
 
-.performerCard .social .socialIcon{
+.performerCard .social .socialtem{
   display: inline-block;
 
 }
@@ -194,20 +181,26 @@
 .performerCard .social .socialIcon {
   display: block;
   padding: 10px;
-  font-size: 17px;
-  color: white;
+  font-size: medium;
+  color: #f7f5ec ;
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
 
-.performerCard .social .socialIcon:hover {
-  color: #252525;
-  background-color: #ec0a0a;
-}
+
+
 .performerContent{
   margin-top: -40px !important;
   margin-bottom: 20px;
 }
+.socialIcon{
+ height: 30px;
+ width: 30px;
+ margin-left: 20px;
+ margin-right: 20px;
+
+}
+
 .performerNick{
   font-size: x-large;
   font-weight: bolder;
@@ -274,7 +267,7 @@
   transition: all 0.3s ease 0s;
 }
 
-.stageCard .social {
+.stageCard .socialStage {
   width: 100%;
   padding: 0;
   margin: 0;
@@ -285,7 +278,7 @@
   transition: all 0.5s ease 0s;
 }
 
-.stageCard:hover .social {
+.stageCard:hover .socialStage {
   bottom: 0;
 }
 .stageCard:hover .stageName {
@@ -293,19 +286,19 @@
   transition: all 0.5s ease 0s;
 }
 
-.stageCard .social .socialtem{
+.stageCard .socialStage .socialtem{
   display: inline-block;
 
 }
-.socialIcon{
+.IconStage{
  height: 30px;
  width: 30px;
- margin-left: 20px;
+ margin-left: 0px;
  margin-right: 20px;
 
 }
 
-.stageCard .social .socialIcon {
+.stageCard .socialStage .IconStage {
   display: block;
   padding: 10px;
  margin-left: 5px;
@@ -320,6 +313,13 @@
   margin-left: -20px;
   margin-top: 15px;
 }
+.stagetabsLocation{
+  margin-left: -30px;
+  color: white;
+  margin-top: 12px;
+  width: 90px;
+}
+
 
 
 .stageContent{
@@ -404,4 +404,12 @@ margin-top: 20px;
   margin-top: 3em;
   margin-left: 1em;
   margin-right: 1em;
+}
+.buttonCloseModal{
+  width: 20%;
+ margin-left: 15em;
+}
+#eventFooter{
+margin-left: 1em;
+align-items: center;
 }

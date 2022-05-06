@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import {
   IonButton,
   IonCard,
@@ -13,7 +13,11 @@ import {
   useIonAlert,
 } from "@ionic/react";
 import Event from "../../model/Event";
-import {locationOutline, peopleOutline} from "ionicons/icons";
+import {
+  closeCircleOutline,
+  locationOutline,
+  peopleOutline,
+} from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
 import {useAuthentication} from "../../store/AuthenticationContext";
@@ -50,18 +54,20 @@ const EventCard: React.FC<{
           && <EventCardAdminControls event={event}/>}
 
         </IonCardContent>
-        <IonRow className="social" color="red">
+        <IonRow className="social" color="red" id="eventFooter">
           <IonModal isOpen={showModalPerformers}>
-            <PerformerList performers={event.performers} />
             <IonButton
-              color="grey"
-              size="default"
+              color="white"
+              size="large"
+              className="buttonCloseModal"
+              slot="end"
               onClick={() => {
                 setShowModalPerformers(false);
               }}
             >
-              Close
+              <IonIcon icon={closeCircleOutline} slot="end" color="grey" />
             </IonButton>
+            <PerformerList performers={event.performers} />
           </IonModal>
           <IonButton
             onClick={() => {
@@ -86,16 +92,17 @@ const EventCard: React.FC<{
           </IonButton>
 
           <IonModal isOpen={showModalStage}>
-            <StageCard stage={stage} />
             <IonButton
-              color="grey"
-              size="default"
+              color="white"
+              size="large"
+              className="buttonCloseModal"
               onClick={() => {
                 setShowModalStage(false);
               }}
             >
-              Close
+              <IonIcon icon={closeCircleOutline} slot="end" color="grey" />
             </IonButton>
+            <StageCard stage={stage} />
           </IonModal>
           <IonButton onClick={() => setShowModalStage(true)} color="grey">
             <IonIcon icon={locationOutline} className="iconMenu"></IonIcon>
