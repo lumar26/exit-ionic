@@ -3,6 +3,7 @@ import {IonButton, IonCol, IonGrid, IonIcon, IonModal, IonRow} from "@ionic/reac
 import {create, trash} from "ionicons/icons";
 import {useEvents} from "../../../store/EventsContext";
 import Event from '../../../model/Event'
+import UpdateEventCard from "./UpdateEventCard";
 
 
 const EventCardAdminControls: React.FC<{
@@ -37,7 +38,7 @@ const EventCardAdminControls: React.FC<{
                     onIonModalDidDismiss={() => setShowModalUpdate(false)}
                     isOpen={showModalUpdate}
                 >
-                    {/*<UpdatePerformerForm performer={event}/>*/}
+                    <UpdateEventCard event={event}/>
                     <IonButton
                         color="grey"
                         size="default"

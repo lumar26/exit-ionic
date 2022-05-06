@@ -89,7 +89,7 @@ export const EventsProvider: React.FC = (props) => {
 
     const updateEvent = (event: Event, id: number) => {
         axios
-            .put<Event>(`${apiUrl}/${id}`, event, {
+            .put<Event>(`${apiUrl}/${id}`, toPostEventPayload(event), {
                 headers: {
                     'Authorization': authentication.tokenType + " " + authentication.accessToken
                 }
@@ -101,7 +101,6 @@ export const EventsProvider: React.FC = (props) => {
                     events?.push(response.data)
                 } else {
                     // updating fields manually
-
                 }
                 setEvents(events)
             })
