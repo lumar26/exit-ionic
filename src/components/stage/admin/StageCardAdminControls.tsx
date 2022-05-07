@@ -21,7 +21,6 @@ const PerformerCardAdminControls: React.FC<{
 
   return (
     <IonGrid>
-      <IonRow>
         <IonCol>
           <IonButton
             onClick={() => stagesContext.deleteStage(stage)}
@@ -32,7 +31,6 @@ const PerformerCardAdminControls: React.FC<{
             Delete
           </IonButton>
         </IonCol>
-      </IonRow>
       <IonRow>
         <IonModal
           onIonModalDidDismiss={() => setShowModalUpdate(false)}

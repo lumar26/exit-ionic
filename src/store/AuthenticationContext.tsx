@@ -39,9 +39,9 @@ export const AuthenticationProvider: React.FC = (props) => {
         setUser(user.user);
         setToken(user.accessToken);
         setTokenType(user.tokenType);
-        localStorage.setItem('currentUser', JSON.stringify(user.user));
-        localStorage.setItem('currentToken', user.accessToken);
-        localStorage.setItem('currentTokenType', user.tokenType);
+        sessionStorage.setItem('currentUser', JSON.stringify(user.user));
+        sessionStorage.setItem('currentToken', user.accessToken);
+        sessionStorage.setItem('currentTokenType', user.tokenType);
     }
 
     const logoutUser = (user: UserAuthenticationResponse) => {
@@ -49,9 +49,9 @@ export const AuthenticationProvider: React.FC = (props) => {
         setUser(null);
         setToken("");
         setTokenType("");
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('currentToken');
-        localStorage.removeItem('currentTokenType');
+        sessionStorage.removeItem('currentUser');
+        sessionStorage.removeItem('currentToken');
+        sessionStorage.removeItem('currentTokenType');
 
     }
     const context: AuthenticationContextType = {
