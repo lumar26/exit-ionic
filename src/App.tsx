@@ -28,14 +28,13 @@ import "./theme/variables.css";
 import "./theme/styles.css";
 import React from "react";
 import StagesPage from "./pages/StagesPage";
-import EventsPage from "./pages/EventsPage";
+import EventsPage from "./pages/event/EventsPage";
 import PerformersPage from "./pages/PerformersPage";
 import {AuthenticationProvider} from "./store/AuthenticationContext";
 import {RequiredVisitorAuthentication} from "./authentication/RequireVisitorAuthentication";
 import AddStage from "./components/stage/admin/AddStage";
 import UpdatePerformerForm from "./components/performer/admin/UpdatePerformerForm";
-import AddEventCard from "./components/event/admin/AddEventCard";
-import {EventsProvider} from "./store/EventsContext";
+import AddEventPage from "./pages/event/AddEventPage";
 
 setupIonicReact();
 
@@ -60,8 +59,8 @@ const App: React.FC = () => (
                         </>
                     </RequiredVisitorAuthentication>
                     <Route exact path="/stages/add" component={AddStage}/>
-                    <Route exact path="/events/add" component={AddEventCard}/>
-                    <Route exact path="/performers/:id" component={UpdatePerformerForm}/>
+                    <Route exact path="/events/add" component={AddEventPage}/>
+                    <Route exact path="/performers/update/:id" component={UpdatePerformerForm}/>
                 </IonRouterOutlet>
             </IonReactRouter>
         </AuthenticationProvider>

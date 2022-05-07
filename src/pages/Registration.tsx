@@ -10,11 +10,11 @@ import {
     IonPage,
     IonRouterLink,
 } from "@ionic/react";
-import React, {useContext, useState} from "react";
+import React, {useState} from "react";
 import NavBar from "../components/navigation/NavBar";
 import User from "../model/User";
 import axios from 'axios';
-import AuthenticationContext, {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
+import {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
 import {useHistory} from "react-router";
 
 const defaultRole = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor

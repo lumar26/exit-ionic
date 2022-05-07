@@ -14,7 +14,9 @@ const AddStageModal: React.FC = () => {
 
   return (
     <IonToolbar>
-      <IonModal isOpen={showModalAdd}>
+      <IonModal
+          onDidDismiss={() => setShowModalAdd(false)}
+          isOpen={showModalAdd}>
         <IonButton
           color="white"
           size="large"
@@ -29,7 +31,6 @@ const AddStageModal: React.FC = () => {
       </IonModal>
       <IonButton
         onClick={() => setShowModalAdd(true)}
-        slot="end"
         color="grey"
         expand={"block"}
       >

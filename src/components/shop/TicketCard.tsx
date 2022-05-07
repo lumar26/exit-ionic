@@ -1,17 +1,4 @@
-import {
-  IonButton,
-  IonCard,
-  IonCardHeader,
-  IonCol,
-  IonGrid,
-  IonImg,
-  IonLabel,
-  IonModal,
-  IonRow,
-  IonText,
-  IonTitle,
-} from "@ionic/react";
-import { useState } from "react";
+import {IonButton, IonCard, IonCol, IonGrid, IonImg, IonLabel, IonRow, IonTitle,} from "@ionic/react";
 import Ticket from "../../model/Ticket";
 
 const TicketCard: React.FC<{ ticket: Ticket }> = (ticket) => {

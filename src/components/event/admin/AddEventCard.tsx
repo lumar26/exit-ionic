@@ -1,7 +1,7 @@
 import {
   IonButton,
   IonCard,
-  IonCardContent,
+  IonCardContent, IonCardHeader,
   IonCardTitle,
   IonCol,
   IonGrid,
@@ -20,6 +20,7 @@ import Event from "../../../model/Event"
 import {useStages} from "../../../store/StagesContext";
 import {usePerformers} from "../../../store/PerformersContext";
 import {useEvents} from "../../../store/EventsContext";
+import {useHistory} from "react-router-dom";
 
 
 const AddEventCard: React.FC = () => {
@@ -30,11 +31,12 @@ const AddEventCard: React.FC = () => {
   const performersRef = useRef<HTMLIonSelectElement>(null)
 
   const authentication = useAuthentication();
-
   const stagesContext = useStages();
-
   const eventsContext = useEvents();
   const performersContext = usePerformers();
+
+  const history = useHistory();
+
   useEffect(() => {
     stagesContext.getAllStages();
     console.log(stagesContext.stages);
@@ -58,13 +60,17 @@ const AddEventCard: React.FC = () => {
     console.log('New event')
     console.log(newEvent)
     eventsContext.addEvent(newEvent);
+
+    history.goBack(); // return to events page
   }
 
   return (
     <IonCard>
-      <IonCardTitle className="addPerformerTitle">
-        <IonToolbar color="grey">Add event</IonToolbar>
-      </IonCardTitle>
+      <IonCardHeader color={'grey'}>
+        <IonCardTitle className="ion-text-center">
+          Add event
+        </IonCardTitle>
+      </IonCardHeader>
 
       <IonCardContent>
         <IonGrid>
@@ -131,13 +137,22 @@ const AddEventCard: React.FC = () => {
                 ></IonInput>
               </IonItem>
               <IonButton
-                expand="full"
+                expand="block"
                 type="submit"
                 onClick={addEvent}
                 color="grey"
-                className="addPerformerCard"
+                className="ion-margin-top"
               >
                 Add event
+              </IonButton>
+              <IonButton
+                  expand="block"
+                  type="submit"
+                  onClick={() => history.goBack()}
+                  color="grey"
+                  className="addPerformerCard"
+              >
+                Cancel
               </IonButton>
             </IonCol>
           </IonRow>

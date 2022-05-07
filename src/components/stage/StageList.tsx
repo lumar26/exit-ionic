@@ -2,12 +2,11 @@ import React, {useEffect} from "react";
 import {IonList} from "@ionic/react";
 import StageCard from "./StageCard";
 import {useAuthentication} from "../../store/AuthenticationContext";
-import AddStageModal from "./admin/AddStageModal";
 import {useStages} from "../../store/StagesContext";
 import Stage from "../../model/Stage";
 
-const StageList: React.FC <{
-    stages : Stage[]
+const StageList: React.FC<{
+    stages: Stage[]
 }> = ({stages}) => {
     const authentication = useAuthentication();
     const stageContext = useStages();
@@ -18,14 +17,9 @@ const StageList: React.FC <{
     }, [])
 
     return (
-        <>
-            {authentication.authenticatedUser
-                && authentication.authenticatedUser.role === 'admin'
-                && <AddStageModal/>}
-            <IonList>
-                {stages?.map(stage => <StageCard key={stage.id} stage={stage}/>)}
-            </IonList>
-        </>
+        <IonList>
+            {stages?.map(stage => <StageCard key={stage.id} stage={stage}/>)}
+        </IonList>
     );
 }
 export default StageList;

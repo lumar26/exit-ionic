@@ -9,17 +9,10 @@ import Performer from "../../model/Performer";
 const PerformersList: React.FC<{
     performers: Array<Performer>
 }> = ({performers}) => {
-    const authentication = useAuthentication();
-
     return (
-        <>
-            {authentication.authenticatedUser
-                && authentication.authenticatedUser.role === 'admin'
-                && <AddPerformerModal/>}
-            <IonList>
-                {performers?.map(performer => <PerformerCard key={performer.id} performer={performer}/>)}
-            </IonList>
-        </>
+        <IonList>
+            {performers?.map(performer => <PerformerCard key={performer.id} performer={performer}/>)}
+        </IonList>
     );
 }
 export default PerformersList;

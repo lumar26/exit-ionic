@@ -3,7 +3,6 @@ interface Ticket{
     title: string;
     img: string;
     price: number;
-   
 }
 
 export default Ticket;

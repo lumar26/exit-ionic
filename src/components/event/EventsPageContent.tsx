@@ -3,7 +3,7 @@ import {IonImg} from "@ionic/react";
 import EventList from "./EventList";
 import React, {useEffect} from "react";
 import {useAuthentication} from "../../store/AuthenticationContext";
-import AddEventModal from "./admin/AddEventModal";
+import AddEventButton from "./admin/AddEventButton";
 
 const EventsPageContent = () => {
     const eventsContext = useEvents();
@@ -17,7 +17,7 @@ const EventsPageContent = () => {
             <IonImg src={"/images/events.jpeg"} className="img"></IonImg>
             {authentication.authenticatedUser
                 && authentication.authenticatedUser.role === 'admin'
-                && <AddEventModal/>}
+                && <AddEventButton/>}
             <EventList events={eventsContext.events} />
         </>
 

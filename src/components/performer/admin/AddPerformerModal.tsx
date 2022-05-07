@@ -14,23 +14,22 @@ const AddPerformerModal: React.FC = () => {
 
   return (
     <IonToolbar color="light">
-      <IonModal isOpen={showModalAdd}>
+      <IonModal
+          onDidDismiss={() => setShowModalAdd(false)}
+          isOpen={showModalAdd}>
         <IonButton
           color="white"
           size="large"
           className="buttonCloseModal"
           slot="end"
-          onClick={() => {
-            setShowModalAdd(false);
-          }}
+          onClick={() => setShowModalAdd(false)}
         >
-          <IonIcon icon={closeCircleOutline} slot="end" color="grey" />
+          <IonIcon icon={closeCircleOutline} color="grey" size={'large'}/>
         </IonButton>
         <AddPerformer />
       </IonModal>
       <IonButton
         onClick={() => setShowModalAdd(true)}
-        slot="end"
         color="grey"
         expand={"block"}
       >

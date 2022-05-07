@@ -9,7 +9,7 @@ export const AccountPopover: React.FC = () => {
         <>
             <IonPopover
                 isOpen={showPopover}
-                onDidDismiss={e => setShowPopover(false)}
+                onDidDismiss={() => setShowPopover(false)}
             >
                 <IonList>
                     <IonListHeader>Account</IonListHeader>
@@ -25,7 +25,6 @@ export const AccountPopover: React.FC = () => {
             </IonPopover>
             <IonButton color={"light"} onClick={() => setShowPopover(true)}>
                 <IonIcon icon={personCircleOutline}/>
-                {/*<b>Account</b>*/}
             </IonButton>
         </>
     );
