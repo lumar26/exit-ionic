@@ -14,10 +14,10 @@ const EventsPageContent = () => {
     }, []);
     return (
         <>
+            <IonImg src={"/images/events.jpeg"} className="img"></IonImg>
             {authentication.authenticatedUser
                 && authentication.authenticatedUser.role === 'admin'
                 && <AddEventModal/>}
-            <IonImg src={"/images/events.jpeg"} className="img"></IonImg>
             <EventList events={eventsContext.events} />
         </>
 

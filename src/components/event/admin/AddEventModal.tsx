@@ -25,7 +25,6 @@ const AddEventModal = () => {
             </IonModal>
             <IonButton
                 onClick={() => setShowModalAdd(true)}
-                slot="end"
                 color="grey"
                 expand={'block'}
             >
