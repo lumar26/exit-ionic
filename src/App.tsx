@@ -61,6 +61,7 @@ const App: React.FC = () => (
                     <Route exact path="/stages/add" component={AddStage}/>
                     <Route exact path="/events/add" component={AddEventPage}/>
                     <Route exact path="/performers/update/:id" component={UpdatePerformerForm}/>
+                    <Route exact path="/events/update/:id" component={UpdatePerformerForm}/>
                 </IonRouterOutlet>
             </IonReactRouter>
         </AuthenticationProvider>

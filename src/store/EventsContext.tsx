@@ -1,9 +1,7 @@
 import React, {createContext, useContext, useState} from "react";
-import axios from "axios";
 import {useAuthentication} from "./AuthenticationContext";
 import Event from "../model/Event";
-
-const apiUrl = "http://localhost:8000/api/events"
+import {addEventApi, deleteEventApi, getAllEventsApi, getEventByIdApi, updateEventApi} from "../api/eventsApi";
 
 type EventsContextType = {
     events: Array<Event>;
@@ -11,28 +9,9 @@ type EventsContextType = {
     deleteEvent: ((event: Event) => void)
     updateEvent: ((event: Event, id: number) => void)
     getAllEvents: () => void
+    getEventById: (id: number, authorizationHeader: string) => void
 }
 
-type PostEventPayload = {
-    id: number;
-    image: string;
-    start: string;
-    name: string;
-    stage_id: number;
-    user_id: number
-}
-
-const toPostEventPayload = (event: Event) => {
-    let postEventPayload: PostEventPayload = {
-        id: event.id,
-        image: event.image,
-        start: event.start,
-        name: event.name,
-        stage_id: event.stage.id,
-        user_id: event.user_id,
-    }
-    return postEventPayload;
-}
 
 const EventsContext = createContext<EventsContextType>({
         events: [],
@@ -42,7 +21,10 @@ const EventsContext = createContext<EventsContextType>({
         },
         deleteEvent: () => {
         },
-        getAllEvents: () => {},
+        getAllEvents: () => {
+        },
+        getEventById: () => {
+        }
     }
 );
 
@@ -52,77 +34,60 @@ export const useEvents = () => {
 
 export const EventsProvider: React.FC = (props) => {
     const authentication = useAuthentication();
+    const authorizationHeader = authentication.tokenType + " " + authentication.accessToken
 
     const [events, setEvents] = useState<Array<Event>>();
 
     const getAllEvents = () => {
-        console.log('Getting all events in eventsCtx')
-
-        axios.get<Array<Event>>(apiUrl)
-            .then((response) => {
-                console.log('Recieved events from server: ')
-                console.log(response.data)
-                setEvents(response.data);
-            })
-            .catch(error => {
-                console.log(error);
-                setEvents([])
-            });
+        getAllEventsApi().then(retrievedEvents =>{
+            if (!retrievedEvents){
+                console.log("Could not retrieve all events")
+                setEvents([]);
+                return;
+            }
+            console.log("retrieved events in context")
+            console.log(retrievedEvents)
+            setEvents(retrievedEvents)
+        })
     };
 
     const addEvent = (event: Event) => {
-        console.log('addEvent: ' + event)
-        axios
-            .post<Event>(apiUrl, toPostEventPayload(event), {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                events!.push(response.data)
-                setEvents(events)
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        addEventApi(event, authorizationHeader).then(added => {
+            if (!added) {
+                console.log("Failed to add new member with name: " + event.name)
+                return;
+            }
+            events!.push(added)
+            setEvents(events)
+        })
     }
 
     const updateEvent = (event: Event, id: number) => {
-        axios
-            .put<Event>(`${apiUrl}/${id}`, toPostEventPayload(event), {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                console.log('Updated event: ' + response.data);
-                let oldEvent = events?.find(event => event.id === id)
-                if (!oldEvent) {
-                    events?.push(response.data)
-                } else {
-                    // updating fields manually
-                }
-                setEvents(events)
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+
+        updateEventApi(event, id, authorizationHeader).then(updated => {
+            if (!updated) {
+                console.log("Failed to update member with id: " + event.id)
+                return;
+            } // handle if update did not work
+
+            let oldEvent = events?.find(event => event.id === id)
+            if (!oldEvent) {
+                events?.push(updated)
+            } else {
+                // updating fields manually
+                //    izgleda da ne mora uopste
+            }
+            setEvents(events)
+        })
+
     }
 
     const deleteEvent = (event: Event) => {
-        axios
-            .delete<Event>(`${apiUrl}/${event.id}`, {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
+        deleteEventApi(event, authorizationHeader)
+            .then(deleted => {
+                if (deleted)
+                    setEvents(events?.filter(event => event.id !== deleted.id))
             })
-            .then((response) => {
-                console.log(response.data);
-                setEvents(events?.filter(event => event.id !== response.data.id))
-            })
-            .catch((e) => {
-                console.log(e);
-            });
     };
 
     const context: EventsContextType = {
@@ -131,6 +96,7 @@ export const EventsProvider: React.FC = (props) => {
         addEvent: addEvent,
         deleteEvent: deleteEvent,
         updateEvent: updateEvent,
+        getEventById: getEventByIdApi
     }
 
     return <EventsContext.Provider value={context}>
