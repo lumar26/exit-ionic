@@ -39,7 +39,7 @@ const AddStage: React.FC<{}> = () => {
         sponsor: sponsor,
         image: image,
         user_id:
-          authentication.authenticatedUser?.id ||
+          authentication.userId ||
           Math.floor(Math.random() * 10),
       })
       .then((response) => {

@@ -1,9 +1,7 @@
 import Performer from "../model/Performer";
 import React, {createContext, useContext, useState} from "react";
-import axios from "axios";
 import {useAuthentication} from "./AuthenticationContext";
-
-const apiUrl = "http://localhost:8000/api/performers"
+import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerformerApi} from "../api/performersApi";
 
 type PerformersContextType = {
     performers: Array<Performer>;
@@ -24,7 +22,8 @@ const PerformersContext = createContext<PerformersContextType>({
         },
         deletePerformer: () => {
         },
-        getAllPerformers: () => {},
+        getAllPerformers: () => {
+        },
         selectPerformer: () => {
         }
     }
@@ -37,6 +36,12 @@ export const usePerformers = () => {
 export const PerformersProvider: React.FC = (props) => {
     const authentication = useAuthentication();
 
+    const requestConfig: any = {
+        headers: {
+            'Authorization': authentication.accessToken as string
+        }
+    }
+
     const [performers, setPerformers] = useState<Array<Performer>>();
     const [selectedPerformer, setSelectedPerformer] = useState<Performer | null>();
 
@@ -45,78 +50,46 @@ export const PerformersProvider: React.FC = (props) => {
     }
 
     const getAllPerformers = () => {
-        axios.get<Array<Performer>>(apiUrl)
-            .then((response) => {
-                setPerformers(response.data);
-            })
+        getAllPerformersApi(requestConfig)
+            .then(performers => setPerformers(performers))
             .catch(error => {
-                console.log(error);
-                setPerformers([])
-            });
-        if (!performers) {
-            console.log('No performer retrieved after getAllPerformers');
-            setPerformers([]);
-        }
+                console.log(error)
+                setPerformers([]);
+            })
     };
 
     const addPerformer = (performer: Performer) => {
-        console.log('addPerformer: ' + performer)
-        axios
-            .post<Performer>(apiUrl, performer, {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                performers!.push(response.data)
+        addPerformerApi(performer, requestConfig)
+            .then(addedPerformer => {
+                performers!.push(addedPerformer)
                 setPerformers(performers)
             })
-            .catch((e) => {
-                console.log(e);
-            });
+            .catch(error => console.log(error));
     }
 
     const updatePerformer = (performer: Performer, id: number) => {
-        axios
-            .put<Performer>(`${apiUrl}/${id}`, performer, {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                console.log('Updated performer: ' + response.data);
+
+        updatePerformerApi(performer, id, requestConfig)
+            .then(updatedPerformer => {
                 let oldPerformer = performers?.find(performer => performer.id === id)
                 if (!oldPerformer) {
-                    performers?.push(response.data)
+                    performers?.push(updatedPerformer)
                 } else {
                     // updating fields manually
-                    oldPerformer.name = response.data.name;
-                    oldPerformer.nick = response.data.nick;
-                    oldPerformer.surname = response.data.surname;
-                    oldPerformer.music_genre = response.data.music_genre;
-                    oldPerformer.image = response.data.image;
+                    oldPerformer.name = updatedPerformer.name;
+                    oldPerformer.nick = updatedPerformer.nick;
+                    oldPerformer.surname = updatedPerformer.surname;
+                    oldPerformer.music_genre = updatedPerformer.music_genre;
+                    oldPerformer.image = updatedPerformer.image;
                 }
                 setPerformers(performers)
             })
-            .catch((e) => {
-                console.log(e);
-            });
+            .catch(error => console.log(error));
     }
 
     const deletePerformer = (performer: Performer) => {
-        axios
-            .delete<Performer>(`${apiUrl}/${performer.id}`, {
-                headers: {
-                    'Authorization': authentication.tokenType + " " + authentication.accessToken
-                }
-            })
-            .then((response) => {
-                console.log(response.data);
-                setPerformers(performers?.filter(performer => performer.id !== response.data.id))
-            })
-            .catch((e) => {
-                console.log(e);
-            });
+        deletePerformerApi(performer, requestConfig)
+            .then(deletedPerformer => setPerformers(performers?.filter(performer => performer.id !== deletedPerformer.id)))
     };
 
     const context: PerformersContextType = {

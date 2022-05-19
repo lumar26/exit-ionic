@@ -36,7 +36,7 @@ const PerformerCard: React.FC<{
         <IonLabel>Genre: {performer.music_genre}</IonLabel>
 
         {authentication.authenticatedUser &&
-          authentication.authenticatedUser.role === "admin" && (
+          authentication.role === "ROLE_ADMIN" && (
             <PerformerCardAdminControls performer={performer} />
           )}
       </IonCardContent>

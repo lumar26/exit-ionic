@@ -1,11 +1,10 @@
 import React, {createContext, useContext, useState} from "react";
-import User from "../model/User";
 
 const AuthenticationContext = createContext<AuthenticationContextType>({
-    // loggedUser: undefined,
+    userId: 0,
     authenticatedUser: null,
     accessToken: "",
-    tokenType: "",
+    role: "",
     login: (user: UserAuthenticationResponse) => {
     },
     logout: (user: UserAuthenticationResponse) => {
@@ -17,47 +16,56 @@ export const useAuthentication = () => {
 }
 
 type AuthenticationContextType = {
-    authenticatedUser: User | null;
+    userId: number | null;
+    authenticatedUser: string | null;
     accessToken: string | null;
-    tokenType: string | null;
+    role: string | null;
     login: (user: UserAuthenticationResponse) => void;
     logout: (user: UserAuthenticationResponse) => void;
 }
 
 export type UserAuthenticationResponse = {
-    user: User;
-    accessToken: string;
-    tokenType: string;
+    username: string;
+    jwt: string;
+    role: string;
+    userId: number;
 }
 
 export const AuthenticationProvider: React.FC = (props) => {
-    const [user, setUser] = useState<User | null>(JSON.parse(localStorage.getItem('currentUser')!));
-    const [token, setToken] = useState<string | null>(localStorage.getItem('currentToken'));
-    const [tokenType, setTokenType] = useState<string | null>(localStorage.getItem('currentTokenType'));
+    const [username, setUsername] = useState<string | null>(sessionStorage.getItem('currentUser'));
+    const [token, setToken] = useState<string | null>(sessionStorage.getItem('currentToken'));
+    const [role, setRole] = useState<string | null>(sessionStorage.getItem('currentRole'))
+    const [userId, setUserId] = useState<number | null>(+sessionStorage.getItem('currentUserId')!)
 
-    const loginUser = (user: UserAuthenticationResponse) => {
-        setUser(user.user);
-        setToken(user.accessToken);
-        setTokenType(user.tokenType);
-        sessionStorage.setItem('currentUser', JSON.stringify(user.user));
-        sessionStorage.setItem('currentToken', user.accessToken);
-        sessionStorage.setItem('currentTokenType', user.tokenType);
+    const loginUser = (authResponse: UserAuthenticationResponse) => {
+        console.log("login performing")
+        console.log(authResponse)
+        setUsername(authResponse.username);
+        setToken("Bearer " + authResponse.jwt);
+        setRole(authResponse.role)
+        setUserId(authResponse.userId)
+        sessionStorage.setItem('currentUser', authResponse.username);
+        sessionStorage.setItem('currentToken', "Bearer " + authResponse.jwt);
+        sessionStorage.setItem('currentRole', authResponse.role);
+        sessionStorage.setItem('currentUserId', authResponse.userId.toString());
     }
 
     const logoutUser = (user: UserAuthenticationResponse) => {
         // check user
-        setUser(null);
+        setUsername("");
         setToken("");
-        setTokenType("");
+        setRole("");
+        setUserId(0)
         sessionStorage.removeItem('currentUser');
         sessionStorage.removeItem('currentToken');
-        sessionStorage.removeItem('currentTokenType');
-
+        sessionStorage.removeItem('currentUserRole');
+        sessionStorage.removeItem('currentUserId');
     }
     const context: AuthenticationContextType = {
-        authenticatedUser: user,
+        userId: +userId!,
+        authenticatedUser: username,
         accessToken: token,
-        tokenType: tokenType,
+        role: role,
         login: loginUser,
         logout: logoutUser
     }

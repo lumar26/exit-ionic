@@ -36,7 +36,7 @@ const UpdateStageForm: React.FC<{ stage: Stage }> = ({stage}) => {
             capacity: capacityRef.current!.value! as number,
             sponsor: sponsorRef.current!.value! as string,
             image: imageRef.current!.value! as string,
-            user_id: auth.authenticatedUser!.id!
+            user_id: auth.userId!
         }
 
         console.log(newStageValue)

@@ -5,13 +5,14 @@ import {
     IonCardTitle,
     IonCol,
     IonGrid,
+    IonHeader,
     IonInput,
     IonItem,
     IonLabel,
     IonRow,
     IonSelect,
     IonSelectOption,
-    IonToolbar,
+    IonTitle,
 } from "@ionic/react";
 import React, {useEffect, useRef, useState} from "react";
 import {useAuthentication} from "../../../store/AuthenticationContext";
@@ -20,6 +21,7 @@ import Event from "../../../model/Event"
 import {useStages} from "../../../store/StagesContext";
 import {usePerformers} from "../../../store/PerformersContext";
 import {useEvents} from "../../../store/EventsContext";
+import {useHistory} from "react-router-dom";
 
 const UpdateEventCard: React.FC<{
     event: Event
@@ -28,7 +30,6 @@ const UpdateEventCard: React.FC<{
     const nameRef = useRef<HTMLIonInputElement>(null)
     const startRef = useRef<HTMLIonInputElement>(null)
     const imageRef = useRef<HTMLIonInputElement>(null)
-    // const stageRef = useRef<HTMLIonInputElement>(null)
     const performersRef = useRef<HTMLIonSelectElement>(null)
 
     const authentication = useAuthentication();
@@ -36,12 +37,11 @@ const UpdateEventCard: React.FC<{
     const eventsContext = useEvents();
     const performersContext = usePerformers();
 
+    const history = useHistory();
+
     useEffect(() => {
         stagesContext.getAllStages();
-        console.log(stagesContext.stages);
-
         performersContext.getAllPerformers();
-        console.log(performersContext.performers);
     }, []);
 
     function updateEvent() {
@@ -53,18 +53,23 @@ const UpdateEventCard: React.FC<{
             stage: stage ? stage : event.stage,
             performers: performersRef.current?.value,
             user_id:
-                authentication.authenticatedUser?.id ||
+                authentication.userId ||
                 Math.floor(Math.random() * 10),
         }
-        console.log('Updated event')
-        console.log(newEvent)
         eventsContext.updateEvent(newEvent, event.id);
+        history.push("/events")
     }
 
+    const cancelUpdate = () => history.goBack();
     return (
         <IonCard>
             <IonCardTitle className="addPerformerTitle">
-                <IonToolbar color="grey">Add event</IonToolbar>
+                {/*<IonHeader><IonTitle>Update event</IonTitle></IonHeader>*/}
+                <IonHeader className={"ion-text-center ion-margin-bottom"}>
+                    <IonTitle>
+                        Updating event: <b>{event.name}</b>
+                    </IonTitle>
+                </IonHeader>
             </IonCardTitle>
 
             <IonCardContent>
@@ -93,7 +98,6 @@ const UpdateEventCard: React.FC<{
                                     clearInput
                                 ></IonInput>
                             </IonItem>
-
                             <IonItem>
                                 <IonLabel position="floating">Select stage for event</IonLabel>
                                 <IonSelect
@@ -117,7 +121,7 @@ const UpdateEventCard: React.FC<{
                                 >
                                     {performersContext.performers &&
                                         performersContext.performers.map((performer, index) => (
-                                            <IonSelectOption value={performer} key={index}>
+                                            <IonSelectOption value={performer.id} key={index}>
                                                 {performer.name}
                                             </IonSelectOption>
                                         ))}
@@ -125,7 +129,6 @@ const UpdateEventCard: React.FC<{
                             </IonItem>
                             <IonItem className="addPerformerImg">
                                 <IonLabel position="floating">Event image:</IonLabel>
-
                                 <IonInput
                                     type="text"
                                     id="addPerformerImage"
@@ -142,6 +145,15 @@ const UpdateEventCard: React.FC<{
                                 className="addPerformerCard"
                             >
                                 Update event
+                            </IonButton>
+
+                            <IonButton
+                                expand="full"
+                                type="submit"
+                                onClick={cancelUpdate}
+                                color="grey"
+                            >
+                                Cancel
                             </IonButton>
                         </IonCol>
                     </IonRow>

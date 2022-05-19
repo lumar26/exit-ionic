@@ -43,7 +43,7 @@ const UpdatePerformerForm: React.FC<{ performer: Performer }> = ({performer}) =>
             image: imageRef.current!.value ? imageRef.current!.value as string : performer.image,
             nick: nickRef.current!.value ? nickRef.current!.value as string : performer.nick,
             music_genre: genreRef.current!.value ? genreRef.current!.value as string : performer.music_genre,
-            user_id: authentication.authenticatedUser?.id ||
+            user_id: authentication.userId ||
                 Math.floor(Math.random() * 10),
         };
 

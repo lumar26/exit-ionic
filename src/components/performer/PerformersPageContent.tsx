@@ -17,7 +17,7 @@ const PerformersPageContent = () => {
         <>
             <IonImg src={"/images/performers.jpeg"} className="img"></IonImg>
             {authentication.authenticatedUser
-                && authentication.authenticatedUser.role === 'admin'
+                && authentication.role === 'ROLE_ADMIN'
                 && <AddPerformerModal/>}
             <PerformerList performers={performersContext.performers}/>
         </>

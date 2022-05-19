@@ -2,6 +2,8 @@ import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import Event from "../model/Event";
 import {addEventApi, deleteEventApi, getAllEventsApi, getEventByIdApi, updateEventApi} from "../api/eventsApi";
+import {StagesProvider} from "./StagesContext";
+import {PerformersProvider} from "./PerformersContext";
 
 type EventsContextType = {
     events: Array<Event>;
@@ -34,27 +36,34 @@ export const useEvents = () => {
 
 export const EventsProvider: React.FC = (props) => {
     const authentication = useAuthentication();
-    const authorizationHeader = authentication.tokenType + " " + authentication.accessToken
+    const requestConfig : any = {
+        headers: {
+            'Authorization': authentication.accessToken as string
+        }
+    }
 
     const [events, setEvents] = useState<Array<Event>>();
 
     const getAllEvents = () => {
-        getAllEventsApi().then(retrievedEvents =>{
-            if (!retrievedEvents){
-                console.log("Could not retrieve all events")
+        getAllEventsApi(requestConfig)
+            .then(retrievedEvents => {
+                if (!retrievedEvents) {
+                    console.log("Could not retrieve all events")
+                    setEvents([]);
+                    return;
+                }
+                setEvents(retrievedEvents)
+            })
+            .catch(error => {
+                console.log(error)
                 setEvents([]);
-                return;
-            }
-            console.log("retrieved events in context")
-            console.log(retrievedEvents)
-            setEvents(retrievedEvents)
-        })
+            })
     };
 
     const addEvent = (event: Event) => {
-        addEventApi(event, authorizationHeader).then(added => {
+        addEventApi(event, requestConfig).then(added => {
             if (!added) {
-                console.log("Failed to add new member with name: " + event.name)
+                console.log("Failed to add new event with name: " + event.name)
                 return;
             }
             events!.push(added)
@@ -64,7 +73,7 @@ export const EventsProvider: React.FC = (props) => {
 
     const updateEvent = (event: Event, id: number) => {
 
-        updateEventApi(event, id, authorizationHeader).then(updated => {
+        updateEventApi(event, id, requestConfig).then(updated => {
             if (!updated) {
                 console.log("Failed to update member with id: " + event.id)
                 return;
@@ -83,7 +92,7 @@ export const EventsProvider: React.FC = (props) => {
     }
 
     const deleteEvent = (event: Event) => {
-        deleteEventApi(event, authorizationHeader)
+        deleteEventApi(event, requestConfig)
             .then(deleted => {
                 if (deleted)
                     setEvents(events?.filter(event => event.id !== deleted.id))
@@ -100,7 +109,11 @@ export const EventsProvider: React.FC = (props) => {
     }
 
     return <EventsContext.Provider value={context}>
-        {props.children}
+        <StagesProvider>
+            <PerformersProvider>
+                {props.children}
+            </PerformersProvider>
+        </StagesProvider>
     </EventsContext.Provider>
 }
 

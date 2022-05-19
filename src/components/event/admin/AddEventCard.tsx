@@ -1,7 +1,8 @@
 import {
   IonButton,
   IonCard,
-  IonCardContent, IonCardHeader,
+  IonCardContent,
+  IonCardHeader,
   IonCardTitle,
   IonCol,
   IonGrid,
@@ -11,7 +12,6 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
-  IonToolbar,
 } from "@ionic/react";
 import React, {useEffect, useRef, useState} from "react";
 import {useAuthentication} from "../../../store/AuthenticationContext";
@@ -54,7 +54,7 @@ const AddEventCard: React.FC = () => {
       stage: stage!,
       performers: performersRef.current!.value,
       user_id:
-          authentication.authenticatedUser?.id ||
+          authentication.userId ||
           Math.floor(Math.random() * 10),
     }
     console.log('New event')

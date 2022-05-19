@@ -9,7 +9,7 @@ export const RequiredVisitorAuthentication: React.FC<{
   const auth = useAuthentication();
   const location = useLocation();
 
-  if (!auth.authenticatedUser || auth.authenticatedUser.role !== "visitor")
+  if (!auth.authenticatedUser || auth.role !== "ROLE_USER")
     return (
       <Redirect
         to={{

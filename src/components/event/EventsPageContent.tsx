@@ -12,11 +12,12 @@ const EventsPageContent = () => {
     useEffect(() => {
         eventsContext.getAllEvents();
     }, []);
+
     return (
         <>
             <IonImg src={"/images/events.jpeg"} className="img"></IonImg>
             {authentication.authenticatedUser
-                && authentication.authenticatedUser.role === 'admin'
+                && authentication.role === 'ROLE_ADMIN'
                 && <AddEventButton/>}
             <EventList events={eventsContext.events} />
         </>

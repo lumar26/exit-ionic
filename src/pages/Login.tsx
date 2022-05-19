@@ -21,7 +21,7 @@ import {
 } from "../store/AuthenticationContext";
 import { useHistory, useLocation } from "react-router-dom";
 
-const loginUrl = "http://127.0.0.1:8000/api/login";
+const loginUrl = "http://localhost:8080/auth/login";
 
 const Login: React.FC = () => {
   const [username, setUsername] = useState<string>();
@@ -36,14 +36,13 @@ const Login: React.FC = () => {
 
     axios
       .post<UserAuthenticationResponse>(loginUrl, {
-        email: username,
+        username: username,
         password: password,
       })
       .then((response) => context.login(response.data))
       .then(() => {
         //        redirect to home page or to previous page
         console.log("Going back after login");
-        // history.replace(location)
         history.push("/home");
       })
       .catch((error) => console.log(error));

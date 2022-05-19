@@ -35,7 +35,7 @@ const AddPerformer: React.FC<{}> = () => {
             nick: nickRef.current!.value! as string,
             music_genre: genreRef.current!.value! as string,
             image: imageRef.current!.value! as string,
-            user_id: authentication.authenticatedUser!.id!
+            user_id: authentication.userId!
         }
         console.log(newPerformer)
         performersContext.addPerformer(newPerformer);

@@ -30,7 +30,7 @@ const StageCard: React.FC<{
           </IonLabel>
 
           {authentication.authenticatedUser &&
-            authentication.authenticatedUser.role === "admin" && (
+            authentication.role === "ROLE_ADMIN" && (
               <StageCardAdminControls stage={stage} />
             )}
         </IonCardContent>

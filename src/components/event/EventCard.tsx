@@ -50,7 +50,7 @@ const EventCard: React.FC<{
           </IonLabel>
 
           {authentication.authenticatedUser
-          && authentication.authenticatedUser.role ==='admin'
+          && authentication.role ==='ROLE_ADMIN'
           && <EventCardAdminControls event={event}/>}
 
         </IonCardContent>

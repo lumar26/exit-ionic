@@ -1,5 +1,3 @@
-import User from "./User";
-
 interface Stage {
     id: number;
     name: string;
