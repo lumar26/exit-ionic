@@ -11,7 +11,7 @@ import {
     IonRow,
     IonToolbar,
 } from "@ionic/react";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import Performer from "../../../model/Performer";
 import {usePerformers} from "../../../store/PerformersContext";
 import {useAuthentication} from "../../../store/AuthenticationContext";

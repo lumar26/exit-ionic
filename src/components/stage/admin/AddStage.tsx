@@ -16,38 +16,34 @@ import axios from "axios";
 import Stage from "../../../model/Stage";
 import { useAuthentication } from "../../../store/AuthenticationContext";
 import { useHistory } from "react-router";
-
-const postStageUrl = "http://127.0.0.1:8000/api/stages";
+import {useStages} from "../../../store/StagesContext";
 
 const AddStage: React.FC<{}> = () => {
-  const [name, setName] = useState<string>();
-  const [location, setLocation] = useState<string>();
-  const [capacity, setCapacity] = useState<number>();
-  const [sponsor, setSponsor] = useState<string>();
-  const [image, setImage] = useState<string>();
+  const [name, setName] = useState<string>("");
+  const [location, setLocation] = useState<string>("");
+  const [capacity, setCapacity] = useState<number>(0);
+  const [sponsor, setSponsor] = useState<string>("");
+  const [image, setImage] = useState<string>("");
 
   const authentication = useAuthentication();
   const history = useHistory();
+  const stagesContext = useStages();
 
   function addStage() {
-    console.log(authentication.authenticatedUser);
-    axios
-      .post<Stage>(postStageUrl, {
-        name: name,
-        location: location,
-        capacity: capacity,
-        sponsor: sponsor,
-        image: image,
-        user_id:
-          authentication.userId ||
-          Math.floor(Math.random() * 10),
-      })
-      .then((response) => {
-        console.log(response.data);
-        alert("Stage added: " + response.data.name);
-        history.push("/stages");
-      })
-      .catch((error) => alert(error.message));
+    let newStage : Stage = {
+      id:0,
+      name: name,
+      location: location,
+      capacity: capacity,
+      sponsor: sponsor,
+      image: image,
+      user_id: authentication.userId!,
+    }
+
+    stagesContext.addStage(newStage)
+
+    history.push("/stages");
+
   }
 
   return (

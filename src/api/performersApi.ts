@@ -25,8 +25,15 @@ export const getAllPerformersApi = (requestConfig: any) => {
 };
 
 export const addPerformerApi = (performer: Performer, requestConfig: any) => {
+    const {name, surname, nick, music_genre, image, user_id} = performer;
+    const payload: any = {
+        name, surname, nick, genre: music_genre, image,
+        user: {
+            id: user_id
+        }
+    }
     return axios
-        .post<Performer>(apiUrl, performer, requestConfig)
+        .post<Performer>(apiUrl, payload, requestConfig)
         .then((response) => {
             if (response.status !== 200)
                 throw new Error("Could not add new performer: " + response.data);
@@ -38,8 +45,15 @@ export const addPerformerApi = (performer: Performer, requestConfig: any) => {
 }
 
 export const updatePerformerApi = (performer: Performer, id: number, requestConfig: any) => {
+    const {name, surname, nick, music_genre, image, user_id} = performer;
+    const payload: any = {
+        name, surname, nick, genre: music_genre, image,
+        user: {
+            id: user_id
+        }
+    }
     return axios
-        .put<Performer>(`${apiUrl}/${id}`, performer, requestConfig)
+        .put<Performer>(`${apiUrl}/${id}`, payload, requestConfig)
         .then((response) => {
             if (response.status !== 200)
                 throw new Error("Could not update performer: " + performer.name);
