@@ -14,10 +14,8 @@ export const getEventByIdApi = (id: number, requestConfig: any) => {
 }
 
 export const getAllEventsApi = (requestConfig: any) => {
-    console.log("Getting all events api")
     return axios.get<Array<Event>>(apiUrl, requestConfig)
         .then((response) => {
-            console.log(response.data)
             return response.data;
         })
         .catch(error => {
@@ -26,7 +24,6 @@ export const getAllEventsApi = (requestConfig: any) => {
 };
 
 export const addEventApi = (event: Event, requestConfig: any) => {
-    console.log('addEvent: ' + event)
     return axios
         .post<Event>(apiUrl, toPostEventPayload(event), requestConfig)
         .then((response) => {
@@ -40,8 +37,6 @@ export const addEventApi = (event: Event, requestConfig: any) => {
 }
 
 export const updateEventApi = (event: Event, id: number, requestConfig: any) => {
-    console.log("Updating event in api")
-    console.log(event)
     return axios
         .put<Event>(`${apiUrl}/${id}`, toPostEventPayload(event), requestConfig)
         .then((response) => {
@@ -81,7 +76,7 @@ const toPostEventPayload = (event: Event) => {
         name: event.name,
         stageId: event.stage?.id,
         userId: event.user_id,
-        performersIds: event.performers.map(performer => performer.id)
+        performersIds: event.performers?.map(performer => performer.id)
     }
     return postEventPayload;
 }

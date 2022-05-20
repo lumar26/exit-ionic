@@ -53,12 +53,9 @@ const AddEventCard: React.FC = () => {
       start: start!,
       stage: stage!,
       performers: performersRef.current!.value,
-      user_id:
-          authentication.userId ||
-          Math.floor(Math.random() * 10),
+      user_id: authentication.userId!
     }
-    console.log('New event')
-    console.log(newEvent)
+
     eventsContext.addEvent(newEvent);
 
     history.goBack(); // return to events page

@@ -4,19 +4,19 @@ import Stage from "../model/Stage";
 const apiUrl = "http://localhost:8080/api/stages"
 
 export const getStageByIdApi = (id: number, requestConfig: any) => {
-    return axios.get<Stage>(`${apiUrl}/${id}`, requestConfig).then(response => {
-        if (response.status !== 200)
-            throw new Error("Could not fetch stage with id: " + id);
-        return response.data
-    }).catch(error => {
-        throw error;
-    })
+    return axios.get<Stage>(`${apiUrl}/${id}`, requestConfig)
+        .then(response => {
+            if (response.status !== 200)
+                throw new Error("Could not fetch stage with id: " + id);
+            return response.data
+        }).catch(error => {
+            throw error;
+        })
 }
 
 export const getAllStagesApi = (requestConfig: any) => {
     return axios.get<Array<Stage>>(apiUrl, requestConfig)
         .then((response) => {
-            console.log(response.data)
             return response.data;
         })
         .catch(error => {

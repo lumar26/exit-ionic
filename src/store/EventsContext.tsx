@@ -4,6 +4,7 @@ import Event from "../model/Event";
 import {addEventApi, deleteEventApi, getAllEventsApi, getEventByIdApi, updateEventApi} from "../api/eventsApi";
 import {StagesProvider} from "./StagesContext";
 import {PerformersProvider} from "./PerformersContext";
+import {getAllPerformersByEventApi} from "../api/performersApi";
 
 type EventsContextType = {
     events: Array<Event>;
@@ -36,7 +37,7 @@ export const useEvents = () => {
 
 export const EventsProvider: React.FC = (props) => {
     const authentication = useAuthentication();
-    const requestConfig : any = {
+    const requestConfig: any = {
         headers: {
             'Authorization': authentication.accessToken as string
         }
@@ -47,11 +48,13 @@ export const EventsProvider: React.FC = (props) => {
     const getAllEvents = () => {
         getAllEventsApi(requestConfig)
             .then(retrievedEvents => {
-                if (!retrievedEvents) {
-                    console.log("Could not retrieve all events")
-                    setEvents([]);
-                    return;
-                }
+                //setting performers for event since another separate request is needed for that
+                retrievedEvents.forEach(event => {
+                    getAllPerformersByEventApi(event, requestConfig)
+                        .then(performers => {
+                            event.performers = performers;
+                        })
+                })
                 setEvents(retrievedEvents)
             })
             .catch(error => {
@@ -75,7 +78,7 @@ export const EventsProvider: React.FC = (props) => {
 
         updateEventApi(event, id, requestConfig).then(updated => {
             if (!updated) {
-                console.log("Failed to update member with id: " + event.id)
+                console.log("Failed to update event with id: " + event.id)
                 return;
             } // handle if update did not work
 

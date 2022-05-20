@@ -1,5 +1,6 @@
 import axios from "axios";
 import Performer from "../model/Performer";
+import Event from "../model/Event";
 
 const apiUrl = "http://localhost:8080/api/performers"
 
@@ -17,6 +18,18 @@ export const getAllPerformersApi = (requestConfig: any) => {
     return axios.get<Array<Performer>>(apiUrl, requestConfig)
         .then((response) => {
             console.log(response.data)
+            return response.data;
+        })
+        .catch(error => {
+            throw error;
+        });
+};
+
+export const getAllPerformersByEventApi = (event: Event, requestConfig: any) => {
+    return axios.get<Array<Performer>>(`${apiUrl}/event/${event.id}`, requestConfig)
+        .then((response) => {
+            if (response.status !== 200)
+                throw new Error("Could not fetch performers of event: " + event.name);
             return response.data;
         })
         .catch(error => {
@@ -76,4 +89,6 @@ export const deletePerformerApi = (performer: Performer, requestConfig: any) => 
             throw error;
         });
 };
+
+
 
