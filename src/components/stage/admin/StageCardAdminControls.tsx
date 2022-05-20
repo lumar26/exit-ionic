@@ -18,21 +18,19 @@ const PerformerCardAdminControls: React.FC<{
   const [showModalUpdate, setShowModalUpdate] = useState(false);
 
   const stagesContext = useStages();
+  const deleteStage = () => {
+    stagesContext.deleteStage(stage);
+  };
 
   return (
     <IonGrid>
-      <IonRow>
-        <IonCol>
-          <IonButton
-            onClick={() => stagesContext.deleteStage(stage)}
-            expand={"block"}
-            color={"danger"}
-          >
-            <IonIcon icon={trash} className="tableIcon" size="medium" />
-            Delete
-          </IonButton>
-        </IonCol>
-      </IonRow>
+      <IonCol>
+        <IonButton onClick={deleteStage} expand={"block"} color={"danger"}>
+          <IonIcon icon={trash} className="tableIcon" size="medium" />
+          Delete
+        </IonButton>
+      </IonCol>
+
       <IonRow>
         <IonModal
           onIonModalDidDismiss={() => setShowModalUpdate(false)}

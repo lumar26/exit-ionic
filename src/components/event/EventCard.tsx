@@ -20,7 +20,7 @@ import {
 } from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
-import {useAuthentication} from "../../store/AuthenticationContext";
+import { useAuthentication } from "../../store/AuthenticationContext";
 import EventCardAdminControls from "./admin/EventCardAdminControls";
 
 const EventCard: React.FC<{
@@ -38,8 +38,7 @@ const EventCard: React.FC<{
     <>
       <IonCard className="stageCard">
         <IonImg src={event.image} className="img"></IonImg>
-        <IonCardHeader className="picture">
-        </IonCardHeader>
+        <IonCardHeader className="picture"></IonCardHeader>
         <IonCardContent className="stageContent">
           <br />
           <IonLabel className="eventName" color="grey">
@@ -49,10 +48,10 @@ const EventCard: React.FC<{
             <b>Starts:</b> {event.start.substring(0, event.start.indexOf("T"))}
           </IonLabel>
 
-          {authentication.authenticatedUser
-          && authentication.authenticatedUser.role ==='admin'
-          && <EventCardAdminControls event={event}/>}
-
+          {authentication.authenticatedUser &&
+            authentication.authenticatedUser.role === "admin" && (
+              <EventCardAdminControls event={event} />
+            )}
         </IonCardContent>
         <IonRow className="social" color="red" id="eventFooter">
           <IonModal isOpen={showModalPerformers}>
@@ -60,7 +59,6 @@ const EventCard: React.FC<{
               color="white"
               size="large"
               className="buttonCloseModal"
-              slot="end"
               onClick={() => {
                 setShowModalPerformers(false);
               }}

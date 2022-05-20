@@ -405,9 +405,10 @@ margin-top: 20px;
   margin-left: 1em;
   margin-right: 1em;
 }
-.buttonCloseModal{
+.buttonCloseModal {
   width: 20%;
  margin-left: 15em;
+align-items: flex-end; 
 }
 #eventFooter{
 margin-left: 1em;
