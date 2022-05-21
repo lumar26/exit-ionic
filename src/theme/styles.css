@@ -13,6 +13,7 @@
     padding: 4px;
     margin-right: 19px;
     margin-top: 5px;
+    padding-right: 0.5em;
 }
 .iconMenuArrow{
     height: 23px;
@@ -74,8 +75,8 @@
     margin-bottom: 100px;
 }
 #ticketTitle{
-    margin-left: -20px;
-    width: 130%;
+    margin-left: -8em;
+    width: 230%;
 }
 .accordionGroup{
     margin-left: 20px;
@@ -89,6 +90,9 @@
 #ticketPrice{
     font-size: 15px;
     font-weight: bolder;
+}
+#ticketStage{
+  margin-top: -1em;
 }
 
 /**Performer card**/
@@ -402,14 +406,200 @@ margin-top: 20px;
 }
 .HomePageText{
   margin-top: 3em;
-  margin-left: 1em;
-  margin-right: 1em;
 }
 .buttonCloseModal{
-  width: 20%;
- margin-left: 15em;
+  height: 20%;
 }
 #eventFooter{
 margin-left: 1em;
 align-items: center;
+}
+
+.contentFooter{
+  text-align: center;
+ 
+  padding: 20px 0;
+  
+}
+.titleFooter{
+color: rgba(184, 184, 184, 0.993);
+font-weight:bold;
+margin-bottom: 2em;
+letter-spacing: 1px;
+text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 700;
+    line-height: 1.4;
+    margin: 0;
+    color: #9a9a9a;
+    
+
+}
+ .contentFooter .footerImg{
+max-width: 70px;
+}
+.footerRowLogos{
+  padding: 1em;
+  padding-left: 2.5em;
+  margin-left: auto;
+    margin-right: auto;
+    
+      float: none;
+}
+.contentFooter .footerSocial{
+  margin-top: -1em;
+  max-width: 60px;
+  column-gap: 2em;
+}
+.socialIconFooter{
+  display: block;
+  padding: 10px;
+  font-size: larger;
+  color: #f7f5ec ;
+  transition: all 0.3s ease 0s;
+  text-decoration: none;
+}
+.footerlinkPages #link{
+  font-weight:bold;
+  margin-bottom: 2em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin: 0;
+      color: #dadada; 
+}
+.footerlinkPages{
+  padding-top: 1em;;
+}
+.footer-logo {
+  width: 200px;
+  
+  
+}
+.contentFooter .copyright {
+  font-family: helveticaw_,Arial,Helvetica,sans-serif;
+  text-align: center;
+  color: gray;
+  font-size: 14px;
+  width: 70%;
+  margin: 0 auto;
+  line-height: 1.55;
+}
+.contentFooter .copyright a {
+  color: gray;
+  border-bottom: 2px solid gray;
+  text-decoration: none;
+}
+#footer{
+position:relative;
+ min-width: 100%;
+  margin-top: 3em;
+ text-align: center;
+}
+
+/***COMMENTS SECTION***/
+.commentsHeader{
+  margin-bottom: 50px !important;
+  border: 1px solid #edeff2;
+  border-radius: 2px;
+}
+
+.comments-title {
+  font-size: 20px;
+  color: #262626;
+  margin-top: 15px;
+  margin-left: 8px;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+.commentUser {
+  width: 30px;
+  height: 30px;
+  float: left;
+  margin-bottom: 15px;
+}
+
+.commentContent{
+  margin-left: 20px;
+}
+
+.commentContent .commentInfo{
+  display: inline-block;
+  margin-top: -2em;
+  margin-bottom: 15px;
+}
+
+.commentName {
+  
+  font-size: 20px;
+  font-family: 'Conv_helveticaneuecyr-bold';
+}
+
+.commentUser{
+  padding-top: 10px;
+}
+
+.commentTime {
+  text-align: right;
+  font-size: 11px;
+  color: #b4b7c1;
+}
+#timeIconComm{
+  width: 20px;
+  height: 20px;
+}
+
+.commentText {
+  font-size: 13px;
+  line-height: 18px;
+  color: #474646;
+  display: block;
+  background: #f6f6f7;
+  border: 1px solid #edeff2;
+  padding: 15px 10px 10px 20px;
+}
+.commentCard{
+  padding-top: -1em;
+}
+.addComment .addCommentInput {
+  font-size: 13px;
+  line-height: 50px;
+  font-weight: 400;
+  color: #b4b7c1;
+  width: 100%;
+  height: 50px;
+  padding-left: 20px;
+  padding-right: 20px;
+  border: 1px solid #edeff2;
+  border-radius: 3px;
+}
+
+#addToCartBtn{
+  padding-left: 15px;
+ margin-top: -1em;
+}
+
+
+.addComment .addCommentInput {
+  height: 200px;
+  font-size: large;
+  color: #252525;
+}
+.comments{
+  overflow-y: scroll; 
+  max-height:85%;  
+   margin-bottom:50px;
+   
+}
+.commentRate{
+  display: flex;
+   align-items:center;
+   min-height: 10vh;
+   font-size: 20px;
+}
+#stars{
+  cursor: pointer;
 }
