@@ -25,7 +25,7 @@ export const getAllTicketsApi = (requestConfig: any) => {
 
 export const addTicketApi = (ticket: Ticket, requestConfig: any) => {
     return axios
-        .post<Ticket>(apiUrl, (ticket), requestConfig)
+        .post<Ticket>(apiUrl, toPayload(ticket), requestConfig)
         .then((response) => {
             if (response.status !== 200)
                 throw new Error("Could not add new ticket: " + response.data);
@@ -34,6 +34,19 @@ export const addTicketApi = (ticket: Ticket, requestConfig: any) => {
         .catch((e) => {
             console.log(e);
         });
+}
+
+const toPayload = (t: Ticket)  => {
+    return {
+        title: t.title,
+        image: t.image,
+        price: t.price,
+        description: t.description,
+        purchaseDate: t.purchaseDate,
+        discount: t.discount,
+        stageId: t.stage ? t.stage.id : 1, // bad practice, but will do for now
+        userId: t.owner?.id
+    }
 }
 
 

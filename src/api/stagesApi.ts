@@ -1,5 +1,6 @@
 import axios from "axios";
 import Stage from "../model/Stage";
+import Ticket from "../model/Ticket";
 
 const apiUrl = "http://localhost:8080/api/stages"
 
@@ -26,7 +27,7 @@ export const getAllStagesApi = (requestConfig: any) => {
 
 export const addStageApi = (stage: Stage, requestConfig: any) => {
     return axios
-        .post<Stage>(apiUrl, stage, requestConfig)
+        .post<Stage>(apiUrl, toPayload(stage), requestConfig)
         .then((response) => {
             if (response.status !== 200)
                 throw new Error("Could not add new stage: " + response.data);
@@ -39,7 +40,7 @@ export const addStageApi = (stage: Stage, requestConfig: any) => {
 
 export const updateStageApi = (stage: Stage, id: number, requestConfig: any) => {
     return axios
-        .put<Stage>(`${apiUrl}/${id}`, stage, requestConfig)
+        .put<Stage>(`${apiUrl}/${id}`, toPayload(stage), requestConfig)
         .then((response) => {
             if (response.status !== 200)
                 throw new Error("Could not update stage: " + stage.name);
@@ -62,4 +63,18 @@ export const deleteStageApi = (stage: Stage, requestConfig: any) => {
             throw error;
         });
 };
+
+const toPayload = (s: Stage) => {
+    return {
+        id:0,
+        name: s.name,
+        location: s.location,
+        capacity: s.capacity,
+        sponsor: s.sponsor,
+        image: s.image,
+        user:{
+            id: s.user_id
+        }
+    }
+}
 

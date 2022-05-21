@@ -7,7 +7,7 @@ import Ticket from "../../model/Ticket";
 const CartCard: React.FC = () => {
     const ticketsContext = useTickets();
     function removeFromCart(ticket: Ticket) {
-        ticketsContext.tickets.splice(ticketsContext.tickets.indexOf(ticket), 1);
+        ticketsContext.removeFromCart(ticket);
     }
     function getTotal() {
         let i;
@@ -28,9 +28,8 @@ const CartCard: React.FC = () => {
             <IonCardContent>
                 <IonList>
                     {ticketsContext.tickets &&
-                        ticketsContext.tickets?.map((ticket) => (
-                            <>
-                                <IonItem>
+                        ticketsContext.tickets.map((ticket) => (
+                                <IonItem key={ticket.id}>
                                     {ticket.title}
                                     <IonButton onClick={() => removeFromCart(ticket)}>
                                         <IonIcon
@@ -40,7 +39,6 @@ const CartCard: React.FC = () => {
                                         ></IonIcon>
                                     </IonButton>
                                 </IonItem>
-                            </>
                         ))}
                 </IonList>
             </IonCardContent>

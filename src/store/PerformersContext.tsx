@@ -2,6 +2,7 @@ import Performer from "../model/Performer";
 import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerformerApi} from "../api/performersApi";
+import Event from "../model/Event";
 
 type PerformersContextType = {
     performers: Array<Performer>;
@@ -61,8 +62,7 @@ export const PerformersProvider: React.FC = (props) => {
     const addPerformer = (performer: Performer) => {
         addPerformerApi(performer, requestConfig)
             .then(addedPerformer => {
-                performers!.push(addedPerformer)
-                setPerformers(performers)
+                setPerformers(performers!.concat(addedPerformer))
             })
             .catch(error => console.log(error));
     }
@@ -73,7 +73,7 @@ export const PerformersProvider: React.FC = (props) => {
             .then(updatedPerformer => {
                 let oldPerformer = performers?.find(performer => performer.id === id)
                 if (!oldPerformer) {
-                    performers?.push(updatedPerformer)
+                    setPerformers(performers!.concat(updatedPerformer))
                 } else {
                     // updating fields manually
                     oldPerformer.name = updatedPerformer.name;
@@ -82,7 +82,6 @@ export const PerformersProvider: React.FC = (props) => {
                     oldPerformer.music_genre = updatedPerformer.music_genre;
                     oldPerformer.image = updatedPerformer.image;
                 }
-                setPerformers(performers)
             })
             .catch(error => console.log(error));
     }

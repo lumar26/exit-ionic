@@ -1,4 +1,5 @@
 import Stage from "./Stage";
+import User from "./User";
 
 interface Ticket {
     id: number;
@@ -9,6 +10,7 @@ interface Ticket {
     purchaseDate: Date;
     discount: number;
     stage: Stage | undefined;
+    owner: User | undefined
 }
 
 export default Ticket;

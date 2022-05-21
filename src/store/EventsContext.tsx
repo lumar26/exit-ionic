@@ -69,8 +69,7 @@ export const EventsProvider: React.FC = (props) => {
                 console.log("Failed to add new event with name: " + event.name)
                 return;
             }
-            events!.push(added)
-            setEvents(events)
+            setEvents(events?.concat(added));
         })
     }
 
@@ -84,12 +83,12 @@ export const EventsProvider: React.FC = (props) => {
 
             let oldEvent = events?.find(event => event.id === id)
             if (!oldEvent) {
-                events?.push(updated)
+                setEvents(events?.concat(updated))
             } else {
                 // updating fields manually
                 //    izgleda da ne mora uopste
             }
-            setEvents(events)
+            // setEvents(events?.concat(updated))
         })
 
     }

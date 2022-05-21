@@ -4,13 +4,13 @@ import StandardPageWrapper from "./StandardPageWrapper";
 import TicketsPageContent from "../components/shop/TicketsPageContent";
 
 const TicketsPage: React.FC = () => {
-  return (
-    <TicketsProvider>
-      <StandardPageWrapper>
-        <TicketsPageContent/>
-      </StandardPageWrapper>
-    </TicketsProvider>
-  );
+    return (
+        <StandardPageWrapper>
+            <TicketsProvider>
+                <TicketsPageContent/>
+            </TicketsProvider>
+        </StandardPageWrapper>
+    );
 };
 
 export default TicketsPage;

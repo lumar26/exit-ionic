@@ -2,6 +2,7 @@ import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import Stage from "../model/Stage";
 import {addStageApi, deleteStageApi, getAllStagesApi, updateStageApi} from "../api/stagesApi";
+import Performer from "../model/Performer";
 
 type StagesContextType = {
     stages: Array<Stage>;
@@ -48,9 +49,7 @@ export const StagesProvider: React.FC = (props) => {
 
     const getAllStages = () => {
         getAllStagesApi(requestConfig)
-            .then((stages) => {
-                setStages(stages);
-            })
+            .then((stages) => setStages(stages))
             .catch(error => {
                 console.log(error)
                 setStages([]);
@@ -59,10 +58,7 @@ export const StagesProvider: React.FC = (props) => {
 
     const addStage = (stage: Stage) => {
         addStageApi(stage, requestConfig)
-            .then(stage => {
-                stages!.push(stage);
-                setStages(stages);
-            })
+            .then(stage => setStages(stages?.concat(stage)))
             .catch(error => console.log(error)) // todo: handle error
     };
 
@@ -71,11 +67,10 @@ export const StagesProvider: React.FC = (props) => {
             .then(updatedStage => {
                 let oldStage = stages?.find((stage) => stage.id === id);
                 if (!oldStage) {
-                    stages?.push(updatedStage);
+                    setStages(stages?.concat(updatedStage));
                 } else {
                     // updating fields manually
                 }
-                setStages(stages);
             })
             .catch((e) => {
                 console.log(e);

@@ -3,7 +3,6 @@ import Ticket from "../model/Ticket";
 import User from "../model/User";
 import {useAuthentication} from "./AuthenticationContext";
 import {addTicketApi, getAllTicketsApi, getTicketsForUserApi} from "../api/ticketsApi";
-import {log} from "util";
 
 const availableTickets: Array<Ticket> = [
     {
@@ -14,6 +13,7 @@ const availableTickets: Array<Ticket> = [
         discount: 0,
         purchaseDate: new Date(),
         stage: undefined,
+        owner: undefined,
         description:
             "This is a general admission pass, giving you 4 nights of EXIT Festival in the beautiful scenery of the Petrovaradin Fortress.",
     },
@@ -25,6 +25,7 @@ const availableTickets: Array<Ticket> = [
         discount: 0,
         purchaseDate: new Date(),
         stage: undefined,
+        owner: undefined,
         description:
             "This is a general admission pass, giving you 4 nights of EXIT Festival in the beautiful scenery of the Petrovaradin Fortress.",
     },
@@ -36,6 +37,7 @@ const availableTickets: Array<Ticket> = [
         discount: 0,
         purchaseDate: new Date(),
         stage: undefined,
+        owner: undefined,
         description:
             "This is a VIP pass, giving you 4 nights of EXIT Festival in the beautiful scenery of the Petrovaradin Fortress and special access to our VIP facilities.",
     },
@@ -47,6 +49,7 @@ const availableTickets: Array<Ticket> = [
         discount: 0,
         purchaseDate: new Date(),
         stage: undefined,
+        owner: undefined,
         description:
             "This is a general admission day ticket, giving you 1 entry on 1 night of EXIT Festival in the beautiful scenery of the Petrovaradin Fortress, including the headline concert of Nick Cave and The Bad Seeds.",
     },
@@ -58,6 +61,7 @@ const availableTickets: Array<Ticket> = [
         discount: 0,
         purchaseDate: new Date(),
         stage: undefined,
+        owner: undefined,
         description:
             "This is a VIP day ticket, giving you 1 entry on 1 night of EXIT Festival in the beautiful scenery of the Petrovaradin Fortress, including the headline concert of Nick Cave and The Bad Seeds, with special access to our VIP facilities.",
     },
@@ -66,11 +70,15 @@ const availableTickets: Array<Ticket> = [
 const TicketContext = createContext<TicketContextType>({
     tickets: [],
     availableTickets: availableTickets,
-    addTicket: (ticket: Ticket) => {
+    addToCart: (ticket: Ticket) => {
+    },
+    saveTickets: (ticket: Ticket) => {
+    },
+    removeFromCart: (ticket: Ticket) => {
     },
     getAllTickets: () => {
     },
-    getAllTicketsOfUser: (user: User) => {
+    getAllTicketsOfUser: (userId: number) => {
     }
 })
 
@@ -81,9 +89,11 @@ export const useTickets = () => {
 type TicketContextType = {
     tickets: Array<Ticket>,
     availableTickets: Array<Ticket>,
-    addTicket: (ticket: Ticket) => void
+    addToCart: (ticket: Ticket) => void
+    removeFromCart: (ticket: Ticket) => void
+    saveTickets: (ticket: Ticket) => void
     getAllTickets: () => void
-    getAllTicketsOfUser: (user: User) => void
+    getAllTicketsOfUser: (userId: number) => void
 }
 
 export const TicketsProvider: React.FC = (props) => {
@@ -93,7 +103,6 @@ export const TicketsProvider: React.FC = (props) => {
             'Authorization': authentication.accessToken as string
         }
     }
-
     const [tickets, setTickets] = useState<Array<Ticket>>([]);
 
     const addNewTicket =  (ticket:Ticket) => {
@@ -113,10 +122,8 @@ export const TicketsProvider: React.FC = (props) => {
             .catch(error => console.log(error))
     }
 
-    const getAllTicketsOfUser = (user: User) => {
-        if (!user.id)
-            console.log("User not authenticated")
-        getTicketsForUserApi(user.id!, requestConfig)
+    const getAllTicketsOfUser = (userId: number) => {
+        getTicketsForUserApi(userId, requestConfig)
             .then(tickets => {
                 if (tickets)
                     setTickets(tickets)
@@ -124,10 +131,20 @@ export const TicketsProvider: React.FC = (props) => {
             .catch(error => console.log(error))
     }
 
+    const addToCart = (ticket: Ticket) => {
+        setTickets(tickets.concat(ticket));
+    }
+
+    const removeFromCart = (ticket: Ticket) => {
+        setTickets(tickets.splice(tickets.indexOf(ticket), 1));
+    }
+
     const context: TicketContextType = {
         tickets: tickets,
         availableTickets: availableTickets,
-        addTicket: addNewTicket,
+        addToCart: addToCart,
+        removeFromCart: removeFromCart,
+        saveTickets: addNewTicket,
         getAllTickets: getAllTickets,
         getAllTicketsOfUser: getAllTicketsOfUser
     }
