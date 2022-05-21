@@ -5,7 +5,7 @@ import Home from "./pages/Home";
 import Menu from "./components/navigation/Menu";
 import Registration from "./pages/Registration";
 import Login from "./pages/Login";
-import Tickets from "./pages/Tickets";
+import TicketsPage from "./pages/TicketsPage";
 
 /* Core CSS required for Ionic components to work properly */
 import "@ionic/react/css/core.css";
@@ -40,7 +40,6 @@ import UpdateEventPage from "./pages/event/UpdateEventPage";
 setupIonicReact();
 
 const App: React.FC = () => (
-<<<<<<< Updated upstream
     <IonApp>
         <AuthenticationProvider>
             <IonReactRouter>
@@ -55,11 +54,11 @@ const App: React.FC = () => (
                     <Route exact path="/events" component={EventsPage}/>
                     <Route exact path="/registration" component={Registration}/>
                     <Route exact path="/login" component={Login}/>
-                    <RequiredVisitorAuthentication>
+                    {/*<RequiredVisitorAuthentication>*/}
                         <>
-                            <Route exact path="/tickets" component={Tickets}/>
+                            <Route exact path="/tickets" component={TicketsPage}/>
                         </>
-                    </RequiredVisitorAuthentication>
+                    {/*</RequiredVisitorAuthentication>*/}
                     <Route exact path="/stages/add" component={AddStage}/>
                     <Route exact path="/events/add" component={AddEventPage}/>
                     <Route exact path="/performers/update/:id" component={UpdatePerformerForm}/>
@@ -68,39 +67,7 @@ const App: React.FC = () => (
             </IonReactRouter>
         </AuthenticationProvider>
     </IonApp>
-=======
-  <IonApp>
-    <AuthenticationProvider>
-      <IonReactRouter>
-        <Menu></Menu>
-        <IonRouterOutlet id="main">
-          <Route exact path="/">
-            <Redirect to="/home" />
-          </Route>
-          <Route exact path="/home" component={Home} />
-          <Route exact path="/stages" component={StagesPage} />
-          <Route exact path="/performers" component={PerformersPage} />
-          <Route exact path="/events" component={EventsPage} />
-          <Route exact path="/registration" component={Registration} />
-          <Route exact path="/login" component={Login} />
-          {/*<RequiredVisitorAuthentication>*/}
-          <>
-            <Route exact path="/tickets" component={Tickets} />
-          </>
-          {/*</RequiredVisitorAuthentication>*/}
-          <Route exact path="/stages/add" component={AddStage} />
-          <Route exact path="/events/add" component={AddEventPage} />
-          <Route
-            exact
-            path="/performers/update/:id"
-            component={UpdatePerformerForm}
-          />
-          <Route exact path="/events/update/:id" component={UpdateEventPage} />
-        </IonRouterOutlet>
-      </IonReactRouter>
-    </AuthenticationProvider>
-  </IonApp>
->>>>>>> Stashed changes
+
 );
 
 export default App;

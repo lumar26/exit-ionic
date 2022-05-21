@@ -1,14 +1,14 @@
 import Stage from "./Stage";
 
-interface Ticket{
-    id:number;
+interface Ticket {
+    id: number;
     title: string;
-    img: string;
+    image: string;
     price: number;
-    description:string;
-    purchaseDate:Date;
-    discount:number;
- stage:Stage;
+    description: string;
+    purchaseDate: Date;
+    discount: number;
+    stage: Stage | undefined;
 }
 
 export default Ticket;

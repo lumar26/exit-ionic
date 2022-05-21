@@ -15,7 +15,6 @@ const EventsPage: React.FC = () => {
                   </StandardPageWrapper>
               </StagesProvider>
           </PerformersProvider>
-
       </EventsProvider>
 
   );
