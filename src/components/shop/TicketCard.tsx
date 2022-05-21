@@ -1,10 +1,16 @@
-import {IonButton, IonCard, IonCol, IonGrid, IonImg, IonLabel, IonRow, IonTitle,} from "@ionic/react";
+import {
+  IonButton,
+  IonCard,
+  IonCol,
+  IonGrid,
+  IonImg,
+  IonLabel,
+  IonRow,
+  IonTitle,
+} from "@ionic/react";
 import Ticket from "../../model/Ticket";
 
 const TicketCard: React.FC<{ ticket: Ticket }> = (ticket) => {
-  function addToCart() {
-    console.log("Add to cart button clicked. Ticket id: " + ticket.ticket.id);
-  }
   return (
     <IonCard slot="start">
       <IonGrid>
@@ -24,16 +30,6 @@ const TicketCard: React.FC<{ ticket: Ticket }> = (ticket) => {
               </IonLabel>
             </IonRow>
             <br />
-            <IonRow>
-              <IonButton
-                color="red"
-                size="default"
-                id="readmoreBtn"
-                onClick={addToCart}
-              >
-                Add to cart
-              </IonButton>
-            </IonRow>
           </IonCol>
         </IonRow>
         <IonRow></IonRow>
