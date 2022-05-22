@@ -43,7 +43,7 @@ export const CommentsProvider: React.FC = (props) => {
     const addNewComment = (comment: Comment) => {
         saveNewCommentApi(comment, authentication.userId!, requestConfig)
             .then(savedComment => {
-                setComments(comments.concat(savedComment))
+                setComments(commentsForCurrentEvent.concat(savedComment))
             }).catch(error => console.log(error))
     }
 
@@ -59,7 +59,7 @@ export const CommentsProvider: React.FC = (props) => {
     const deleteComment = (comment: Comment) => {
         deleteCommentApi(comment, requestConfig)
             .then(deletedComment => {
-                setComments(comments.filter(c => c.id !== deletedComment!.id))
+                setComments(commentsForCurrentEvent.filter(c => c.id !== deletedComment!.id))
             })
             .catch(error => console.log(error))
     }

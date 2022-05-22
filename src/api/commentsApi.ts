@@ -1,7 +1,6 @@
 import axios from "axios";
 import Comment from "../model/Comment";
-import User from "../model/User";
-import Event from "../model/Event";
+import Login from "../pages/Login";
 
 const apiUrl = "http://localhost:8080/api/comments"
 
@@ -26,6 +25,8 @@ export const getAllCommentsApi = (requestConfig: any) => {
 };
 
 export const saveNewCommentApi = (comment: Comment, userId: number, requestConfig: any) => {
+    console.log("saving nev comment: userId = " + userId)
+    console.log(toPayload(comment, userId))
     return axios.post<Comment>(`${apiUrl}`, toPayload(comment, userId), requestConfig)
         .then((response) => {
             return response.data;
@@ -51,6 +52,6 @@ const toPayload = (comment: Comment, userId: number) => {
         rate: comment.rate,
         content: comment.content,
         eventId: comment.event.id,
-        user: userId
+        userId: userId
     }
 }

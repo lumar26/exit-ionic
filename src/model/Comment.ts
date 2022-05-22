@@ -6,7 +6,7 @@ interface Comment {
     rate: number;
     content: string;
     event: Event;
-    user: User
+    user: User | undefined
 }
 
 export default Comment;

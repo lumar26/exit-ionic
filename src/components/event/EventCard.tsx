@@ -108,7 +108,7 @@ const EventCard: React.FC<{
                 </IonRow>
                 <IonRow className="commentsBox">
                     <IonModal isOpen={showModalComments}>
-                        <CommentSection comments={commentsContext.commentsForCurrentEvent}/>
+                        <CommentSection event={event} />
                         <IonButton
                             color="grey"
                             // className="buttonCloseModal"
@@ -122,7 +122,6 @@ const EventCard: React.FC<{
                     </IonModal>
                     <IonButton
                         onClick={() => {
-                            commentsContext.getCommentsForEvent(event)
                             setShowModalComments(true);
                         }}
                         color="grey"

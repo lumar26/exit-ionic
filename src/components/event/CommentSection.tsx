@@ -1,28 +1,49 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {
     IonButton,
     IonCol,
     IonGrid,
     IonIcon,
-    IonInput,
     IonLabel,
     IonRadio,
     IonRadioGroup,
     IonRow,
     IonText,
+    IonTextarea,
 } from "@ionic/react";
 import CommentBox from "./CommentBox";
 import {star} from "ionicons/icons";
 import Comment from "../../model/Comment";
+import Event from "../../model/Event";
+import {useComments} from "../../store/CommentsContext";
 
-const CommentSection: React.FC<{ comments: Comment[] }> = ({comments}) => {
-    const [rate, setRate] = useState(0);
+const CommentSection: React.FC<{ event: Event }> = ({event}) => {
+    const [rate, setRate] = useState<number>(0);
+    const [commentContent, setCommentContent] = useState<string>("")
+
+    const commentsContext = useComments();
+
+    useEffect(() => {
+        commentsContext.getCommentsForEvent(event)
+    }, [])
+
+    const addComment = () => {
+        let newComment: Comment = {
+            id: 0,
+            rate : rate,
+            content : commentContent,
+            user: undefined,
+            event: event
+        }
+        commentsContext.addNewComment(newComment);
+    };
+
 
     return (
         <div className="comments">
             <IonRow className="commentsHeader">
-                <IonText className="comments-title">Comments ({comments.length})</IonText>
-                {comments.map(comment => {
+                <IonText className="comments-title">Comments ({commentsContext.commentsForCurrentEvent.length})</IonText>
+                {commentsContext.commentsForCurrentEvent.map(comment => {
                     return (
                         <CommentBox key={comment.id} comment={comment}/>
                     );
@@ -33,10 +54,7 @@ const CommentSection: React.FC<{ comments: Comment[] }> = ({comments}) => {
                 <IonText className="comments-title">Write a comment</IonText>
                 <IonRow className="row">
                     <IonCol>
-                        <IonInput
-                            className="addCommentInput"
-                            placeholder="Your comment"
-                        ></IonInput>
+                        <IonTextarea placeholder={"Your comment..."} value={commentContent} onIonChange={e => setCommentContent(e.detail.value!)}/>
                     </IonCol>
                 </IonRow>
                 <IonRow className="commentRate">
@@ -50,9 +68,6 @@ const CommentSection: React.FC<{ comments: Comment[] }> = ({comments}) => {
                                         value={givenRating}
                                         onClick={() => {
                                             setRate(givenRating);
-                                            alert(
-                                                `Are you sure you want to give ${givenRating} stars ?`
-                                            );
                                         }}
                                     />
                                     <IonIcon
@@ -70,7 +85,7 @@ const CommentSection: React.FC<{ comments: Comment[] }> = ({comments}) => {
                     </IonRadioGroup>
                 </IonRow>
 
-                <IonButton color="grey">Add comment</IonButton>
+                <IonButton color="grey" onClick={addComment}>Add comment</IonButton>
             </IonGrid>
         </div>
     );
