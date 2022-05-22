@@ -4,13 +4,16 @@ import EventList from "./EventList";
 import React, {useEffect} from "react";
 import {useAuthentication} from "../../store/AuthenticationContext";
 import AddEventButton from "./admin/AddEventButton";
+import {useComments} from "../../store/CommentsContext";
 
 const EventsPageContent = () => {
     const eventsContext = useEvents();
+    const commentsContext = useComments();
     const authentication = useAuthentication();
 
     useEffect(() => {
         eventsContext.getAllEvents();
+        commentsContext.getAllComments();
     }, []);
 
     return (

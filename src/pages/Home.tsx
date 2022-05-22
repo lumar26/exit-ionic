@@ -1,28 +1,18 @@
 import {
-  IonButton,
   IonContent,
   IonGrid,
   IonHeader,
-  IonIcon,
   IonImg,
-  IonModal,
   IonPage,
   IonRow,
   IonSlide,
   IonSlides,
   IonText,
   IonTitle,
-  IonVirtualScroll,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React from "react";
 import NavBar from "../components/navigation/NavBar";
 import Footer from "../components/navigation/Footer";
-import CommentSection from "../components/event/CommentSection";
-import {
-  chatboxEllipsesOutline,
-  gitCommitOutline,
-  peopleOutline,
-} from "ionicons/icons";
 
 const Home: React.FC = () => {
   const slideOpts = {
@@ -34,7 +24,6 @@ const Home: React.FC = () => {
     },
   };
 
-  const [showModalComments, setShowModalComments] = useState(false);
 
   return (
     <IonPage>
@@ -78,50 +67,6 @@ const Home: React.FC = () => {
           </IonRow>
           <IonRow></IonRow>
         </IonGrid>
-
-        {/**********************Dugme koje se dodaje na event card**********************************/}
-        <IonRow className="commentsBox">
-          <IonModal isOpen={showModalComments}>
-            <CommentSection></CommentSection>
-
-            <IonButton
-              color="grey"
-              className="buttonCloseModal"
-              onClick={() => {
-                setShowModalComments(false);
-              }}
-            >
-              CLOSE
-            </IonButton>
-          </IonModal>
-          {/*<IonButton
-                        onClick={() => {
-                            if (!event.performers || event.performers.length === 0) {
-                                alert({
-                                    cssClass: "styles",
-                                    header: "Alert",
-                                    message: "No performers added for this event",
-                                    buttons: [
-                                        "Ok",
-                                    ],
-                                });
-                            } else setShowModalPerformers(true);
-                        }}
-                      
-                    >*/}
-          <IonButton
-            onClick={() => {
-              setShowModalComments(true);
-            }}
-            color="grey"
-          >
-            <IonIcon
-              icon={chatboxEllipsesOutline}
-              className="iconMenu"
-            ></IonIcon>
-            <IonText className="eventtabs"> Show comments</IonText>
-          </IonButton>
-        </IonRow>
         <Footer></Footer>
       </IonContent>
     </IonPage>

@@ -13,24 +13,24 @@ import {
     useIonAlert,
 } from "@ionic/react";
 import Event from "../../model/Event";
-import {
-    closeCircleOutline,
-    locationOutline,
-    peopleOutline,
-} from "ionicons/icons";
+import {chatboxEllipsesOutline, closeCircleOutline, locationOutline, peopleOutline,} from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
 import {useAuthentication} from "../../store/AuthenticationContext";
 import EventCardAdminControls from "./admin/EventCardAdminControls";
+import CommentSection from "./CommentSection";
+import {useComments} from "../../store/CommentsContext";
 
 const EventCard: React.FC<{
     event: Event;
 }> = ({event}) => {
     const [showModalStage, setShowModalStage] = useState(false);
     const [showModalPerformers, setShowModalPerformers] = useState(false);
+    const [showModalComments, setShowModalComments] = useState(false)
     const [alert] = useIonAlert();
 
     const authentication = useAuthentication();
+    const commentsContext = useComments()
 
     return (
         <>
@@ -44,7 +44,6 @@ const EventCard: React.FC<{
                         {event.name}
                     </IonLabel>
                     <IonLabel className="eventStart" color="grey">
-                        {/*<b>Starts:</b> {event.start.substring(0, event.start.indexOf("T"))}*/}
                         <b>Starts:</b> {event.start}
                     </IonLabel>
 
@@ -82,11 +81,13 @@ const EventCard: React.FC<{
                             } else setShowModalPerformers(true);
                         }}
                         color="grey"
+                        expand={'block'}
                     >
                         <IonIcon icon={peopleOutline} className="iconMenu"></IonIcon>
                         <IonText className="eventtabs">Performers</IonText>
                     </IonButton>
-
+                </IonRow>
+                <IonRow>
                     <IonModal isOpen={showModalStage}>
                         <IonButton
                             color="white"
@@ -100,9 +101,38 @@ const EventCard: React.FC<{
                         </IonButton>
                         <StageCard stage={event.stage}/>
                     </IonModal>
-                    <IonButton onClick={() => setShowModalStage(true)} color="grey">
+                    <IonButton onClick={() => setShowModalStage(true)} color="grey" expand={'block'}>
                         <IonIcon icon={locationOutline} className="iconMenu"></IonIcon>
                         <IonText className="eventtabs">{event.stage.name}</IonText>
+                    </IonButton>
+                </IonRow>
+                <IonRow className="commentsBox">
+                    <IonModal isOpen={showModalComments}>
+                        <CommentSection comments={commentsContext.commentsForCurrentEvent}/>
+                        <IonButton
+                            color="grey"
+                            // className="buttonCloseModal"
+                            expand={'block'}
+                            onClick={() => {
+                                setShowModalComments(false);
+                            }}
+                        >
+                            Close
+                        </IonButton>
+                    </IonModal>
+                    <IonButton
+                        onClick={() => {
+                            commentsContext.getCommentsForEvent(event)
+                            setShowModalComments(true);
+                        }}
+                        color="grey"
+                        expand={'block'}
+                    >
+                        <IonIcon
+                            icon={chatboxEllipsesOutline}
+                            className="iconMenu"
+                        ></IonIcon>
+                        <IonText className="eventtabs"> Comments</IonText>
                     </IonButton>
                 </IonRow>
             </IonCard>
