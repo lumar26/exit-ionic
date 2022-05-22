@@ -2,7 +2,6 @@ import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import Stage from "../model/Stage";
 import {addStageApi, deleteStageApi, getAllStagesApi, updateStageApi} from "../api/stagesApi";
-import Performer from "../model/Performer";
 
 type StagesContextType = {
     stages: Array<Stage>;
@@ -49,7 +48,9 @@ export const StagesProvider: React.FC = (props) => {
 
     const getAllStages = () => {
         getAllStagesApi(requestConfig)
-            .then((stages) => setStages(stages))
+            .then((stages) => {
+                setStages(stages)
+            })
             .catch(error => {
                 console.log(error)
                 setStages([]);

@@ -1,23 +1,18 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
   IonButton,
-  IonCard,
   IonCol,
-  IonContent,
   IonGrid,
   IonIcon,
-  IonInfiniteScroll,
   IonInput,
   IonLabel,
   IonRadio,
   IonRadioGroup,
   IonRow,
   IonText,
-  IonTitle,
-  IonVirtualScroll,
 } from "@ionic/react";
 import CommentBox from "./CommentBox";
-import { star } from "ionicons/icons";
+import {star} from "ionicons/icons";
 
 const CommentSection: React.FC<{}> = () => {
   const [content, setContent] = useState("");

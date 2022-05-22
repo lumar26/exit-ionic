@@ -1,15 +1,6 @@
-import React, { useState } from "react";
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCol,
-  IonIcon,
-  IonLabel,
-  IonRow,
-  IonText,
-} from "@ionic/react";
-import { closeCircle, personOutline, time } from "ionicons/icons";
+import React from "react";
+import {IonCard, IonCardContent, IonCardHeader, IonCol, IonIcon, IonRow, IonText,} from "@ionic/react";
+import {personOutline, time} from "ionicons/icons";
 
 const CommentBox: React.FC<{}> = () => {
   return (

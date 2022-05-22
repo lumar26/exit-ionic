@@ -23,12 +23,12 @@ export const getAllTicketsApi = (requestConfig: any) => {
         });
 };
 
-export const addTicketApi = (ticket: Ticket, requestConfig: any) => {
+export const saveTicketsApi = (tickets: Ticket[], requestConfig: any, userId: number) => {
     return axios
-        .post<Ticket>(apiUrl, toPayload(ticket), requestConfig)
+        .post<Ticket[]>(apiUrl, toPayload(tickets, userId), requestConfig)
         .then((response) => {
             if (response.status !== 200)
-                throw new Error("Could not add new ticket: " + response.data);
+                throw new Error("Could not add new tickets: " + response.data);
             return response.data;
         })
         .catch((e) => {
@@ -36,17 +36,22 @@ export const addTicketApi = (ticket: Ticket, requestConfig: any) => {
         });
 }
 
-const toPayload = (t: Ticket)  => {
-    return {
-        title: t.title,
-        image: t.image,
-        price: t.price,
-        description: t.description,
-        purchaseDate: t.purchaseDate,
-        discount: t.discount,
-        stageId: t.stage ? t.stage.id : 1, // bad practice, but will do for now
-        userId: t.owner?.id
-    }
+const toPayload = (tickets: Ticket[], userId: number)  => {
+    let ticketsArrayPayload: Array<any> = []
+    tickets.forEach(t => {
+        let converted = {
+            title: t.title,
+            image: t.image,
+            price: t.price,
+            description: t.description,
+            purchaseDate: t.purchaseDate,
+            discount: t.discount,
+            stageId: t.stage ? t.stage.id : 1, // bad practice, but will do for now
+            ownerId: userId
+        }
+        ticketsArrayPayload.push(converted);
+    })
+    return ticketsArrayPayload
 }
 
 

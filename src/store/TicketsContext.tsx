@@ -1,8 +1,8 @@
 import React, {createContext, useContext, useState} from "react";
 import Ticket from "../model/Ticket";
-import User from "../model/User";
 import {useAuthentication} from "./AuthenticationContext";
-import {addTicketApi, getAllTicketsApi, getTicketsForUserApi} from "../api/ticketsApi";
+import {getAllTicketsApi, getTicketsForUserApi, saveTicketsApi} from "../api/ticketsApi";
+import {StagesProvider} from "./StagesContext";
 
 const availableTickets: Array<Ticket> = [
     {
@@ -69,16 +69,17 @@ const availableTickets: Array<Ticket> = [
 
 const TicketContext = createContext<TicketContextType>({
     tickets: [],
+    purchasedTickets: [],
     availableTickets: availableTickets,
-    addToCart: (ticket: Ticket) => {
+    addToCart: () => {
     },
-    saveTickets: (ticket: Ticket) => {
+    saveTickets: () => {
     },
-    removeFromCart: (ticket: Ticket) => {
+    removeFromCart: () => {
     },
     getAllTickets: () => {
     },
-    getAllTicketsOfUser: (userId: number) => {
+    getAllTicketsOfUser: () => {
     }
 })
 
@@ -88,10 +89,11 @@ export const useTickets = () => {
 
 type TicketContextType = {
     tickets: Array<Ticket>,
+    purchasedTickets: Array<Ticket>
     availableTickets: Array<Ticket>,
     addToCart: (ticket: Ticket) => void
     removeFromCart: (ticket: Ticket) => void
-    saveTickets: (ticket: Ticket) => void
+    saveTickets: (ticket: Ticket[]) => void
     getAllTickets: () => void
     getAllTicketsOfUser: (userId: number) => void
 }
@@ -103,13 +105,16 @@ export const TicketsProvider: React.FC = (props) => {
             'Authorization': authentication.accessToken as string
         }
     }
-    const [tickets, setTickets] = useState<Array<Ticket>>([]);
+    const [purchasedTickets, setPurchasedTickets] = useState<Array<Ticket>>([]);
+    const [newTickets, setNewTickets] = useState<Array<Ticket>>([]);
 
-    const addNewTicket =  (ticket:Ticket) => {
-        addTicketApi(ticket, requestConfig)
-            .then(savedTicket => {
-                if (savedTicket)
-                    tickets.push(savedTicket)
+    const saveTickets = (tickets: Ticket[]) => {
+        saveTicketsApi(tickets, requestConfig, authentication.userId!)
+            .then(savedTickets => {
+                if (savedTickets) {
+                    setPurchasedTickets(purchasedTickets.concat(savedTickets))
+                    setNewTickets([]);
+                }
             }).catch(error => console.log(error))
     }
 
@@ -117,7 +122,7 @@ export const TicketsProvider: React.FC = (props) => {
         getAllTicketsApi(requestConfig)
             .then(tickets => {
                 if (tickets)
-                    setTickets(tickets);
+                    setPurchasedTickets(tickets);
             })
             .catch(error => console.log(error))
     }
@@ -126,31 +131,34 @@ export const TicketsProvider: React.FC = (props) => {
         getTicketsForUserApi(userId, requestConfig)
             .then(tickets => {
                 if (tickets)
-                    setTickets(tickets)
+                    setPurchasedTickets(tickets)
             })
             .catch(error => console.log(error))
     }
 
     const addToCart = (ticket: Ticket) => {
-        setTickets(tickets.concat(ticket));
+        setNewTickets(newTickets.concat(ticket));
     }
 
     const removeFromCart = (ticket: Ticket) => {
-        setTickets(tickets.splice(tickets.indexOf(ticket), 1));
+        setNewTickets(newTickets.splice(newTickets.indexOf(ticket), 1));
     }
 
     const context: TicketContextType = {
-        tickets: tickets,
+        tickets: newTickets,
+        purchasedTickets: purchasedTickets,
         availableTickets: availableTickets,
         addToCart: addToCart,
         removeFromCart: removeFromCart,
-        saveTickets: addNewTicket,
+        saveTickets: saveTickets,
         getAllTickets: getAllTickets,
         getAllTicketsOfUser: getAllTicketsOfUser
     }
 
     return <TicketContext.Provider value={context}>
-        {props.children}
+        <StagesProvider>
+            {props.children}
+        </StagesProvider>
     </TicketContext.Provider>
 }
 

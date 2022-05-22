@@ -29,8 +29,8 @@ const AvailableTicketsAccordion: React.FC = () => {
         else
             console.log("User not authenticated, cannot buy ticket")
     }, []);
-
     function addToCart(ticket: Ticket) {
+
         console.log("Add to cart button clicked. Ticket id: " + ticket.id);
         ticketsContext.addToCart(ticket);
     }
@@ -62,8 +62,7 @@ const AvailableTicketsAccordion: React.FC = () => {
                                                 setTicketStage(ticket, e.detail.value!)
                                             }
                                         >
-                                            {stagesContext.stages &&
-                                                stagesContext.stages.map((stage, index) => (
+                                            {stagesContext.stages?.map((stage, index) => (
                                                     <IonSelectOption value={stage} key={index}>
                                                         {stage.name}
                                                     </IonSelectOption>

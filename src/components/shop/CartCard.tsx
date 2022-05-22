@@ -1,5 +1,5 @@
 import React from "react";
-import {IonButton, IonCard, IonCardContent, IonIcon, IonItem, IonLabel, IonList} from "@ionic/react";
+import {IonButton, IonCard, IonCardContent, IonCardHeader, IonIcon, IonItem, IonLabel, IonList} from "@ionic/react";
 import {cartOutline, removeCircleOutline} from "ionicons/icons";
 import {useTickets} from "../../store/TicketsContext";
 import Ticket from "../../model/Ticket";
@@ -17,6 +17,11 @@ const CartCard: React.FC = () => {
         }
         return total;
     }
+
+    const buyTickets = () => {
+        ticketsContext.saveTickets(ticketsContext.tickets);
+    };
+
     return (
         <IonCard>
             <IonItem color="red">
@@ -42,6 +47,11 @@ const CartCard: React.FC = () => {
                         ))}
                 </IonList>
             </IonCardContent>
+            <IonCardHeader>
+                <IonButton expand={'block'} onClick={buyTickets}>
+                    Buy selected tickets
+                </IonButton>
+            </IonCardHeader>
         </IonCard>
     )
 }
