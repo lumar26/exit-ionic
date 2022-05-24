@@ -12,23 +12,23 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
+  useIonAlert,
 } from "@ionic/react";
-import React, {useEffect, useRef, useState} from "react";
-import {useAuthentication} from "../../../store/AuthenticationContext";
+import React, { useEffect, useRef, useState } from "react";
+import { useAuthentication } from "../../../store/AuthenticationContext";
 import Stage from "../../../model/Stage";
-import Event from "../../../model/Event"
-import {useStages} from "../../../store/StagesContext";
-import {usePerformers} from "../../../store/PerformersContext";
-import {useEvents} from "../../../store/EventsContext";
-import {useHistory} from "react-router-dom";
-
+import Event from "../../../model/Event";
+import { useStages } from "../../../store/StagesContext";
+import { usePerformers } from "../../../store/PerformersContext";
+import { useEvents } from "../../../store/EventsContext";
+import { useHistory } from "react-router-dom";
 
 const AddEventCard: React.FC = () => {
   const [name, setName] = useState<string>();
   const [start, setStart] = useState<string>();
   const [image, setImage] = useState<string>();
   const [stage, setStage] = useState<Stage>();
-  const performersRef = useRef<HTMLIonSelectElement>(null)
+  const performersRef = useRef<HTMLIonSelectElement>(null);
 
   const authentication = useAuthentication();
   const stagesContext = useStages();
@@ -36,6 +36,7 @@ const AddEventCard: React.FC = () => {
   const performersContext = usePerformers();
 
   const history = useHistory();
+  const [present] = useIonAlert();
 
   useEffect(() => {
     stagesContext.getAllStages();
@@ -53,20 +54,29 @@ const AddEventCard: React.FC = () => {
       start: start!,
       stage: stage!,
       performers: performersRef.current!.value,
-      user_id: authentication.userId!
-    }
+      user_id: authentication.userId!,
+    };
 
+    if (
+      newEvent.name == "" ||
+      newEvent.start == "" ||
+      newEvent.stage == null ||
+      newEvent.performers == null ||
+      newEvent.image == ""
+    ) {
+      present(" You must fill all required information.", [{ text: "Ok" }]);
+      return;
+    }
     eventsContext.addEvent(newEvent);
+    present("New event added successfully", [{ text: "Ok" }]);
 
     history.goBack(); // return to events page
   }
 
   return (
     <IonCard>
-      <IonCardHeader color={'grey'}>
-        <IonCardTitle className="ion-text-center">
-          Add event
-        </IonCardTitle>
+      <IonCardHeader color={"grey"}>
+        <IonCardTitle>Add event</IonCardTitle>
       </IonCardHeader>
 
       <IonCardContent>
@@ -109,18 +119,16 @@ const AddEventCard: React.FC = () => {
                 </IonSelect>
               </IonItem>
               <IonItem>
-                <IonLabel position="floating">Select performer(s) for event</IonLabel>
-                <IonSelect
-                    name="performers"
-                    multiple
-                    ref={performersRef}
-                >
+                <IonLabel position="floating">
+                  Select performer(s) for event
+                </IonLabel>
+                <IonSelect name="performers" multiple ref={performersRef}>
                   {performersContext.performers &&
-                      performersContext.performers.map((performer, index) => (
-                          <IonSelectOption value={performer} key={index}>
-                            {performer.name}
-                          </IonSelectOption>
-                      ))}
+                    performersContext.performers.map((performer, index) => (
+                      <IonSelectOption value={performer} key={index}>
+                        {performer.name}
+                      </IonSelectOption>
+                    ))}
                 </IonSelect>
               </IonItem>
               <IonItem className="addPerformerImg">
@@ -143,11 +151,11 @@ const AddEventCard: React.FC = () => {
                 Add event
               </IonButton>
               <IonButton
-                  expand="block"
-                  type="submit"
-                  onClick={() => history.goBack()}
-                  color="grey"
-                  className="addPerformerCard"
+                expand="block"
+                type="submit"
+                onClick={() => history.goBack()}
+                color="grey"
+                className="addPerformerCard"
               >
                 Cancel
               </IonButton>

@@ -1,27 +1,26 @@
-import {IonImg} from "@ionic/react";
-import React, {useEffect} from "react";
-import {useStages} from "../../store/StagesContext";
+import { IonImg } from "@ionic/react";
+import React, { useEffect } from "react";
+import { useStages } from "../../store/StagesContext";
 import StageList from "./StageList";
-import AddStageModal from "./admin/AddStageModal";
-import {useAuthentication} from "../../store/AuthenticationContext";
+import AddStage from "./admin/AddStage";
+import { useAuthentication } from "../../store/AuthenticationContext";
 
 const StagesPageContent = () => {
-    const stagesContext = useStages();
-    const authentication = useAuthentication();
+  const stagesContext = useStages();
+  const authentication = useAuthentication();
 
-    useEffect(() => {
-        stagesContext.getAllStages();
-    }, []);
+  useEffect(() => {
+    stagesContext.getAllStages();
+  }, []);
 
-    return (
-        <>
-            <IonImg src={"/images/stages.jpeg"} className="img"/>
-            {authentication.authenticatedUser
-                && authentication.role === 'ROLE_ADMIN'
-                && <AddStageModal/>}
-            <StageList stages={stagesContext.stages}/>
-        </>
-    );
-}
+  return (
+    <>
+      <IonImg src={"/images/stages.jpeg"} className="img" />
+      {authentication.authenticatedUser &&
+        authentication.role === "ROLE_ADMIN" && <AddStage />}
+      <StageList stages={stagesContext.stages} />
+    </>
+  );
+};
 
 export default StagesPageContent;

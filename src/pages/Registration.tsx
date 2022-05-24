@@ -18,7 +18,7 @@ import {useAuthentication, UserAuthenticationResponse} from "../store/Authentica
 import {useHistory} from "react-router";
 
 const defaultRole = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor
-const registerUrl = "http://localhost:8000/auth/register";
+const registerUrl = "http://localhost:8080/auth/register";
 
 const Registration: React.FC = () => {
     const [firstname, setFirstname] = useState<string>("");

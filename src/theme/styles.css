@@ -1,98 +1,96 @@
-.toolbarSocial{
-    height: 40px;
+.toolbarSocial {
+  height: 40px;
 }
-.socialIcon{
-    
-    margin-bottom: 10px;
-}
-
-.iconMenu{
-    height: 30px;
-    width: 30px;
-    margin-bottom: 5px;
-    padding: 4px;
-    margin-right: 19px;
-    margin-top: 5px;
-    padding-right: 0.5em;
-}
-.iconMenuArrow{
-    height: 23px;
-    width: 23px;
-
-}
-#headertitle{
-    margin-left: 30px;
-    font-size: 30px;
-    margin-right: -30px;
+.socialIcon {
+  margin-bottom: 10px;
+  color: #f7f5ec;
 }
 
-.footerSocial{
-   margin-top: 40px;
-   margin-bottom: 20px;
-   
+.iconMenu {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 5px;
+  padding: 4px;
+  margin-right: 19px;
+  margin-top: 5px;
+  padding-right: 0.5em;
 }
-.socialIconF{
-    height: 30px;
-    width: 30px;
-    margin-bottom: 10px;
-    padding: 7px;
+.iconMenuArrow {
+  height: 23px;
+  width: 23px;
+}
+#headertitle {
+  margin-left: 30px;
+  font-size: 30px;
+  margin-right: -30px;
 }
 
-.registrationForm{
-    width: 60%;
-    margin: 40px;
-    
-    
+.footerSocial {
+  margin-top: 40px;
+  margin-bottom: 20px;
 }
-.registrationFormInput{
-    padding-bottom: 20px;
-    --border-color: var(--ion-color-grey, grey);
-    
+.socialIconF {
+  height: 30px;
+  width: 30px;
+  margin-bottom: 10px;
+  padding: 7px;
 }
-.registrationFormInput:hover{
-    --border-color: var(--ion-color-red, rgb(221, 27, 27));
+
+.registrationForm {
+  width: 60%;
+  margin: 40px;
 }
-#registerBtn{
-    width: 60%;
+.registrationFormInput {
+  padding-bottom: 20px;
+  --border-color: var(--ion-color-grey, grey);
 }
-#registerLabel{
-    color: lightslategray;
-    margin-left: 30px;
-    size: 10px;
+.registrationFormInput:hover {
+  --border-color: var(--ion-color-red, rgb(221, 27, 27));
 }
-#loginBtn{
-    width: 70%;
-    
+#registerBtn {
+  width: 60%;
 }
-.loginForm{
-    width: 60%;
-    margin: 40px;
-    
-    
+#registerLabel {
+  color: lightslategray;
+  margin-left: 30px;
+  size: 10px;
 }
-.ticketsGrid{
-    margin-top: 20px;
-    margin-bottom: 100px;
+#loginBtn {
+  width: 70%;
+  margin-left: 20px;
 }
-#ticketTitle{
-    margin-left: -8em;
-    width: 230%;
+.loginForm {
+  width: 60%;
+  margin: 40px;
 }
-.accordionGroup{
-    margin-left: 20px;
-    margin-right: 20px;
-    width: 100%;
+.ticketsGrid {
+  margin-top: 20px;
+  margin-bottom: 100px;
 }
-.sideTickets{
-    margin-left: 20px;
-    margin-right: 20px;
-}
-#ticketPrice{
-    font-size: 15px;
-    font-weight: bolder;
-}
-#ticketStage{
+#ticketTitle {
+  margin-left: -8em;
   margin-top: -1em;
+  width: 280%;
+}
+.accordionGroup {
+  margin-left: 20px;
+  margin-right: 20px;
+  width: 100%;
+}
+.sideTickets {
+  margin-left: 20px;
+  margin-right: 20px;
+}
+#ticketPrice {
+  font-size: 15px;
+  font-weight: bolder;
+}
+#ticketStage {
+  margin-top: -1em;
+}
+.ticketImage {
+  height: 80%;
+  width: 70%;
 }
 
 /**Performer card**/
@@ -129,7 +127,6 @@
   transition: all 0.3s linear 0s;
 }
 
-
 .performerCard .picture .img {
   width: 100%;
   height: 100%;
@@ -138,8 +135,7 @@
   transition: all 0.9s ease 0s;
 }
 
-
-.performerCard:hover  .img {
+.performerCard:hover .img {
   border-radius: 50%;
 }
 
@@ -170,51 +166,46 @@
   transition: all 0.5s ease 0s;
 }
 
-.performerCard .social .socialtem{
+.performerCard .social .socialtem {
   display: inline-block;
-
 }
-.socialIcon{
- height: 30px;
- width: 30px;
- margin-left: 20px;
- margin-right: 20px;
-
+.socialIcon {
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
 .performerCard .social .socialIcon {
   display: block;
   padding: 10px;
   font-size: medium;
-  color: #f7f5ec ;
+  color: #f7f5ec;
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
 
-
-
-.performerContent{
-  margin-top: -40px !important;
+.performerContent {
+  margin-top: -10px !important;
   margin-bottom: 20px;
 }
-.socialIcon{
- height: 30px;
- width: 30px;
- margin-left: 20px;
- margin-right: 20px;
-
+.socialIcon {
+  height: 30px;
+  width: 30px;
+  margin-left: 20px;
+  margin-right: 20px;
 }
 
-.performerNick{
+.performerNick {
   font-size: x-large;
   font-weight: bolder;
 }
-.performerName{
+.performerName {
   font-style: italic;
+  margin-bottom: -0.5em;
 }
 
 /*stage card*/
-
 
 .stageCard {
   padding: 30px 0 40px;
@@ -249,7 +240,6 @@
   transition: all 0.3s linear 0s;
 }
 
-
 .stageCard .picture .img {
   width: 100%;
   height: 100%;
@@ -258,8 +248,7 @@
   transition: all 0.9s ease 0s;
 }
 
-
-.stageCard:hover  .img {
+.stageCard:hover .img {
   border-radius: 50%;
 }
 
@@ -290,196 +279,189 @@
   transition: all 0.5s ease 0s;
 }
 
-.stageCard .socialStage .socialtem{
+.stageCard .socialStage .socialtem {
   display: inline-block;
-
 }
-.IconStage{
- height: 30px;
- width: 30px;
- margin-left: 0px;
- margin-right: 20px;
-
+.IconStage {
+  height: 30px;
+  width: 30px;
+  margin-left: 0px;
+  margin-right: 20px;
 }
 
 .stageCard .socialStage .IconStage {
   display: block;
   padding: 10px;
- margin-left: 5px;
+  margin-left: 5px;
   font-size: medium;
-  color: #f7f5ec ;
+  color: #f7f5ec;
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
 .stagetabs {
   color: #f7f5ec !important;
-  font-size: medium;
-  margin-left: -20px;
+  font-size: 14px;
+  margin-left: -30px;
   margin-top: 15px;
 }
-.stagetabsLocation{
+.stagetabsLocation {
   margin-left: -30px;
   color: white;
   margin-top: 12px;
   width: 90px;
 }
-
-
-
-.stageContent{
+#stagetabsSponsor {
+  margin-right: -0.5em;
+}
+.stageContent {
   margin-top: -40px !important;
   margin-bottom: 20px;
 }
 
 /**add performer*/
-.addPerfrmerCard{
-margin: 20px;
+.addPerfrmerCard {
+  margin: 20px;
 }
-.addPerformerTitle{
+.addPerformerTitle {
   margin: 20px;
   margin-bottom: -30px;
-
 }
-
 
 /**Admin tables*/
 
-.tableGrid{
+.tableGrid {
   border: solid 1px rgb(22, 22, 22);
-
 }
-.tableName{
-margin-top: 20px;
+.tableName {
+  margin-top: 20px;
 
   font-size: larger;
   font-weight: bolder;
 }
-.tableRowHeader{
+.tableRowHeader {
   border-bottom: solid 1px rgb(59, 58, 58);
   font-size: smaller;
-
 }
 
-#tableRow{
+#tableRow {
   border-bottom: solid 0.5px rgb(201, 199, 199);
   margin-right: 5px;
-
 }
 
-.updatePerformerCard{
+.updatePerformerCard {
   margin: 10px;
   height: 90%;
 }
-.updatePerformerTitle{
+.updatePerformerTitle {
   margin-top: 5px;
 }
 
 /**event card**/
-.stageCard .eventName {
+.eventCard .eventName {
   display: block;
   font-size: x-large;
   font-weight: bolder;
   text-transform: capitalize;
   transition: all 0.3s ease 0s;
 }
-.stageCard .eventStart {
+.eventCard .eventStart {
   display: block;
   font-size: large;
   font-style: italic;
   text-transform: capitalize;
   transition: all 0.3s ease 0s;
-
+}
+.eventCard .stageContent {
+  align-items: center;
 }
 .eventtabs {
   color: #f7f5ec !important;
-  font-size: medium;
+  font-size: 14px;
   margin-left: -23px;
   margin-top: 0px;
 }
-.HomePageTitle{
+.HomePageTitle {
   margin-top: 1em;
   font-size: xx-large;
   font-weight: bolder;
 }
-.HomePageTitle:hover{
- color: #ec0a0a;
+.HomePageTitle:hover {
+  color: #ec0a0a;
 }
-.HomePageText{
+.HomePageText {
   margin-top: 3em;
 }
-.buttonCloseModal{
+.buttonCloseModal {
   height: 20%;
 }
-#eventFooter{
-margin-left: 1em;
-align-items: center;
+#eventFooter {
+  margin-top: -1.5em;
+  align-items: center;
+}
+#eventCardbutton {
+  margin-left: -2em;
 }
 
-.contentFooter{
+.contentFooter {
   text-align: center;
- 
-  padding: 20px 0;
-  
-}
-.titleFooter{
-color: rgba(184, 184, 184, 0.993);
-font-weight:bold;
-margin-bottom: 2em;
-letter-spacing: 1px;
-text-transform: uppercase;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1.4;
-    margin: 0;
-    color: #9a9a9a;
-    
 
+  padding: 20px 0;
 }
- .contentFooter .footerImg{
-max-width: 70px;
+.titleFooter {
+  color: rgba(184, 184, 184, 0.993);
+  font-weight: bold;
+  margin-bottom: 2em;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  color: #9a9a9a;
 }
-.footerRowLogos{
+.contentFooter .footerImg {
+  max-width: 70px;
+}
+.footerRowLogos {
   padding: 1em;
   padding-left: 2.5em;
   margin-left: auto;
-    margin-right: auto;
-    
-      float: none;
+  margin-right: auto;
+
+  float: none;
 }
-.contentFooter .footerSocial{
+.contentFooter .footerSocial {
   margin-top: -1em;
   max-width: 60px;
   column-gap: 2em;
 }
-.socialIconFooter{
+.socialIconFooter {
   display: block;
   padding: 10px;
   font-size: larger;
-  color: #f7f5ec ;
+  color: #f7f5ec;
   transition: all 0.3s ease 0s;
   text-decoration: none;
 }
-.footerlinkPages #link{
-  font-weight:bold;
+.footerlinkPages #link {
+  font-weight: bold;
   margin-bottom: 2em;
   letter-spacing: 1px;
   text-transform: uppercase;
-      font-size: 14px;
-      font-weight: 700;
-      line-height: 1.4;
-      margin: 0;
-      color: #dadada; 
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0;
+  color: #dadada;
 }
-.footerlinkPages{
-  padding-top: 1em;;
+.footerlinkPages {
+  padding-top: 1em;
 }
 .footer-logo {
   width: 200px;
-  
-  
 }
 .contentFooter .copyright {
-  font-family: helveticaw_,Arial,Helvetica,sans-serif;
+  font-family: helveticaw_, Arial, Helvetica, sans-serif;
   text-align: center;
   color: gray;
   font-size: 14px;
@@ -492,15 +474,15 @@ max-width: 70px;
   border-bottom: 2px solid gray;
   text-decoration: none;
 }
-#footer{
-position:relative;
- min-width: 100%;
+#footer {
+  position: relative;
+  min-width: 100%;
   margin-top: 3em;
- text-align: center;
+  text-align: center;
 }
 
 /***COMMENTS SECTION***/
-.commentsHeader{
+.commentsHeader {
   margin-bottom: 50px !important;
   border: 1px solid #edeff2;
   border-radius: 2px;
@@ -522,23 +504,22 @@ position:relative;
   margin-bottom: 15px;
 }
 
-.commentContent{
+.commentContent {
   margin-left: 20px;
 }
 
-.commentContent .commentInfo{
+.commentContent .commentInfo {
   display: inline-block;
   margin-top: -2em;
   margin-bottom: 15px;
 }
 
 .commentName {
-  
   font-size: 20px;
-  font-family: 'Conv_helveticaneuecyr-bold';
+  font-family: "Conv_helveticaneuecyr-bold";
 }
 
-.commentUser{
+.commentUser {
   padding-top: 10px;
 }
 
@@ -547,7 +528,7 @@ position:relative;
   font-size: 11px;
   color: #b4b7c1;
 }
-#timeIconComm{
+#timeIconComm {
   width: 20px;
   height: 20px;
 }
@@ -561,8 +542,9 @@ position:relative;
   border: 1px solid #edeff2;
   padding: 15px 10px 10px 20px;
 }
-.commentCard{
+.commentCard {
   padding-top: -1em;
+  min-width: 90%;
 }
 .addComment .addCommentInput {
   font-size: 13px;
@@ -577,29 +559,36 @@ position:relative;
   border-radius: 3px;
 }
 
-#addToCartBtn{
+#addToCartBtn {
   padding-left: 15px;
- margin-top: -1em;
+  margin-top: -1em;
 }
-
 
 .addComment .addCommentInput {
   height: 200px;
   font-size: large;
   color: #252525;
 }
-.comments{
-  overflow-y: scroll; 
-  max-height:85%;  
-   margin-bottom:50px;
-   
+.comments {
+  overflow-y: scroll;
+  max-height: 85%;
+  width: 100%;
+  margin-bottom: 50px;
 }
-.commentRate{
+.scrollable {
+  overflow-y: scroll;
+}
+.commentRate {
   display: flex;
-   align-items:center;
-   min-height: 10vh;
-   font-size: 20px;
+  align-items: center;
+  min-height: 10vh;
+  font-size: 20px;
 }
-#stars{
+#stars {
   cursor: pointer;
+}
+
+#adminControlsBtn {
+  margin-top: -0.5em;
+  margin-bottom: -0.4em;
 }

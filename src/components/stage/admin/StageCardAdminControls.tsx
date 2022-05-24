@@ -21,33 +21,33 @@ const PerformerCardAdminControls: React.FC<{
 
   return (
     <IonGrid>
-        <IonCol>
-          <IonButton
-            onClick={() => stagesContext.deleteStage(stage)}
-            expand={"block"}
-            color={"danger"}
-          >
-            <IonIcon icon={trash} className="tableIcon" size="medium" />
-            Delete
-          </IonButton>
-        </IonCol>
+      <IonCol>
+        <IonButton
+          onClick={() => stagesContext.deleteStage(stage)}
+          expand={"block"}
+          color={"danger"}
+          id="adminControlsBtn"
+        >
+          <IonIcon icon={trash} className="tableIcon" size="medium" />
+          Delete
+        </IonButton>
+      </IonCol>
       <IonRow>
         <IonModal
           onIonModalDidDismiss={() => setShowModalUpdate(false)}
           isOpen={showModalUpdate}
         >
-          <IonButton
-            color="white"
-            size="large"
-            className="buttonCloseModal"
-            onClick={() => setShowModalUpdate(false)}
-          >
-            <IonIcon icon={closeCircleOutline} slot="end" color="grey" />
-          </IonButton>
           <UpdateStageForm stage={stage} />
+          <IonButton color="grey" onClick={() => setShowModalUpdate(false)}>
+            Close
+          </IonButton>
         </IonModal>
         <IonCol>
-          <IonButton onClick={() => setShowModalUpdate(true)} expand={"block"}>
+          <IonButton
+            id="adminControlsBtn"
+            onClick={() => setShowModalUpdate(true)}
+            expand={"block"}
+          >
             <IonIcon
               icon={create}
               className="tableIcon"

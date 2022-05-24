@@ -42,13 +42,20 @@ const PerformerCard: React.FC<{
       </IonCardContent>
       <IonRow className="social" color="red">
         <IonCol>
-          <IonIcon icon={logoFacebook} className="socialIcon"></IonIcon>
+          <a href="https://facebook.com/">
+            <IonIcon icon={logoFacebook} className="socialIcon"></IonIcon>
+          </a>
         </IonCol>
         <IonCol>
-          <IonIcon icon={logoInstagram} className="socialIcon"></IonIcon>
+          <a href="https://instagram.com/">
+            <IonIcon icon={logoInstagram} className="socialIcon"></IonIcon>
+          </a>
         </IonCol>
+
         <IonCol>
-          <IonIcon icon={logoTwitter} className="socialIcon"></IonIcon>
+          <a href="https://twitter.com/">
+            <IonIcon icon={logoTwitter} className="socialIcon"></IonIcon>
+          </a>
         </IonCol>
       </IonRow>
     </IonCard>

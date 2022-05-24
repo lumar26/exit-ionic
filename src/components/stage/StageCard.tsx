@@ -40,7 +40,9 @@ const StageCard: React.FC<{
           </IonIcon>
           <IonLabel className="stagetabs">{stage.capacity}</IonLabel>
           <IonIcon icon={cashOutline} className="IconStage"></IonIcon>
-          <IonLabel className="stagetabs">{stage.sponsor}</IonLabel>
+          <IonLabel className="stagetabs" id="stagetabsSponsor">
+            {stage.sponsor}
+          </IonLabel>
           <IonIcon icon={locationOutline} className="IconStage"></IonIcon>{" "}
           <IonLabel className="stagetabsLocation">{stage.location}</IonLabel>
         </IonRow>

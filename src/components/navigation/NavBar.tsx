@@ -34,11 +34,25 @@ const NavBar: React.FC = () => {
     <div>
       <IonToolbar color="gradient" className="toolbarSocial">
         <IonRow slot="end">
-          <IonIcon icon={logoFacebook} className="socialIcon"></IonIcon>
-          <IonIcon icon={logoYoutube} className="socialIcon"></IonIcon>
-          <IonIcon icon={logoInstagram} className="socialIcon"></IonIcon>
-          <IonIcon icon={logoTiktok} className="socialIcon"></IonIcon>
-          <IonIcon icon={logoWhatsapp} className="socialIcon"></IonIcon>
+          <a href="https://www.facebook.com/exit.festival" target="_blank">
+            <IonIcon icon={logoFacebook} className="socialIcon"></IonIcon>
+          </a>
+          <a href="https://www.youtube.com/user/EXITFestivalTV" target="_blank">
+            {" "}
+            <IonIcon icon={logoYoutube} className="socialIcon"></IonIcon>
+          </a>
+          <a href="https://instagram.com/exitfestival" target="_blank">
+            {" "}
+            <IonIcon icon={logoInstagram} className="socialIcon"></IonIcon>
+          </a>
+          <a href="https://www.tiktok.com/@exit_festival" target="_blank">
+            {" "}
+            <IonIcon icon={logoTiktok} className="socialIcon"></IonIcon>
+          </a>
+          <a href="https://www.whatsapp.com" target="_blank">
+            {" "}
+            <IonIcon icon={logoWhatsapp} className="socialIcon"></IonIcon>
+          </a>
         </IonRow>
       </IonToolbar>
 

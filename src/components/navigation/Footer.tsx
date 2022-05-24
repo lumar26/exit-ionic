@@ -1,21 +1,11 @@
 import React, { useEffect } from "react";
 import {
-  IonButton,
-  IonButtons,
-  IonCard,
   IonCol,
-  IonFooter,
   IonIcon,
   IonImg,
-  IonItem,
-  IonLabel,
-  IonList,
-  IonMenuButton,
   IonRouterLink,
   IonRow,
   IonText,
-  IonThumbnail,
-  IonTitle,
   IonToolbar,
 } from "@ionic/react";
 import {
@@ -23,7 +13,6 @@ import {
   logoInstagram,
   logoTiktok,
   logoTwitter,
-  logoWhatsapp,
   logoYoutube,
 } from "ionicons/icons";
 
@@ -183,15 +172,8 @@ const Footer: React.FC = () => {
           <IonText className="copyright">
             © 2022 EXIT Team. All rights reserved. By visiting this website you
             accept the terms and conditions found in
-            <a href="https://www.exitfest.org/en/terms-of-use">
-              {" "}
-              Terms of Use{" "}
-            </a>
-            as well as our{" "}
-            <a href="https://www.exitfest.org/en/privacy-policy">
-              Policy Privacy
-            </a>
-            .
+            <a href="/home"> Terms of Use </a>
+            as well as our <a href="/home">Policy Privacy</a>.
           </IonText>
         </div>
       </IonToolbar>

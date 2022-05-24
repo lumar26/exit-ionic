@@ -23,35 +23,34 @@ const PerformerCardAdminControls: React.FC<{
     performersContext.deletePerformer(performer);
   };
   return (
-    <IonGrid>
-        <IonCol>
-          <IonButton
-            onClick={deletePerformer}
-            expand={"block"}
-            color={"danger"}
-          >
-            <IonIcon icon={trash} className="tableIcon" size="medium" />
-            Delete
-          </IonButton>
-        </IonCol>
+    <IonGrid id="adminControlsBtn">
+      <IonCol>
+        <IonButton
+          id="adminControlsBtn"
+          onClick={deletePerformer}
+          expand={"block"}
+          color={"danger"}
+        >
+          <IonIcon icon={trash} className="tableIcon" size="medium" />
+          Delete
+        </IonButton>
+      </IonCol>
       <IonRow>
         <IonModal
           onIonModalDidDismiss={() => setShowModalUpdate(false)}
           isOpen={showModalUpdate}
         >
-          <IonButton
-            color="white"
-            size="large"
-            className="buttonCloseModal"
-            slot="end"
-            onClick={() => setShowModalUpdate(false)}
-          >
-            <IonIcon icon={closeCircleOutline} slot="end" color="grey" />
-          </IonButton>
           <UpdatePerformerForm performer={performer} />
+          <IonButton color="grey" onClick={() => setShowModalUpdate(false)}>
+            Close
+          </IonButton>
         </IonModal>
         <IonCol>
-          <IonButton onClick={() => setShowModalUpdate(true)} expand={"block"}>
+          <IonButton
+            id="adminControlsBtn"
+            onClick={() => setShowModalUpdate(true)}
+            expand={"block"}
+          >
             <IonIcon
               icon={create}
               className="tableIcon"
