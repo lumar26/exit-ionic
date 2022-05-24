@@ -1,23 +1,16 @@
-import React, { useState } from "react";
-import {
-  IonButton,
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonModal,
-  IonRow,
-} from "@ionic/react";
-import { closeCircleOutline, create, trash } from "ionicons/icons";
+import React from "react";
+import {IonButton, IonCol, IonGrid, IonIcon, IonRow,} from "@ionic/react";
+import {create, trash} from "ionicons/icons";
 import Stage from "../../../model/Stage";
-import { useStages } from "../../../store/StagesContext";
-import UpdateStageForm from "./UpdateStageForm";
+import {useStages} from "../../../store/StagesContext";
+import {useHistory} from "react-router-dom";
 
 const PerformerCardAdminControls: React.FC<{
   stage: Stage;
 }> = ({ stage }) => {
-  const [showModalUpdate, setShowModalUpdate] = useState(false);
 
   const stagesContext = useStages();
+  const history = useHistory();
 
   return (
     <IonGrid>
@@ -33,19 +26,10 @@ const PerformerCardAdminControls: React.FC<{
         </IonButton>
       </IonCol>
       <IonRow>
-        <IonModal
-          onIonModalDidDismiss={() => setShowModalUpdate(false)}
-          isOpen={showModalUpdate}
-        >
-          <UpdateStageForm stage={stage} />
-          <IonButton color="grey" onClick={() => setShowModalUpdate(false)}>
-            Close
-          </IonButton>
-        </IonModal>
         <IonCol>
           <IonButton
             id="adminControlsBtn"
-            onClick={() => setShowModalUpdate(true)}
+            onClick={() => history.push(`/stages/update/${stage.id}`)}
             expand={"block"}
           >
             <IonIcon

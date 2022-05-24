@@ -2,7 +2,6 @@ import Performer from "../model/Performer";
 import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerformerApi} from "../api/performersApi";
-import Event from "../model/Event";
 
 type PerformersContextType = {
     performers: Array<Performer>;
@@ -79,7 +78,7 @@ export const PerformersProvider: React.FC = (props) => {
                     oldPerformer.name = updatedPerformer.name;
                     oldPerformer.nick = updatedPerformer.nick;
                     oldPerformer.surname = updatedPerformer.surname;
-                    oldPerformer.music_genre = updatedPerformer.music_genre;
+                    oldPerformer.genre = updatedPerformer.genre;
                     oldPerformer.image = updatedPerformer.image;
                 }
             })

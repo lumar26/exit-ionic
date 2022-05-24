@@ -38,9 +38,9 @@ export const getAllPerformersByEventApi = (event: Event, requestConfig: any) => 
 };
 
 export const addPerformerApi = (performer: Performer, requestConfig: any) => {
-    const {name, surname, nick, music_genre, image, user_id} = performer;
+    const {name, surname, nick, genre, image, user_id} = performer;
     const payload: any = {
-        name, surname, nick, genre: music_genre, image,
+        name, surname, nick, genre: genre, image,
         user: {
             id: user_id
         }
@@ -58,9 +58,9 @@ export const addPerformerApi = (performer: Performer, requestConfig: any) => {
 }
 
 export const updatePerformerApi = (performer: Performer, id: number, requestConfig: any) => {
-    const {name, surname, nick, music_genre, image, user_id} = performer;
+    const {name, surname, nick, genre, image, user_id} = performer;
     const payload: any = {
-        name, surname, nick, genre: music_genre, image,
+        name, surname, nick, genre: genre, image,
         user: {
             id: user_id
         }

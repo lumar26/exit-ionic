@@ -4,8 +4,6 @@ import {EventsProvider} from "../../store/EventsContext";
 import StandardPageWrapper from "../StandardPageWrapper";
 
 const AddEventPage: React.FC = () => {
-
-
     return (
         <EventsProvider>
             <StandardPageWrapper>

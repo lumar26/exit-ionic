@@ -12,18 +12,17 @@ import {
   IonRow,
   IonSelect,
   IonSelectOption,
-  IonTitle,
   IonToolbar,
   useIonAlert,
 } from "@ionic/react";
-import React, { useEffect, useRef, useState } from "react";
-import { useAuthentication } from "../../../store/AuthenticationContext";
+import React, {useEffect, useRef, useState} from "react";
+import {useAuthentication} from "../../../store/AuthenticationContext";
 import Stage from "../../../model/Stage";
 import Event from "../../../model/Event";
-import { useStages } from "../../../store/StagesContext";
-import { usePerformers } from "../../../store/PerformersContext";
-import { useEvents } from "../../../store/EventsContext";
-import { useHistory } from "react-router-dom";
+import {useStages} from "../../../store/StagesContext";
+import {usePerformers} from "../../../store/PerformersContext";
+import {useEvents} from "../../../store/EventsContext";
+import {useHistory} from "react-router-dom";
 
 const UpdateEventCard: React.FC<{
   event: Event;
@@ -58,11 +57,11 @@ const UpdateEventCard: React.FC<{
       user_id: authentication.userId || Math.floor(Math.random() * 10),
     };
     if (
-      newEvent.name == "" ||
-      newEvent.start == "" ||
+      newEvent.name === "" ||
+      newEvent.start === "" ||
       newEvent.stage == null ||
       newEvent.performers == null ||
-      newEvent.image == ""
+      newEvent.image === ""
     ) {
       present(" You must fill all required information.", [{ text: "Ok" }]);
       return;
@@ -73,7 +72,6 @@ const UpdateEventCard: React.FC<{
     return;
   }
 
-  const cancelUpdate = () => history.goBack();
   return (
     <IonCard className="updatePerformerCard">
       <IonCardTitle className="updatePerformerTitle">
@@ -156,6 +154,16 @@ const UpdateEventCard: React.FC<{
                 className="addPerformerCard"
               >
                 Update event
+              </IonButton>
+              <IonButton
+                  expand="full"
+                  type="submit"
+                  onClick={() => history.goBack()}
+                  color="grey"
+                  className="addPerformerCard"
+                  id="updatePerformerButton"
+              >
+                Cancel updating
               </IonButton>
             </IonCol>
           </IonRow>

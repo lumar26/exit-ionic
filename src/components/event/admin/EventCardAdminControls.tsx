@@ -1,24 +1,13 @@
-import React, { useState } from "react";
-import {
-  IonButton,
-  IonCol,
-  IonContent,
-  IonGrid,
-  IonIcon,
-  IonModal,
-  IonRow,
-} from "@ionic/react";
-import { create, trash } from "ionicons/icons";
-import { useEvents } from "../../../store/EventsContext";
+import React from "react";
+import {IonButton, IonCol, IonGrid, IonIcon, IonRow,} from "@ionic/react";
+import {create, trash} from "ionicons/icons";
+import {useEvents} from "../../../store/EventsContext";
 import Event from "../../../model/Event";
-import UpdateEventCard from "./UpdateEventCard";
-import { useHistory } from "react-router-dom";
+import {useHistory} from "react-router-dom";
 
 const EventCardAdminControls: React.FC<{
   event: Event;
 }> = ({ event }) => {
-  const [showModalUpdate, setShowModalUpdate] = useState(false);
-
   const history = useHistory();
   const eventsContext = useEvents();
 
@@ -37,25 +26,10 @@ const EventCardAdminControls: React.FC<{
         </IonCol>
       </IonRow>
       <IonRow>
-        <IonModal
-          onIonModalDidDismiss={() => setShowModalUpdate(false)}
-          isOpen={showModalUpdate}
-        >
-          <UpdateEventCard event={event} />
-          <IonButton
-            color="grey"
-            onClick={() => {
-              setShowModalUpdate(false);
-            }}
-          >
-            Close
-          </IonButton>
-        </IonModal>
         <IonCol>
           <IonButton
             onClick={() => {
-              setShowModalUpdate(true);
-              // history.push(`/events/update/${event.id}`);
+              history.push(`/events/update/${event.id}`);
             }}
             expand={"block"}
             id="adminControlsBtn"

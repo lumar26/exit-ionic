@@ -1,16 +1,10 @@
-import React, { useState } from "react";
-import {
-  IonButton,
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonModal,
-  IonRow,
-} from "@ionic/react";
-import { closeCircleOutline, create, trash } from "ionicons/icons";
+import React, {useState} from "react";
+import {IonButton, IonCol, IonGrid, IonIcon, IonModal, IonRow,} from "@ionic/react";
+import {create, trash} from "ionicons/icons";
 import Performer from "../../../model/Performer";
-import { usePerformers } from "../../../store/PerformersContext";
-import UpdatePerformerForm from "./UpdatePerformerForm";
+import {usePerformers} from "../../../store/PerformersContext";
+import UpdatePerformerCard from "./UpdatePerformerCard";
+import {useHistory} from "react-router-dom";
 
 const PerformerCardAdminControls: React.FC<{
   performer: Performer;
@@ -18,6 +12,8 @@ const PerformerCardAdminControls: React.FC<{
   const [showModalUpdate, setShowModalUpdate] = useState(false);
 
   const performersContext = usePerformers();
+
+  const history = useHistory();
 
   const deletePerformer = () => {
     performersContext.deletePerformer(performer);
@@ -40,7 +36,7 @@ const PerformerCardAdminControls: React.FC<{
           onIonModalDidDismiss={() => setShowModalUpdate(false)}
           isOpen={showModalUpdate}
         >
-          <UpdatePerformerForm performer={performer} />
+          <UpdatePerformerCard performer={performer} />
           <IonButton color="grey" onClick={() => setShowModalUpdate(false)}>
             Close
           </IonButton>
@@ -48,7 +44,7 @@ const PerformerCardAdminControls: React.FC<{
         <IonCol>
           <IonButton
             id="adminControlsBtn"
-            onClick={() => setShowModalUpdate(true)}
+            onClick={() => history.push(`performers/update/${performer.id}`)}
             expand={"block"}
           >
             <IonIcon

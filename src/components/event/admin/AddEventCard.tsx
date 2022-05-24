@@ -157,7 +157,7 @@ const AddEventCard: React.FC = () => {
                 color="grey"
                 className="addPerformerCard"
               >
-                Cancel
+                Cancel adding
               </IonButton>
             </IonCol>
           </IonRow>

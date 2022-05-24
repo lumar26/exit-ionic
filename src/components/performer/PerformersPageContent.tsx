@@ -2,7 +2,7 @@ import { IonImg } from "@ionic/react";
 import React, { useEffect } from "react";
 import PerformerList from "./PerformerList";
 import { usePerformers } from "../../store/PerformersContext";
-import AddPerformer from "./admin/AddPerformer";
+import AddPerformerButton from "./admin/AddPerformerButton";
 import { useAuthentication } from "../../store/AuthenticationContext";
 
 const PerformersPageContent = () => {
@@ -17,7 +17,7 @@ const PerformersPageContent = () => {
     <>
       <IonImg src={"/images/performers.jpeg"} className="img"></IonImg>
       {authentication.authenticatedUser &&
-        authentication.role === "ROLE_ADMIN" && <AddPerformer />}
+        authentication.role === "ROLE_ADMIN" && <AddPerformerButton />}
       <PerformerList performers={performersContext.performers} />
     </>
   );
