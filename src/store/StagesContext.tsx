@@ -6,9 +6,9 @@ import {addStageApi, deleteStageApi, getAllStagesApi, updateStageApi} from "../a
 type StagesContextType = {
     stages: Array<Stage>;
     selectedStage: Stage | null | undefined;
-    addStage: (stage: Stage) => void;
-    deleteStage: (stage: Stage) => void;
-    updateStage: (stage: Stage, id: number) => void;
+    addStage: (stage: Stage) => Promise<void> | null;
+    deleteStage: (stage: Stage) => Promise<void> | null;
+    updateStage: (stage: Stage, id: number) => Promise<void> | null;
     getAllStages: () => void;
     selectStage: (stage: Stage) => void;
 };
@@ -16,12 +16,9 @@ type StagesContextType = {
 const StagesContext = createContext<StagesContextType>({
     stages: [],
     selectedStage: null,
-    addStage: () => {
-    },
-    updateStage: () => {
-    },
-    deleteStage: () => {
-    },
+    addStage: () => null,
+    updateStage: () =>null,
+    deleteStage: () => null,
     getAllStages: () => {
     },
     selectStage: () => {
@@ -57,14 +54,13 @@ export const StagesProvider: React.FC = (props) => {
             })
     };
 
-    const addStage = (stage: Stage) => {
-        addStageApi(stage, requestConfig)
+    const addStage = (stage: Stage) : Promise<void> => {
+        return addStageApi(stage, requestConfig)
             .then(stage => setStages(stages?.concat(stage)))
-            .catch(error => console.log(error)) // todo: handle error
     };
 
-    const updateStage = (stage: Stage, id: number) => {
-        updateStageApi(stage, id, requestConfig)
+    const updateStage = (stage: Stage, id: number) : Promise<void>  => {
+        return updateStageApi(stage, id, requestConfig)
             .then(updatedStage => {
                 let oldStage = stages?.find((stage) => stage.id === id);
                 if (!oldStage) {
@@ -73,15 +69,11 @@ export const StagesProvider: React.FC = (props) => {
                     // updating fields manually
                 }
             })
-            .catch((e) => {
-                console.log(e);
-            });
     };
 
-    const deleteStage = (stage: Stage) => {
-        deleteStageApi(stage, requestConfig)
+    const deleteStage = (stage: Stage) : Promise<void>  => {
+        return deleteStageApi(stage, requestConfig)
             .then(deletedStage => setStages(stages?.filter((stage) => stage.id !== deletedStage!.id)))
-            .catch(error => console.log(error));
     };
 
     const context: StagesContextType = {

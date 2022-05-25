@@ -5,6 +5,7 @@ import Performer from "../../../model/Performer";
 import {usePerformers} from "../../../store/PerformersContext";
 import UpdatePerformerCard from "./UpdatePerformerCard";
 import {useHistory} from "react-router-dom";
+import {useError} from "../../../store/ErrorContext";
 
 const PerformerCardAdminControls: React.FC<{
   performer: Performer;
@@ -12,11 +13,12 @@ const PerformerCardAdminControls: React.FC<{
   const [showModalUpdate, setShowModalUpdate] = useState(false);
 
   const performersContext = usePerformers();
+  const {addError} = useError()
 
   const history = useHistory();
 
   const deletePerformer = () => {
-    performersContext.deletePerformer(performer);
+    performersContext.deletePerformer(performer)?.catch(() => addError("Could not delete performer."));
   };
   return (
     <IonGrid id="adminControlsBtn">

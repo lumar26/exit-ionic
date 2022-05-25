@@ -73,8 +73,7 @@ const TicketContext = createContext<TicketContextType>({
     availableTickets: availableTickets,
     addToCart: () => {
     },
-    saveTickets: () => {
-    },
+    saveTickets: () => null,
     removeFromCart: () => {
     },
     getAllTickets: () => {
@@ -93,7 +92,7 @@ type TicketContextType = {
     availableTickets: Array<Ticket>,
     addToCart: (ticket: Ticket) => void
     removeFromCart: (ticket: Ticket) => void
-    saveTickets: (ticket: Ticket[]) => void
+    saveTickets: (ticket: Ticket[]) => Promise<void> | null
     getAllTickets: () => void
     getAllTicketsOfUser: (userId: number) => void
 }
@@ -108,14 +107,14 @@ export const TicketsProvider: React.FC = (props) => {
     const [purchasedTickets, setPurchasedTickets] = useState<Array<Ticket>>([]);
     const [newTickets, setNewTickets] = useState<Array<Ticket>>([]);
 
-    const saveTickets = (tickets: Ticket[]) => {
-        saveTicketsApi(tickets, requestConfig, authentication.userId!)
+    const saveTickets = (tickets: Ticket[]): Promise<void> => {
+        return saveTicketsApi(tickets, requestConfig, authentication.userId!)
             .then(savedTickets => {
                 if (savedTickets) {
                     setPurchasedTickets(purchasedTickets.concat(savedTickets))
                     setNewTickets([]);
                 }
-            }).catch(error => console.log(error))
+            })
     }
 
     const getAllTickets = () => {

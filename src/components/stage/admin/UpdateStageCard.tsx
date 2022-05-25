@@ -17,11 +17,14 @@ import Stage from "../../../model/Stage";
 import {useStages} from "../../../store/StagesContext";
 import {useAuthentication} from "../../../store/AuthenticationContext";
 import {useHistory} from "react-router-dom";
+import {useError} from "../../../store/ErrorContext";
+import {add} from "ionicons/icons";
 
 const UpdateStageCard: React.FC<{ stage: Stage }> = ({stage}) => {
     const stagesContext = useStages();
     const auth = useAuthentication();
     const [present] = useIonAlert();
+    const {addError} = useError()
 
     const nameRef = useRef<HTMLIonInputElement>(null);
     const locationRef = useRef<HTMLIonInputElement>(null);
@@ -53,9 +56,8 @@ const UpdateStageCard: React.FC<{ stage: Stage }> = ({stage}) => {
             present(" You must fill all required information.", [{text: "Ok"}]);
             return;
         }
-        console.log(newStageValue);
         // delegating CRUD operations to context
-        stagesContext.updateStage(newStageValue, stage.id);
+        stagesContext.updateStage(newStageValue, stage.id)?.catch(() => addError("Could not update stage with new values. Check all input data"));
         present("Stage: " + newStageValue.name + " successfully updated.", [
             {text: "Ok"},
         ]);

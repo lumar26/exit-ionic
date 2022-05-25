@@ -4,6 +4,7 @@ import {create, trash} from "ionicons/icons";
 import Stage from "../../../model/Stage";
 import {useStages} from "../../../store/StagesContext";
 import {useHistory} from "react-router-dom";
+import {useError} from "../../../store/ErrorContext";
 
 const PerformerCardAdminControls: React.FC<{
   stage: Stage;
@@ -11,12 +12,16 @@ const PerformerCardAdminControls: React.FC<{
 
   const stagesContext = useStages();
   const history = useHistory();
+  const {addError} = useError()
+
 
   return (
     <IonGrid>
       <IonCol>
         <IonButton
-          onClick={() => stagesContext.deleteStage(stage)}
+          onClick={() => {
+            stagesContext.deleteStage(stage)?.catch(() => addError("Could not delete stage. There is a reference to this stage by Event or Ticket."));
+          }}
           expand={"block"}
           color={"danger"}
           id="adminControlsBtn"

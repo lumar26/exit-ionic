@@ -6,22 +6,19 @@ import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerforme
 type PerformersContextType = {
     performers: Array<Performer>;
     selectedPerformer: Performer | null | undefined;
-    addPerformer: ((performer: Performer) => void);
-    deletePerformer: ((performer: Performer) => void)
-    updatePerformer: ((performer: Performer, id: number) => void)
+    addPerformer: (performer: Performer) => Promise<void> | null;
+    deletePerformer: (performer: Performer) => Promise<void> | null
+    updatePerformer: (performer: Performer, id: number) => Promise<void> | null
     getAllPerformers: () => void
     selectPerformer: ((performer: Performer) => void)
 }
 
 const PerformersContext = createContext<PerformersContextType>({
         performers: [],
-        selectedPerformer: null,
-        addPerformer: () => {
-        },
-        updatePerformer: () => {
-        },
-        deletePerformer: () => {
-        },
+        selectedPerformer:undefined,
+        addPerformer: () => null,
+        updatePerformer: () => null,
+        deletePerformer: () => null,
         getAllPerformers: () => {
         },
         selectPerformer: () => {
@@ -58,17 +55,16 @@ export const PerformersProvider: React.FC = (props) => {
             })
     };
 
-    const addPerformer = (performer: Performer) => {
-        addPerformerApi(performer, requestConfig)
+    const addPerformer = (performer: Performer): Promise<void> => {
+        return addPerformerApi(performer, requestConfig)
             .then(addedPerformer => {
                 setPerformers(performers!.concat(addedPerformer))
             })
-            .catch(error => console.log(error));
     }
 
-    const updatePerformer = (performer: Performer, id: number) => {
+    const updatePerformer = (performer: Performer, id: number): Promise<void> => {
 
-        updatePerformerApi(performer, id, requestConfig)
+        return updatePerformerApi(performer, id, requestConfig)
             .then(updatedPerformer => {
                 let oldPerformer = performers?.find(performer => performer.id === id)
                 if (!oldPerformer) {
@@ -80,13 +76,13 @@ export const PerformersProvider: React.FC = (props) => {
                     oldPerformer.surname = updatedPerformer.surname;
                     oldPerformer.genre = updatedPerformer.genre;
                     oldPerformer.image = updatedPerformer.image;
+                //    todo
                 }
             })
-            .catch(error => console.log(error));
     }
 
-    const deletePerformer = (performer: Performer) => {
-        deletePerformerApi(performer, requestConfig)
+    const deletePerformer = (performer: Performer): Promise<void> => {
+        return deletePerformerApi(performer, requestConfig)
             .then(deletedPerformer => setPerformers(performers?.filter(performer => performer.id !== deletedPerformer.id)))
     };
 

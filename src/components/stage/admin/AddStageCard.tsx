@@ -17,6 +17,7 @@ import {useAuthentication} from "../../../store/AuthenticationContext";
 import {useHistory} from "react-router";
 import {useStages} from "../../../store/StagesContext";
 import Stage from "../../../model/Stage";
+import {useError} from "../../../store/ErrorContext";
 
 const AddStageCard = () => {
     const [name, setName] = useState<string>("");
@@ -29,6 +30,8 @@ const AddStageCard = () => {
     const history = useHistory();
     const [present] = useIonAlert();
     const stagesContext = useStages();
+    const {addError} = useError()
+
 
     function addStage() {
         let newStage: Stage = {
@@ -52,7 +55,7 @@ const AddStageCard = () => {
             return;
         }
 
-        stagesContext.addStage(newStage);
+        stagesContext.addStage(newStage)?.catch(() => addError("Could not add new stage. Check all input data"));
         present(newStage.name + " added successfully", [{text: "Ok"}]);
         history.goBack();
     }

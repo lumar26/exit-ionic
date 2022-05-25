@@ -17,6 +17,7 @@ import {useAuthentication} from "../../../store/AuthenticationContext";
 import {usePerformers} from "../../../store/PerformersContext";
 import Performer from "../../../model/Performer";
 import {useHistory} from "react-router-dom";
+import {useError} from "../../../store/ErrorContext";
 
 const AddPerformerCard = () => {
 
@@ -25,6 +26,8 @@ const AddPerformerCard = () => {
     const nickRef = useRef<HTMLIonInputElement>(null);
     const genreRef = useRef<HTMLIonInputElement>(null);
     const imageRef = useRef<HTMLIonInputElement>(null);
+    const {addError} = useError()
+
 
     const authentication = useAuthentication();
     const performersContext = usePerformers();
@@ -53,7 +56,9 @@ const AddPerformerCard = () => {
             return;
         }
         console.log(newPerformer);
-        performersContext.addPerformer(newPerformer);
+        performersContext.addPerformer(newPerformer)
+            ?.catch(() => addError("Could not add new performer. Check al input data."));
+
         present(
             newPerformer.name + " " + newPerformer.surname + " added successfully",
             [{ text: "Ok" }]

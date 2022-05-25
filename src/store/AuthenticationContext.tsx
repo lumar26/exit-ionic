@@ -7,7 +7,7 @@ const AuthenticationContext = createContext<AuthenticationContextType>({
     role: "",
     login: (user: UserAuthenticationResponse) => {
     },
-    logout: (user: UserAuthenticationResponse) => {
+    logout: () => {
     },
 })
 
@@ -21,7 +21,7 @@ type AuthenticationContextType = {
     accessToken: string | null;
     role: string | null;
     login: (user: UserAuthenticationResponse) => void;
-    logout: (user: UserAuthenticationResponse) => void;
+    logout: () => void;
 }
 
 export type UserAuthenticationResponse = {
@@ -50,7 +50,7 @@ export const AuthenticationProvider: React.FC = (props) => {
         sessionStorage.setItem('currentUserId', authResponse.userId.toString());
     }
 
-    const logoutUser = (user: UserAuthenticationResponse) => {
+    const logoutUser = () => {
         // check user
         setUsername("");
         setToken("");

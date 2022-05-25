@@ -12,9 +12,12 @@ import {
 import { cartOutline, removeCircleOutline } from "ionicons/icons";
 import { useTickets } from "../../store/TicketsContext";
 import Ticket from "../../model/Ticket";
+import {useError} from "../../store/ErrorContext";
 
 const CartCard: React.FC = () => {
   const ticketsContext = useTickets();
+  const {addError} = useError()
+
   function removeFromCart(ticket: Ticket) {
     ticketsContext.removeFromCart(ticket);
   }
@@ -31,7 +34,7 @@ const CartCard: React.FC = () => {
   }
 
   const buyTickets = () => {
-    ticketsContext.saveTickets(ticketsContext.tickets);
+    ticketsContext.saveTickets(ticketsContext.tickets)?.catch(() => addError("Could not save tickets from cart."));
   };
 
   return (

@@ -17,6 +17,7 @@ import Performer from "../../../model/Performer";
 import {usePerformers} from "../../../store/PerformersContext";
 import {useAuthentication} from "../../../store/AuthenticationContext";
 import {useHistory} from "react-router-dom";
+import {useError} from "../../../store/ErrorContext";
 
 const UpdatePerformerCard: React.FC<{ performer: Performer }> = ({
                                                                      performer,
@@ -25,6 +26,8 @@ const UpdatePerformerCard: React.FC<{ performer: Performer }> = ({
 
     const performersContext = usePerformers();
     const [present] = useIonAlert();
+    const {addError} = useError()
+
 
     const nameRef = useRef<HTMLIonInputElement>(null);
     const surnameRef = useRef<HTMLIonInputElement>(null);
@@ -66,7 +69,8 @@ const UpdatePerformerCard: React.FC<{ performer: Performer }> = ({
             return;
         }
 
-        performersContext.updatePerformer(updatedPerformer, updatedPerformer.id);
+        performersContext.updatePerformer(updatedPerformer, updatedPerformer.id)
+            ?.catch(() => addError("Could not update performer. Check all input information."));
 
         present(
             updatedPerformer.name +
