@@ -37,13 +37,15 @@ import AddPerformerPage from "./pages/performer/AddPerformerPage";
 import UpdatePerformerPage from "./pages/performer/UpdatePerformerPage";
 import UpdateStagePage from "./pages/stage/UpdateStagePage";
 import AddStagePage from "./pages/stage/AddStagePage";
+import ErrorProvider from "./store/ErrorContext";
 
 setupIonicReact();
 
 const App: React.FC = () => (
     <IonApp>
         <AuthenticationProvider>
-            <IonReactRouter>
+            <ErrorProvider>
+                <IonReactRouter>
                 <Menu></Menu>
                 <IonRouterOutlet id="main">
                     <Route exact path="/">
@@ -56,9 +58,9 @@ const App: React.FC = () => (
                     <Route exact path="/registration" component={Registration}/>
                     <Route exact path="/login" component={Login}/>
                     {/*<RequiredVisitorAuthentication>*/}
-                        <>
-                            <Route exact path="/tickets" component={TicketsPage}/>
-                        </>
+                    <>
+                        <Route exact path="/tickets" component={TicketsPage}/>
+                    </>
                     {/*</RequiredVisitorAuthentication>*/}
                     <Route exact path="/stages/add" component={AddStagePage}/>
                     <Route exact path="/events/add" component={AddEventPage}/>
@@ -68,6 +70,7 @@ const App: React.FC = () => (
                     <Route exact path="/stages/update/:id" component={UpdateStagePage}/>
                 </IonRouterOutlet>
             </IonReactRouter>
+            </ErrorProvider>
         </AuthenticationProvider>
     </IonApp>
 

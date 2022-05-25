@@ -32,7 +32,7 @@ export const addEventApi = (event: Event, requestConfig: any) => {
             return response.data;
         })
         .catch((e) => {
-            console.log(e);
+            throw e;
         });
 }
 
@@ -43,7 +43,7 @@ export const updateEventApi = (event: Event, id: number, requestConfig: any) => 
             return response.data;
         })
         .catch((e) => {
-            console.log(e);
+            throw e;
         });
 }
 
@@ -51,11 +51,10 @@ export const deleteEventApi = (event: Event, requestConfig: any) => {
     return axios
         .delete<Event>(`${apiUrl}/${event.id}`, requestConfig)
         .then((response) => {
+            if (response.status !== 200)
+                throw new Error("Could not delete event")
             return response.data;
         })
-        .catch((e) => {
-            console.log(e);
-        });
 };
 
 type PostEventPayload = {

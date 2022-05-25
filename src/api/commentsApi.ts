@@ -1,6 +1,5 @@
 import axios from "axios";
 import Comment from "../model/Comment";
-import Login from "../pages/Login";
 
 const apiUrl = "http://localhost:8080/api/comments"
 
@@ -43,7 +42,7 @@ export const deleteCommentApi = (comment: Comment, requestConfig: any) => {
             return response.data;
         })
         .catch((e) => {
-            console.log(e);
+            throw e;
         });
 };
 

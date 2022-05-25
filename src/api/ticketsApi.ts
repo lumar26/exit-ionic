@@ -32,7 +32,7 @@ export const saveTicketsApi = (tickets: Ticket[], requestConfig: any, userId: nu
             return response.data;
         })
         .catch((e) => {
-            console.log(e);
+            throw e;
         });
 }
 
