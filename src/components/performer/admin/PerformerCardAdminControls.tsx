@@ -18,7 +18,7 @@ const PerformerCardAdminControls: React.FC<{
   const history = useHistory();
 
   const deletePerformer = () => {
-    performersContext.deletePerformer(performer)?.catch(() => addError("Could not delete performer."));
+    performersContext.deletePerformer(performer)?.catch(() => addError("Could not delete performer. \nPossible reasons: \n Performer is on existing event."));
   };
   return (
     <IonGrid id="adminControlsBtn">

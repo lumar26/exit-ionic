@@ -24,17 +24,22 @@ const CartCard: React.FC = () => {
   function getTotal() {
     let i;
     let total = 0;
-    for (i = 0; i < ticketsContext.tickets.length; i++) {
+    for (i = 0; i < ticketsContext.newTickets.length; i++) {
       total +=
-        ticketsContext.tickets[i].price -
-        (ticketsContext.tickets[i].price * ticketsContext.tickets[i].discount) /
+        ticketsContext.newTickets[i].price -
+        (ticketsContext.newTickets[i].price * ticketsContext.newTickets[i].discount) /
           100;
     }
     return total;
   }
 
   const buyTickets = () => {
-    ticketsContext.saveTickets(ticketsContext.tickets)?.catch(() => addError("Could not save tickets from cart."));
+    let invalidTicket = ticketsContext.newTickets.find(ticket => !ticket.stage);
+    if(invalidTicket){
+      addError("All tickets in cart must have selected stage.\nTicket: " + invalidTicket.title + " must have stage selected.\n Remove it from the cart and select stage for it.")
+      return;
+    }
+    ticketsContext.saveTickets(ticketsContext.newTickets)?.catch(() => addError("Could not save tickets from cart."));
   };
 
   return (
@@ -47,8 +52,8 @@ const CartCard: React.FC = () => {
 
       <IonCardContent>
         <IonList>
-          {ticketsContext.tickets &&
-            ticketsContext.tickets.map((ticket) => (
+          {ticketsContext.newTickets &&
+            ticketsContext.newTickets.map((ticket) => (
               <IonItem key={ticket.id}>
                 {ticket.title}
                 <IonButton color="white" onClick={() => removeFromCart(ticket)}>

@@ -16,22 +16,24 @@ import {useStages} from "../../store/StagesContext";
 import Ticket from "../../model/Ticket";
 import Stage from "../../model/Stage";
 import {useAuthentication} from "../../store/AuthenticationContext";
+import {useError} from "../../store/ErrorContext";
 
 const AvailableTicketsAccordion: React.FC = () => {
     const ticketsContext = useTickets();
     const stagesContext = useStages();
     const auth = useAuthentication();
+    const {addError} = useError()
+
 
     useEffect(() => {
         stagesContext.getAllStages();
         if (auth.userId)
             ticketsContext.getAllTicketsOfUser(auth.userId);
         else
-            console.log("User not authenticated, cannot buy ticket")
+            addError("User not authenticated, cannot buy ticket")
     }, []);
-    function addToCart(ticket: Ticket) {
 
-        console.log("Add to cart button clicked. Ticket id: " + ticket.id);
+    function addToCart(ticket: Ticket) {
         ticketsContext.addToCart(ticket);
     }
 

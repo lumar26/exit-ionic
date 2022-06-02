@@ -15,9 +15,8 @@ import {
     IonToolbar,
     useIonAlert,
 } from "@ionic/react";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useEffect, useRef} from "react";
 import {useAuthentication} from "../../../store/AuthenticationContext";
-import Stage from "../../../model/Stage";
 import Event from "../../../model/Event";
 import {useStages} from "../../../store/StagesContext";
 import {usePerformers} from "../../../store/PerformersContext";
@@ -28,7 +27,11 @@ import {useError} from "../../../store/ErrorContext";
 const UpdateEventCard: React.FC<{
     event: Event;
 }> = ({event}) => {
-    const [stage, setStage] = useState<Stage>();
+    // const [name, setName] = useState<string>(event.name)
+    // const [start, setStart] = useState<string>(event.start)
+    // const [image, setImage] = useState<string>(event.image)
+    // const [performers, setPerformers] = useState<Array<Performer>>(event.performers)
+    const stageRef = useRef<HTMLIonSelectElement>(null);
     const nameRef = useRef<HTMLIonInputElement>(null);
     const startRef = useRef<HTMLIonInputElement>(null);
     const imageRef = useRef<HTMLIonInputElement>(null);
@@ -49,15 +52,20 @@ const UpdateEventCard: React.FC<{
     }, []);
 
     function updateEvent() {
+        console.log('Printing refs when update clicked:')
+        console.log(nameRef.current!.value as string)
+        console.log(startRef.current!.value as string)
+        console.log(imageRef.current!.value as string)
         let newEvent: Event = {
             id: event.id,
             image: imageRef.current!.value as string,
             name: nameRef.current!.value as string,
             start: startRef.current!.value as string,
-            stage: stage ? stage : event.stage,
+            stage: stageRef.current!.value ? stageRef.current!.value  : event.stage,
             performers: performersRef.current?.value,
             user_id: authentication.userId || Math.floor(Math.random() * 10),
         };
+
         if (
             newEvent.name === "" ||
             newEvent.start === "" ||
@@ -68,14 +76,18 @@ const UpdateEventCard: React.FC<{
             present(" You must fill all required information.", [{text: "Ok"}]);
             return;
         }
-        eventsContext.updateEvent(newEvent, event.id)?.catch(() => {
-            addError("Could not update event. Pleas check input information.")
-            return
-        });
 
-        present("Event successfully updated.", [{text: "Ok"}]);
-        history.push("/events");
-        return;
+        console.log("Event to be updated")
+        console.log(newEvent)
+
+        eventsContext.updateEvent(newEvent, event.id)
+            ?.then(() => {
+                present("Event successfully updated.", [{text: "Ok"}]);
+                history.goBack();
+            })
+            ?.catch(() => {
+                addError("Could not update event. Pleas check input information.")
+            });
     }
 
     return (
@@ -100,6 +112,7 @@ const UpdateEventCard: React.FC<{
                                     id="addPerformerName"
                                     name="name"
                                     value={event.name}
+                                    // onIonChange={e => setName(e.detail!.value!)}
                                     ref={nameRef}
                                     clearInput
                                 ></IonInput>
@@ -111,6 +124,7 @@ const UpdateEventCard: React.FC<{
                                     id="addPerformerSurname"
                                     name="start"
                                     value={event.start}
+                                    // onIonChange={e => setStart(e.detail!.value!)}
                                     ref={startRef}
                                     clearInput
                                 ></IonInput>
@@ -119,7 +133,9 @@ const UpdateEventCard: React.FC<{
                                 <IonLabel position="floating">Select stage for event</IonLabel>
                                 <IonSelect
                                     name="stage"
-                                    onIonChange={(e) => setStage(e.detail.value!)}
+                                    value={event.stage}
+                                    ref={stageRef}
+                                    // onIonChange={(e) => setStage(e.detail.value!)}
                                 >
                                     {stagesContext.stages &&
                                         stagesContext.stages.map((stage, index) => (
@@ -133,10 +149,10 @@ const UpdateEventCard: React.FC<{
                                 <IonLabel position="floating">
                                     Select performer(s) for event
                                 </IonLabel>
-                                <IonSelect name="performers" multiple ref={performersRef}>
+                                <IonSelect name="performers" multiple ref={performersRef} value={event.performers}>
                                     {performersContext.performers &&
                                         performersContext.performers.map((performer, index) => (
-                                            <IonSelectOption value={performer.id} key={index}>
+                                            <IonSelectOption value={performer} key={index}>
                                                 {performer.name}
                                             </IonSelectOption>
                                         ))}
@@ -148,6 +164,7 @@ const UpdateEventCard: React.FC<{
                                     type="text"
                                     id="addPerformerImage"
                                     value={event.image}
+                                    // onIonChange={e => setImage(e.detail!.value!)}
                                     ref={imageRef}
                                     clearInput
                                 ></IonInput>

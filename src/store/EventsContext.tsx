@@ -71,14 +71,14 @@ export const EventsProvider: React.FC = (props) => {
 
     const updateEvent = (event: Event, id: number): Promise<void> | null => {
         return updateEventApi(event, id, requestConfig).then(updated => {
-            let oldEvent = events?.find(event => event.id === id)
-            if (!oldEvent) {
-                setEvents(events?.concat(updated))
-            } else {
+            // let oldEvent = events?.find(event => event.id === id)
+            setEvents(events?.concat(updated))
+            // if (!oldEvent) {
+            // } else {
                 // updating fields manually
                 //    izgleda da ne mora uopste
                 // setEvents(events?.concat(updated))
-            }
+            // }
         })
 
     }

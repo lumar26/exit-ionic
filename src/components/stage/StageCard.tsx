@@ -1,16 +1,8 @@
 import React from "react";
-import {
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonIcon,
-  IonImg,
-  IonLabel,
-  IonRow,
-} from "@ionic/react";
+import {IonCard, IonCardContent, IonIcon, IonImg, IonLabel, IonRow,} from "@ionic/react";
 import Stage from "../../model/Stage";
-import { cashOutline, locationOutline, peopleOutline } from "ionicons/icons";
-import { useAuthentication } from "../../store/AuthenticationContext";
+import {cashOutline, locationOutline, peopleOutline} from "ionicons/icons";
+import {useAuthentication} from "../../store/AuthenticationContext";
 import StageCardAdminControls from "./admin/StageCardAdminControls";
 
 const StageCard: React.FC<{
@@ -18,11 +10,8 @@ const StageCard: React.FC<{
 }> = ({ stage }) => {
   const authentication = useAuthentication();
   return (
-    <>
       <IonCard className="stageCard">
-        <IonCardHeader className="picture">
-          <IonImg src={stage.image} className="img"></IonImg>
-        </IonCardHeader>
+        <IonImg src={stage.image} className="img"></IonImg>
         <IonCardContent className="stageContent">
           <br />
           <IonLabel className="stageName" color="grey">
@@ -47,7 +36,6 @@ const StageCard: React.FC<{
           <IonLabel className="stagetabsLocation">{stage.location}</IonLabel>
         </IonRow>
       </IonCard>
-    </>
   );
 };
 

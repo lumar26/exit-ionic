@@ -48,13 +48,11 @@ export const addPerformerApi = (performer: Performer, requestConfig: any) => {
     return axios
         .post<Performer>(apiUrl, payload, requestConfig)
         .then((response) => {
-            if (response.status !== 200)
+            if (response.status !== 200){
                 throw new Error("Could not add new performer: " + response.data);
+            }
             return response.data;
         })
-        .catch(error => {
-            throw error;
-        });
 }
 
 export const updatePerformerApi = (performer: Performer, id: number, requestConfig: any) => {
@@ -69,7 +67,7 @@ export const updatePerformerApi = (performer: Performer, id: number, requestConf
         .put<Performer>(`${apiUrl}/${id}`, payload, requestConfig)
         .then((response) => {
             if (response.status !== 200)
-                throw new Error("Could not update performer: " + performer.name);
+                throw new Error("Could not update performer " + performer.name + ": " + response.data);
             return response.data;
         })
         .catch(error => {
@@ -82,7 +80,7 @@ export const deletePerformerApi = (performer: Performer, requestConfig: any) => 
         .delete<Performer>(`${apiUrl}/${performer.id}`, requestConfig)
         .then((response) => {
             if (response.status !== 200)
-                throw new Error("Could not delete performer: " + performer.name);
+                throw new Error("Could not delete performer " + performer.name + ": " + response.data);
             return response.data;
         })
         .catch(error => {

@@ -21,8 +21,8 @@ const PerformerCard: React.FC<{
 
   return (
     <IonCard className="performerCard">
+      <IonImg src={performer.image} className="img"></IonImg>
       <IonCardHeader className="picture">
-        <IonImg src={performer.image} className="img"></IonImg>
       </IonCardHeader>
       <IonCardContent className="performerContent">
         <IonLabel className="performerNick" color="grey">

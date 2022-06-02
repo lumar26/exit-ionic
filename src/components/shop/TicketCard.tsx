@@ -13,7 +13,6 @@ import Stage from "../../model/Stage";
 
 const TicketCard: React.FC<{ ticket: Ticket; stages: Array<Stage> }> = ({
   ticket,
-  stages,
 }) => {
   return (
     <IonCard>
@@ -39,38 +38,6 @@ const TicketCard: React.FC<{ ticket: Ticket; stages: Array<Stage> }> = ({
           </IonLabel>
         </IonRow>
 
-        {/*<IonRow id="ticketStage">*/}
-        {/*  <IonCol>*/}
-        {/*    <IonItem>*/}
-        {/*      <IonLabel position="floating">*/}
-        {/*        Select stage for event*/}
-        {/*      </IonLabel>*/}
-        {/*      <IonSelect*/}
-        {/*          name="stage"*/}
-        {/*          onIonChange={(e) =>{}*/}
-        {/*              // setTicketStage(ticket, e.detail.value!)*/}
-        {/*          }*/}
-        {/*      >*/}
-        {/*        {stages &&*/}
-        {/*            stages.map((stage, index) => (*/}
-        {/*                <IonSelectOption value={stage} key={index}>*/}
-        {/*                  {stage.name}*/}
-        {/*                </IonSelectOption>*/}
-        {/*            ))}*/}
-        {/*      </IonSelect>*/}
-        {/*    </IonItem>*/}
-        {/*  </IonCol>*/}
-        {/*  <IonCol>*/}
-        {/*    <IonButton*/}
-        {/*        color="red"*/}
-        {/*        size="default"*/}
-        {/*        id="addToCartBtn"*/}
-        {/*        // onClick={() => addToCart(ticket)}*/}
-        {/*    >*/}
-        {/*      Add to cart*/}
-        {/*    </IonButton>*/}
-        {/*  </IonCol>*/}
-        {/*</IonRow>*/}
       </IonGrid>
     </IonCard>
   );

@@ -68,7 +68,7 @@ const availableTickets: Array<Ticket> = [
 ];
 
 const TicketContext = createContext<TicketContextType>({
-    tickets: [],
+    newTickets: [],
     purchasedTickets: [],
     availableTickets: availableTickets,
     addToCart: () => {
@@ -87,7 +87,7 @@ export const useTickets = () => {
 }
 
 type TicketContextType = {
-    tickets: Array<Ticket>,
+    newTickets: Array<Ticket>,
     purchasedTickets: Array<Ticket>
     availableTickets: Array<Ticket>,
     addToCart: (ticket: Ticket) => void
@@ -140,11 +140,11 @@ export const TicketsProvider: React.FC = (props) => {
     }
 
     const removeFromCart = (ticket: Ticket) => {
-        setNewTickets(newTickets.splice(newTickets.indexOf(ticket), 1));
+        setNewTickets(newTickets.filter(t => t !== ticket));
     }
 
     const context: TicketContextType = {
-        tickets: newTickets,
+        newTickets: newTickets,
         purchasedTickets: purchasedTickets,
         availableTickets: availableTickets,
         addToCart: addToCart,

@@ -15,7 +15,7 @@ type PerformersContextType = {
 
 const PerformersContext = createContext<PerformersContextType>({
         performers: [],
-        selectedPerformer:undefined,
+        selectedPerformer: undefined,
         addPerformer: () => null,
         updatePerformer: () => null,
         deletePerformer: () => null,
@@ -49,8 +49,7 @@ export const PerformersProvider: React.FC = (props) => {
     const getAllPerformers = () => {
         getAllPerformersApi(requestConfig)
             .then(performers => setPerformers(performers))
-            .catch(error => {
-                console.log(error)
+            .catch(() => {
                 setPerformers([]);
             })
     };
@@ -58,26 +57,20 @@ export const PerformersProvider: React.FC = (props) => {
     const addPerformer = (performer: Performer): Promise<void> => {
         return addPerformerApi(performer, requestConfig)
             .then(addedPerformer => {
-                setPerformers(performers!.concat(addedPerformer))
+                let newPerformers: Performer[] = [];
+                performers?.forEach(p => newPerformers.push(p))
+                newPerformers.push(addedPerformer);
+                setPerformers(newPerformers)
             })
     }
 
     const updatePerformer = (performer: Performer, id: number): Promise<void> => {
-
         return updatePerformerApi(performer, id, requestConfig)
             .then(updatedPerformer => {
-                let oldPerformer = performers?.find(performer => performer.id === id)
-                if (!oldPerformer) {
-                    setPerformers(performers!.concat(updatedPerformer))
-                } else {
-                    // updating fields manually
-                    oldPerformer.name = updatedPerformer.name;
-                    oldPerformer.nick = updatedPerformer.nick;
-                    oldPerformer.surname = updatedPerformer.surname;
-                    oldPerformer.genre = updatedPerformer.genre;
-                    oldPerformer.image = updatedPerformer.image;
-                //    todo
-                }
+                let newPerformers: Performer[] = [];
+                performers?.forEach(p => newPerformers.push(p))
+                newPerformers.push(updatedPerformer);
+                setPerformers(newPerformers)
             })
     }
 

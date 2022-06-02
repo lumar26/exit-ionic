@@ -1,32 +1,26 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import {
-  IonButton,
-  IonCard,
-  IonCardContent,
-  IonCardHeader,
-  IonCol,
-  IonGrid,
-  IonIcon,
-  IonImg,
-  IonLabel,
-  IonModal,
-  IonRow,
-  IonText,
-  useIonAlert,
+    IonButton,
+    IonCard,
+    IonCardContent,
+    IonCardHeader,
+    IonCol,
+    IonGrid,
+    IonIcon,
+    IonImg,
+    IonLabel,
+    IonModal,
+    IonRow,
+    IonText,
+    useIonAlert,
 } from "@ionic/react";
 import Event from "../../model/Event";
-import {
-  chatboxEllipsesOutline,
-  closeCircleOutline,
-  locationOutline,
-  peopleOutline,
-} from "ionicons/icons";
+import {chatboxEllipsesOutline, locationOutline, peopleOutline,} from "ionicons/icons";
 import StageCard from "../stage/StageCard";
 import PerformerList from "../performer/PerformerList";
-import { useAuthentication } from "../../store/AuthenticationContext";
+import {useAuthentication} from "../../store/AuthenticationContext";
 import EventCardAdminControls from "./admin/EventCardAdminControls";
 import CommentSection from "./CommentSection";
-import { useComments } from "../../store/CommentsContext";
 
 const EventCard: React.FC<{
   event: Event;
@@ -37,7 +31,6 @@ const EventCard: React.FC<{
   const [alert] = useIonAlert();
 
   const authentication = useAuthentication();
-  const commentsContext = useComments();
 
   return (
     <>

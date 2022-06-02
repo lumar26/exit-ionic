@@ -38,6 +38,8 @@ export const addStageApi = (stage: Stage, requestConfig: any) => {
 }
 
 export const updateStageApi = (stage: Stage, id: number, requestConfig: any) => {
+    console.log('stage to be updated in api')
+    console.log(stage)
     return axios
         .put<Stage>(`${apiUrl}/${id}`, toPayload(stage), requestConfig)
         .then((response) => {

@@ -60,14 +60,11 @@ export const StagesProvider: React.FC = (props) => {
     };
 
     const updateStage = (stage: Stage, id: number) : Promise<void>  => {
+        console.log('stage to be updated in context')
+        console.log(stage)
         return updateStageApi(stage, id, requestConfig)
             .then(updatedStage => {
-                let oldStage = stages?.find((stage) => stage.id === id);
-                if (!oldStage) {
-                    setStages(stages?.concat(updatedStage));
-                } else {
-                    // updating fields manually
-                }
+                setStages(stages?.concat(updatedStage));
             })
     };
 

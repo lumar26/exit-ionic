@@ -52,16 +52,15 @@ const AddPerformerCard = () => {
             newPerformer.genre === "" ||
             newPerformer.image === ""
         ) {
-            present(" You must fill all required information.", [{ text: "Ok" }]);
+            present(" You must fill all required information.", [{text: "Ok"}]);
             return;
         }
-        console.log(newPerformer);
         performersContext.addPerformer(newPerformer)
-            ?.catch(() => addError("Could not add new performer. Check al input data."));
+            // ?.catch(() => addError("Could not add new performer. Check all input data."));
 
         present(
             newPerformer.name + " " + newPerformer.surname + " added successfully",
-            [{ text: "Ok" }]
+            [{text: "Ok"}]
         );
         history.goBack();
     }

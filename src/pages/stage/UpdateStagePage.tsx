@@ -7,6 +7,7 @@ import {PerformersProvider} from "../../store/PerformersContext";
 import Stage from "../../model/Stage";
 import {getStageByIdApi} from "../../api/stagesApi";
 import UpdateStageCard from "../../components/stage/admin/UpdateStageCard";
+import {StagesProvider} from "../../store/StagesContext";
 
 const UpdateStagePage: React.FC = () => {
 
@@ -25,11 +26,11 @@ const UpdateStagePage: React.FC = () => {
 
     if (stage)
         return (
-            <PerformersProvider>
+            <StagesProvider>
                 <StandardPageWrapper>
                     <UpdateStageCard stage={stage}/>
                 </StandardPageWrapper>
-            </PerformersProvider>
+            </StagesProvider>
         );
 
     return (
