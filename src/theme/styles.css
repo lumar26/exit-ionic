@@ -107,7 +107,7 @@
   display: inline-block;
   height: 130px;
   width: 130px;
-  margin-bottom: 50px;
+  margin-bottom: 5px;
   z-index: 1;
   position: relative;
 }
@@ -186,8 +186,8 @@
 }
 
 .performerContent {
-  margin-top: -10px !important;
-  margin-bottom: 20px;
+  margin-top: -90px !important;
+  margin-bottom: 30px;
 }
 .socialIcon {
   height: 30px;

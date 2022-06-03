@@ -34,6 +34,7 @@ const EventCard: React.FC<{
 
   return (
     <>
+    <div className="comments">
       <IonCard className="eventCard">
         <IonImg src={event.image} className="img" />
         <IonCardHeader className="picture"></IonCardHeader>
@@ -135,6 +136,7 @@ const EventCard: React.FC<{
           </IonRow>
         </IonGrid>
       </IonCard>
+      </div>
     </>
   );
 };
