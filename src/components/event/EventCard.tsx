@@ -34,7 +34,7 @@ const EventCard: React.FC<{
 
   return (
     <>
-    <div className="comments">
+    <div className="scrollable">
       <IonCard className="eventCard">
         <IonImg src={event.image} className="img" />
         <IonCardHeader className="picture"></IonCardHeader>
