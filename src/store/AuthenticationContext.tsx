@@ -1,14 +1,16 @@
 import React, {createContext, useContext, useState} from "react";
+import {loginUserApi, registerUserApi} from "../api/authenticationApi";
+import User from "../model/User";
 
 const AuthenticationContext = createContext<AuthenticationContextType>({
     userId: 0,
     authenticatedUser: null,
     accessToken: "",
     role: "",
-    login: (user: UserAuthenticationResponse) => {
-    },
+    login: () => null,
     logout: () => {
     },
+    register: () =>  null,
 })
 
 export const useAuthentication = () => {
@@ -20,8 +22,9 @@ type AuthenticationContextType = {
     authenticatedUser: string | null;
     accessToken: string | null;
     role: string | null;
-    login: (user: UserAuthenticationResponse) => void;
+    login: (username: string, password: string) => Promise<any> | null;
     logout: () => void;
+    register: (user: User) => Promise<any> | null;
 }
 
 export type UserAuthenticationResponse = {
@@ -37,8 +40,10 @@ export const AuthenticationProvider: React.FC = (props) => {
     const [role, setRole] = useState<string | null>(sessionStorage.getItem('currentRole'))
     const [userId, setUserId] = useState<number | null>(+sessionStorage.getItem('currentUserId')!)
 
-    const loginUser = (authResponse: UserAuthenticationResponse) => {
-        console.log("login performing")
+
+    // util method
+
+    const setCurrentUser = (authResponse: UserAuthenticationResponse) => {
         console.log(authResponse)
         setUsername(authResponse.username);
         setToken("Bearer " + authResponse.jwt);
@@ -50,8 +55,17 @@ export const AuthenticationProvider: React.FC = (props) => {
         sessionStorage.setItem('currentUserId', authResponse.userId.toString());
     }
 
+    const loginUser = (username: string, password: string) => {
+        return loginUserApi(username, password)
+            .then(authResponse => setCurrentUser(authResponse))
+    }
+
+    const register = (user: User) => {
+        return registerUserApi(user)
+            .then(authResponse => setCurrentUser(authResponse))
+    }
+
     const logoutUser = () => {
-        // check user
         setUsername("");
         setToken("");
         setRole("");
@@ -67,7 +81,8 @@ export const AuthenticationProvider: React.FC = (props) => {
         accessToken: token,
         role: role,
         login: loginUser,
-        logout: logoutUser
+        logout: logoutUser,
+        register: register
     }
 
     return <AuthenticationContext.Provider value={context}>

@@ -55,8 +55,10 @@ const EventCard: React.FC<{
         <IonGrid id="eventFooter">
           <IonRow className="social" color="red">
             <IonCol>
-              <IonModal className="scrollable" isOpen={showModalPerformers}>
-                <PerformerList performers={event.performers} />
+              <IonModal isOpen={showModalPerformers}>
+                <div className="scrollable">
+                  <PerformerList performers={event.performers} />
+                </div>
                 <IonButton
                   color="grey"
                   //className="buttonCloseModal"

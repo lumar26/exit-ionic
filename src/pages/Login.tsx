@@ -12,14 +12,11 @@ import {
   IonPage,
   IonRow,
 } from "@ionic/react";
-import React, { useState } from "react";
+import React, {useState} from "react";
 import NavBar from "../components/navigation/NavBar";
-import axios from "axios";
-import {
-  useAuthentication,
-  UserAuthenticationResponse,
-} from "../store/AuthenticationContext";
-import { useHistory, useLocation } from "react-router-dom";
+import {useAuthentication,} from "../store/AuthenticationContext";
+import {useHistory, useLocation} from "react-router-dom";
+import {useError} from "../store/ErrorContext";
 
 const loginUrl = "http://localhost:8080/auth/login";
 
@@ -30,22 +27,14 @@ const Login: React.FC = () => {
   const context = useAuthentication();
   const history = useHistory();
   const location = useLocation();
+  const {addError} = useError()
 
   function login() {
     if (!location.state) location.state = { from: { pathname: "/" } };
 
-    axios
-      .post<UserAuthenticationResponse>(loginUrl, {
-        username: username,
-        password: password,
-      })
-      .then((response) => context.login(response.data))
-      .then(() => {
-        //        redirect to home page or to previous page
-        console.log("Going back after login");
-        history.push("/home");
-      })
-      .catch((error) => console.log(error));
+    context.login(username!, password!)
+        ?.then(() => history.goBack())
+        .catch(error => addError("Login failed: " + error))
   }
 
   return (

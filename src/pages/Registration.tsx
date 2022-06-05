@@ -13,12 +13,11 @@ import {
 import React, {useState} from "react";
 import NavBar from "../components/navigation/NavBar";
 import User from "../model/User";
-import axios from 'axios';
-import {useAuthentication, UserAuthenticationResponse} from "../store/AuthenticationContext";
+import {useAuthentication} from "../store/AuthenticationContext";
 import {useHistory} from "react-router";
+import {useError} from "../store/ErrorContext";
 
-const defaultRole = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor
-const registerUrl = "http://localhost:8080/auth/register";
+const DEFAULT_ROLE = "visitor"; //admini su upanpred registrovani, tako da neko ko se sam registruje može da bude samo sa ulogom visitor
 
 const Registration: React.FC = () => {
     const [firstname, setFirstname] = useState<string>("");
@@ -26,8 +25,9 @@ const Registration: React.FC = () => {
     const [userEmail, setUserEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
 
-    const authentication = useAuthentication();
+    const authContext = useAuthentication();
     const history = useHistory();
+    const {addError} = useError()
 
     function register() {
         const user: User = {
@@ -35,18 +35,12 @@ const Registration: React.FC = () => {
             email: userEmail,
             username: userEmail,
             password: password,
-            role: defaultRole
+            role: DEFAULT_ROLE
         }
-        axios.post<UserAuthenticationResponse>(registerUrl, user, {headers: {'Content-Type': "application/json"}})
-            .then(function (response) {
-                console.log(response.data)
-                authentication.login(response.data)
-                history.push("/home");
-            })
-            .catch(function (error) {
-                console.log(error);
-                // todo: show error to user
-            });
+
+        authContext.register(user)
+            ?.then(() => history.push("/home"))
+            .catch(error => addError("Registration failed: " + error))
     }
 
     return (
