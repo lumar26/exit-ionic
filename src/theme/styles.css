@@ -1,5 +1,8 @@
 .toolbarSocial {
   height: 40px;
+  padding-top: inherit;
+  display: flex;
+  justify-content: space-evenly;
 }
 .socialIcon {
   margin-bottom: 10px;
