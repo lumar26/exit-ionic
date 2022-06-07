@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {
+    IonAlert,
     IonButton,
     IonCol,
     IonGrid,
@@ -36,6 +37,7 @@ const CommentSection: React.FC<{ event: Event }> = ({event}) => {
             event: event
         }
         commentsContext.addNewComment(newComment);
+        return(<IonAlert buttons={['OK']} isOpen={true} message={"Successfully added new comment"} />);
     };
 
 

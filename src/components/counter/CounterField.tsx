@@ -40,7 +40,7 @@ const CounterField: React.FC<{
                 >
                     {values.map((number) => {
                         return (
-                            <div
+                            <div key={number}
                                 style={{
                                     color: "white",
                                     background: "error",

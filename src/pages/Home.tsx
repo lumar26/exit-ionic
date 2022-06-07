@@ -35,7 +35,7 @@ const Home: React.FC = () => {
             <IonContent fullscreen className="homePage">
                 <IonSlides pager={true} options={slideOpts}>
                     {[1, 2, 3, 4, 5, 6].map(i => {
-                        return (<IonSlide>
+                        return (<IonSlide key={i}>
                             <IonImg src={`/images/homePage/hp${i}.jpg`} alt={`slide-${i}`}/>
                         </IonSlide>)
 

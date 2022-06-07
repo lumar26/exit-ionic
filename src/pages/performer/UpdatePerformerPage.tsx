@@ -17,6 +17,8 @@ const UpdatePerformerPage: React.FC = () => {
     const {id} = useParams<{ id: string }>();
 
     useEffect(() => {
+        console.log("Performer id")
+        console.log(id)
         getPerformerByIdApi(id as unknown as number, authorizationHeader)
             .then(performer => {
                 setPerformer(performer)
