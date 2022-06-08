@@ -36,7 +36,7 @@ export const StagesProvider: React.FC = (props) => {
             'Authorization': authentication.accessToken as string
         }
     }
-    const [stages, setStages] = useState<Array<Stage>>();
+    const [stages, setStages] = useState<Array<Stage>>([]);
     const [selectedStage, setSelectedStage] = useState<Stage | null>();
 
     const selectStage = (stage: Stage) => {
@@ -56,7 +56,7 @@ export const StagesProvider: React.FC = (props) => {
 
     const addStage = (stage: Stage) : Promise<void> => {
         return addStageApi(stage, requestConfig)
-            .then(stage => setStages(stages?.concat(stage)))
+            .then(stage => setStages([...stages.concat(stage)]))
     };
 
     const updateStage = (stage: Stage, id: number) : Promise<void>  => {
@@ -64,7 +64,7 @@ export const StagesProvider: React.FC = (props) => {
         console.log(stage)
         return updateStageApi(stage, id, requestConfig)
             .then(updatedStage => {
-                setStages(stages?.concat(updatedStage));
+                setStages([...stages.concat(updatedStage)]);
             })
     };
 

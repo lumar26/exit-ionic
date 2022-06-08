@@ -52,10 +52,6 @@ const UpdateEventCard: React.FC<{
     }, []);
 
     function updateEvent() {
-        console.log('Printing refs when update clicked:')
-        console.log(nameRef.current!.value as string)
-        console.log(startRef.current!.value as string)
-        console.log(imageRef.current!.value as string)
         let newEvent: Event = {
             id: event.id,
             image: imageRef.current!.value as string,
@@ -77,16 +73,13 @@ const UpdateEventCard: React.FC<{
             return;
         }
 
-        console.log("Event to be updated")
-        console.log(newEvent)
-
         eventsContext.updateEvent(newEvent, event.id)
             ?.then(() => {
                 present("Event successfully updated.", [{text: "Ok"}]);
                 history.goBack();
             })
-            ?.catch(() => {
-                addError("Could not update event. Pleas check input information.")
+            ?.catch((error) => {
+                addError("Could not update event. Please check input information." + error)
             });
     }
 

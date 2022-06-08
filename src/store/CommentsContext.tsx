@@ -43,7 +43,8 @@ export const CommentsProvider: React.FC = (props) => {
     const addNewComment = (comment: Comment) => {
         saveNewCommentApi(comment, authentication.userId!, requestConfig)
             .then(savedComment => {
-                setComments(commentsForCurrentEvent.concat(savedComment))
+                let newComments = commentsForCurrentEvent.concat(savedComment);
+                setComments([...newComments])
             }).catch(error => console.log(error))
     }
 

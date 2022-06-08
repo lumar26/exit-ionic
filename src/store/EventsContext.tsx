@@ -40,7 +40,7 @@ export const EventsProvider: React.FC = (props) => {
         }
     }
 
-    const [events, setEvents] = useState<Array<Event>>();
+    const [events, setEvents] = useState<Array<Event>>([]);
 
     const getAllEvents = () => {
         getAllEventsApi(requestConfig)
@@ -61,24 +61,22 @@ export const EventsProvider: React.FC = (props) => {
 
     const addEvent = (event: Event): Promise<void> | null => {
         return addEventApi(event, requestConfig).then(added => {
-            if (!added) {
-                console.log("Failed to add new event with name: " + event.name)
-                return;
-            }
-            setEvents(events?.concat(added));
+            if (!added)
+                throw new Error("Failed to add new event with name: " + event.name + ". Server error.")
+
+            let newEvents = [...events?.concat(added)];
+            setEvents(newEvents);
         })
     }
 
     const updateEvent = (event: Event, id: number): Promise<void> | null => {
         return updateEventApi(event, id, requestConfig).then(updated => {
-            // let oldEvent = events?.find(event => event.id === id)
-            setEvents(events?.concat(updated))
-            // if (!oldEvent) {
-            // } else {
-                // updating fields manually
-                //    izgleda da ne mora uopste
-                // setEvents(events?.concat(updated))
-            // }
+            let withoutUpdated = events?.filter(event => event.id === id)
+            let newEvents = [...withoutUpdated?.concat(updated)];
+            console.log("Events in context after concat")
+            console.log(events)
+            console.log(newEvents)
+            setEvents(newEvents)
         })
 
     }

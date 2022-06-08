@@ -1,4 +1,3 @@
-import {IonCard} from "@ionic/react";
 import React from "react";
 
 const CounterField: React.FC<{
@@ -40,7 +39,7 @@ const CounterField: React.FC<{
                 >
                     {values.map((number) => {
                         return (
-                            <div key={number}
+                            <div
                                 style={{
                                     color: "white",
                                     background: "error",

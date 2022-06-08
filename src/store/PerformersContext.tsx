@@ -2,6 +2,7 @@ import Performer from "../model/Performer";
 import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerformerApi} from "../api/performersApi";
+import {add} from "ionicons/icons";
 
 type PerformersContextType = {
     performers: Array<Performer>;
@@ -39,7 +40,7 @@ export const PerformersProvider: React.FC = (props) => {
         }
     }
 
-    const [performers, setPerformers] = useState<Array<Performer>>();
+    const [performers, setPerformers] = useState<Array<Performer>>([]);
     const [selectedPerformer, setSelectedPerformer] = useState<Performer | null>();
 
     const selectPerformer = (performer: Performer) => {
@@ -57,9 +58,9 @@ export const PerformersProvider: React.FC = (props) => {
     const addPerformer = (performer: Performer): Promise<void> => {
         return addPerformerApi(performer, requestConfig)
             .then(addedPerformer => {
-                let newPerformers: Performer[] = [];
-                performers?.forEach(p => newPerformers.push(p))
-                newPerformers.push(addedPerformer);
+                if (!addedPerformer)
+                    throw new Error("Could not add new performer. Server error")
+                let newPerformers = [...performers?.concat(addedPerformer)];
                 setPerformers(newPerformers)
             })
     }
@@ -67,10 +68,7 @@ export const PerformersProvider: React.FC = (props) => {
     const updatePerformer = (performer: Performer, id: number): Promise<void> => {
         return updatePerformerApi(performer, id, requestConfig)
             .then(updatedPerformer => {
-                let newPerformers: Performer[] = [];
-                performers?.forEach(p => newPerformers.push(p))
-                newPerformers.push(updatedPerformer);
-                setPerformers(newPerformers)
+                setPerformers([...performers?.concat(updatedPerformer)])
             })
     }
 

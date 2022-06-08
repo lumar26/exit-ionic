@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import CounterField from "./CounterField";
 import {IonToolbar} from "@ionic/react";
 
@@ -38,7 +38,7 @@ const calculateCounters = (currentDate: Date, exitDate: Date) => {
     ];
 };
 
-const Counter = () => {
+const Counter: React.FC = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const counters = calculateCounters(currentDate, exitDate);
 
