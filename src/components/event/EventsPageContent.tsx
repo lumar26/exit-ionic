@@ -1,7 +1,7 @@
 import {useEvents} from "../../store/EventsContext";
-import {IonImg} from "@ionic/react";
+import {IonImg, IonSearchbar} from "@ionic/react";
 import EventList from "./EventList";
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import {useAuthentication} from "../../store/AuthenticationContext";
 import AddEventButton from "./admin/AddEventButton";
 import {useComments} from "../../store/CommentsContext";
@@ -15,6 +15,12 @@ const EventsPageContent = () => {
 
     const {error} = useError()
 
+    const [searchCondition, setSearchCondition] = useState("");
+
+    let displayedEvents = searchCondition
+        ? eventsContext.events.filter(events => events.name.includes(searchCondition) || events.stage.name.includes(searchCondition) || events.start.includes(searchCondition))
+        : eventsContext.events
+
     useEffect(() => {
         eventsContext.getAllEvents();
         commentsContext.getAllComments();
@@ -27,7 +33,10 @@ const EventsPageContent = () => {
             {authentication.authenticatedUser
                 && authentication.role === 'ROLE_ADMIN'
                 && <AddEventButton/>}
-            <EventList events={eventsContext.events} />
+            <IonSearchbar
+                value={searchCondition}
+                onIonChange={e => setSearchCondition(e.detail.value!.trim())}/>
+            <EventList events={displayedEvents} />
         </>
 
 );

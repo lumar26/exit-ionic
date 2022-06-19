@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from "react";
+import React, {createContext, useContext, useEffect, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import Event from "../model/Event";
 import {addEventApi, deleteEventApi, getAllEventsApi, getEventByIdApi, updateEventApi} from "../api/eventsApi";
@@ -42,6 +42,11 @@ export const EventsProvider: React.FC = (props) => {
 
     const [events, setEvents] = useState<Array<Event>>([]);
 
+    useEffect(() => {
+        console.log('use effect in events provider')
+        return  () => console.log('cleaner')
+    }, [])
+
     const getAllEvents = () => {
         getAllEventsApi(requestConfig)
             .then(retrievedEvents => {
@@ -64,19 +69,19 @@ export const EventsProvider: React.FC = (props) => {
             if (!added)
                 throw new Error("Failed to add new event with name: " + event.name + ". Server error.")
 
-            let newEvents = [...events?.concat(added)];
-            setEvents(newEvents);
+            console.log('events provider: addEvent')
+            setEvents((oldEvents) => {
+                console.log(oldEvents);
+                return [...oldEvents, added]
+            });
         })
     }
 
     const updateEvent = (event: Event, id: number): Promise<void> | null => {
         return updateEventApi(event, id, requestConfig).then(updated => {
-            let withoutUpdated = events?.filter(event => event.id === id)
-            let newEvents = [...withoutUpdated?.concat(updated)];
-            console.log("Events in context after concat")
-            console.log(events)
-            console.log(newEvents)
-            setEvents(newEvents)
+            // let withoutUpdated = events?.filter(event => event.id === id)
+            // let newEvents = [...withoutUpdated?.concat(updated)];
+            setEvents((oldEvents) => oldEvents?.filter(event => event.id === id).concat(updated))
         })
 
     }
@@ -90,7 +95,7 @@ export const EventsProvider: React.FC = (props) => {
     };
 
     const context: EventsContextType = {
-        events: events!,
+        events: events,
         getAllEvents: getAllEvents,
         addEvent: addEvent,
         deleteEvent: deleteEvent,

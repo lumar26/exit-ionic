@@ -1,5 +1,5 @@
-import {IonImg} from "@ionic/react";
-import React, {useEffect} from "react";
+import {IonImg, IonSearchbar} from "@ionic/react";
+import React, {useEffect, useState} from "react";
 import PerformerList from "./PerformerList";
 import {usePerformers} from "../../store/PerformersContext";
 import AddPerformerButton from "./admin/AddPerformerButton";
@@ -12,6 +12,12 @@ const PerformersPageContent = () => {
     const authentication = useAuthentication();
     const {error} = useError()
 
+    const [searchCondition, setSearchCondition] = useState("");
+
+    let displayedPerformers = searchCondition
+        ? performersContext.performers.filter(performer => performer.name.includes(searchCondition) || performer.surname.includes(searchCondition) || performer.nick.includes(searchCondition) || performer.genre.includes(searchCondition))
+        : performersContext.performers
+
     useEffect(() => {
         performersContext.getAllPerformers();
     }, []);
@@ -22,7 +28,10 @@ const PerformersPageContent = () => {
             <IonImg src={"/images/performers.jpeg"} className="img"></IonImg>
             {authentication.authenticatedUser &&
                 authentication.role === "ROLE_ADMIN" && <AddPerformerButton/>}
-            <PerformerList performers={performersContext.performers}/>
+            <IonSearchbar
+                value={searchCondition}
+                onIonChange={e => setSearchCondition(e.detail.value!.trim())}/>
+            <PerformerList performers={displayedPerformers}/>
         </>
     );
 };

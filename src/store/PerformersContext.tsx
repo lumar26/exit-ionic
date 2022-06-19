@@ -2,7 +2,6 @@ import Performer from "../model/Performer";
 import React, {createContext, useContext, useState} from "react";
 import {useAuthentication} from "./AuthenticationContext";
 import {addPerformerApi, deletePerformerApi, getAllPerformersApi, updatePerformerApi} from "../api/performersApi";
-import {add} from "ionicons/icons";
 
 type PerformersContextType = {
     performers: Array<Performer>;

@@ -7,6 +7,7 @@ import {StagesProvider} from "../../store/StagesContext";
 import CommentsProvider from "../../store/CommentsContext";
 
 const EventsPage: React.FC = () => {
+    console.log('Events page rerenders')
   return (
       <EventsProvider>
           <PerformersProvider>
